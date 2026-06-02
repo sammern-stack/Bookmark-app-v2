@@ -9,3 +9,15 @@ export interface BookmarkModel {
   visitCount: number;
   lastVisited: Date;
 }
+
+export type BookmarkFilters = {
+  tags?: string[];
+  isArchived?: boolean;
+};
+
+export interface IBookmark {
+  title: string;
+  url: string;
+  description: string;
+  tags: string[];
+}
