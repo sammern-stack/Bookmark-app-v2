@@ -1,0 +1,16 @@
+@mixin flex-gap($gap, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+@mixin flex-between($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: space-between;
+}
+
+@mixin button-styles() {
+  padding: 16px 32px;
+  border-radius: 10px;
+}

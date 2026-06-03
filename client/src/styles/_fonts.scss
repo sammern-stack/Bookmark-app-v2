@@ -1,0 +1,30 @@
+$static-path: "../assets/fonts/Manrope/static";
+$variable-path: "../assets/fonts/Manrope";
+
+@font-face {
+  font-family: "Manrope";
+  src: url("#{$static-path}/Manrope-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("#{$static-path}/Manrope-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("#{$static-path}/Manrope-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Reddit Sans Variable";
+  src: url("#{$variable-path}/Manrope-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
