@@ -1,8 +1,13 @@
 import { useEffect } from "react";
-import { useBookmarksStore } from "../stores/useBookmarksStore";
+import { useBookmarksStore, useThemeStore } from "../stores";
 
 export const useStartApp = () => {
   const setBookmarks = useBookmarksStore((s) => s.setBookmarks);
+  const theme = useThemeStore((s) => s.theme);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     setBookmarks();

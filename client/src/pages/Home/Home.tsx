@@ -1,5 +1,5 @@
 import { useStartApp } from "../../hooks/useStartApp";
-import { useBookmarksStore } from "../../stores/useBookmarksStore";
+import { useBookmarksStore, useThemeStore } from "../../stores";
 
 import { Icon } from "../../components/shared";
 import { CiBookmark } from "react-icons/ci";
@@ -16,6 +16,7 @@ const Home = () => {
 
   const bookmarks = useBookmarksStore((s) => s.bookmarks);
   const tags = useBookmarksStore((s) => s.tags);
+  const toggleTheme = useThemeStore((s) => s.toggleTheme);
 
   return (
     <div className="home">
@@ -73,7 +74,7 @@ const Home = () => {
           <div className="home__profile-create-section">
             <div className="home__create-btn">+ Add Bookmark</div>
 
-            <div className="home__profile-icon">
+            <div className="home__profile-icon" onClick={() => toggleTheme()}>
               <img
                 src={avatar}
                 alt="user's profile icon"
