@@ -1,18 +1,9 @@
 import { useStartApp } from "../../hooks/useStartApp";
 import { useBookmarksStore } from "../../stores/useBookmarksStore";
 
-import home from "../../assets/images/icon-home.svg";
-import archived from "../../assets/images/icon-archive.svg";
-import close from "../../assets/images/icon-close.svg";
-import avatar from "../../assets/images/image-avatar.webp";
-import sort from "../../assets/images/icon-sort.svg";
-import menuBookmark from "../../assets/images/icon-menu-bookmark.svg";
-import pinned from "../../assets/images/icon-pin.svg";
-import views from "../../assets/images/icon-visit-count.svg";
-import lastVisited from "../../assets/images/icon-last-visited.svg";
-import createdAt from "../../assets/images/icon-created.svg";
-
+import { Icon } from "../../components/shared";
 import { CiBookmark } from "react-icons/ci";
+import avatar from "../../assets/images/image-avatar.webp";
 import "./Home.scss";
 
 const Home = () => {
@@ -40,24 +31,19 @@ const Home = () => {
             </div>
 
             <div className="home__nav-close">
-              {notDesktop && (
-                <img src={close} alt="cross icon, close sidebar" />
-              )}
+              {notDesktop && <Icon name="icon-close" />}
             </div>
           </div>
 
           <div className="home__nav-body">
             <div className="home__filters">
               <div className="home__filter">
-                <img src={home} alt="home icon, get all bookmarks" />
+                <Icon name="icon-home" />
                 <span>All</span>
               </div>
 
               <div className="home__filter">
-                <img
-                  src={archived}
-                  alt="archived icon, get archived bookmarks"
-                />
+                <Icon name="icon-archive" />
                 <span>Archived</span>
               </div>
             </div>
@@ -103,14 +89,14 @@ const Home = () => {
             <div className="home__bookmark-title">All Bookmarks</div>
 
             <div className="home__bookmark-sort-by">
-              <img src={sort} alt="sort bookmarks by" />
+              <Icon name="icon-sort" />
               <span>Sort by</span>
             </div>
           </div>
 
           <div className="home__bookmark-grid">
             {bookmarks.map((b) => (
-              <div className="home__bookmark bookmark">
+              <div className="home__bookmark bookmark" key={b._id}>
                 <div className="bookmark__content">
                   <div className="bookmark__header">
                     <img
@@ -125,7 +111,7 @@ const Home = () => {
                       <div className="bookmark__url">url here</div>
 
                       <div className="bookmark__menu">
-                        <img src={menuBookmark} alt="" />
+                        <Icon name="icon-menu-bookmark" />
                       </div>
                     </div>
                   </div>
@@ -140,12 +126,12 @@ const Home = () => {
                 <div className="bookmark__footer">
                   <div className="bookmark__footer-info">
                     <div className="bookmark__visit-count">
-                      <img src={views} alt="visit count icon" />
+                      <Icon name="icon-visit-count" />
                       {b.visitCount}
                     </div>
 
                     <div className="bookmark__last-visited">
-                      <img src={lastVisited} alt="last visited icon" />
+                      <Icon name="icon-last-visited" />
                       {new Date(b.lastVisited).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -153,7 +139,7 @@ const Home = () => {
                     </div>
 
                     <div className="bookmark__created">
-                      <img src={createdAt} alt="created icon" />
+                      <Icon name="icon-created" />
                       {new Date().toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -163,7 +149,7 @@ const Home = () => {
 
                   <div className="bookmark__state">
                     {isPinned && (
-                      <img className="bookmark__pinned" src={pinned} alt="" />
+                      <Icon className="bookmark__pinned" name="icon-pin" />
                     )}
 
                     {isArchived && (
