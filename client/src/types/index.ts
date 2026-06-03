@@ -10,8 +10,6 @@ export interface BookmarkModel {
   isArchived: boolean;
   visitCount: number;
   lastVisited: Date;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export type BookmarkFilters = {
