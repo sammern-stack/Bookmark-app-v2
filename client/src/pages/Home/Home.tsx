@@ -13,6 +13,7 @@ const Home = () => {
   const notDesktop = false;
   const isPinned = false;
   const isArchived = false;
+  const isTagsActive = false;
 
   const bookmarks = useBookmarksStore((s) => s.bookmarks);
   const tags = useBookmarksStore((s) => s.tags);
@@ -39,29 +40,43 @@ const Home = () => {
           <div className="home__nav-body">
             <div className="home__filters">
               <div className="home__filter">
-                <Icon name="icon-home" />
-                <span>All</span>
+                <div className="home__filter-content">
+                  <Icon name="icon-home" />
+                  <span>All</span>
+                </div>
               </div>
 
               <div className="home__filter">
-                <Icon name="icon-archive" />
-                <span>Archived</span>
+                <div className="home__filter-content">
+                  <Icon name="icon-archive" />
+                  <span>Archived</span>
+                </div>
               </div>
             </div>
 
             <div className="home__tags">
-              <div className="home__tags-subheader"></div>
+              <div className="home__tags-header">
+                <div className="home__tags-title">Tags</div>
 
-              {[...tags].map(([key, value]) => (
-                <div className="home__tag" key={key}>
-                  <label className="home__tag-title">
-                    <input type="checkbox" id="select-tag" />
-                    {key}
-                  </label>
+                {isTagsActive && (
+                  <button className="home__tags-reset">Reset</button>
+                )}
+              </div>
 
-                  <div className="home__tag-total">{value}</div>
-                </div>
-              ))}
+              <div className="home__tags-list">
+                {[...tags].map(([key, value]) => (
+                  <div className="home__tag" key={key}>
+                    <div className="home__tag-content">
+                      <div className="home__tag-header">
+                        <input type="checkbox" id="select-tag" />
+                        <div className="home__tag-title">{key}</div>
+                      </div>
+
+                      <div className="home__tag-total">{value}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -69,9 +84,13 @@ const Home = () => {
 
       <div className="home__main-content">
         <div className="home__header">
-          <div className="home__search-bar">Search...</div>
+          <div className="home__header-left">
+            {notDesktop && <div className="home__hamburger-menu"></div>}
 
-          <div className="home__profile-create-section">
+            <div className="home__search-bar">Search...</div>
+          </div>
+
+          <div className="home__header-right">
             <div className="home__create-btn">+ Add Bookmark</div>
 
             <div className="home__profile-icon" onClick={() => toggleTheme()}>
@@ -89,10 +108,10 @@ const Home = () => {
           <div className="home__bookmark-header">
             <div className="home__bookmark-title">All Bookmarks</div>
 
-            <div className="home__bookmark-sort-by">
+            <button className="home__bookmark-sort-by">
               <Icon name="icon-sort" />
               <span>Sort by</span>
-            </div>
+            </button>
           </div>
 
           <div className="home__bookmark-grid">
@@ -110,18 +129,22 @@ const Home = () => {
                       <div className="bookmark__title">{b.title}</div>
 
                       <div className="bookmark__url">url here</div>
+                    </div>
 
-                      <div className="bookmark__menu">
-                        <Icon name="icon-menu-bookmark" />
-                      </div>
+                    <div className="bookmark__menu">
+                      <Icon name="icon-menu-bookmark" />
                     </div>
                   </div>
 
-                  <div className="bookmark__divider">---</div>
+                  <div className="bookmark__divider"></div>
 
                   <div className="bookmark__description">{b.description}</div>
 
-                  <div className="bookmark__tags">{b.tags.join(", ")}</div>
+                  <div className="bookmark__tags">
+                    {b.tags.map((t) => (
+                      <div className="bookmark__tag">{t}</div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="bookmark__footer">

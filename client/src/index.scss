@@ -1,0 +1,7 @@
+@use "./styles/globals" as *;
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
