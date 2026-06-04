@@ -53,7 +53,7 @@ const Home = () => {
 
               <div className="home__tags-list">
                 {[...tags].map(([key, value]) => (
-                  <TagItem key={key} label={key} count={value} />
+                  <TagItem key={key} tag={[key, value]} />
                 ))}
               </div>
             </div>
