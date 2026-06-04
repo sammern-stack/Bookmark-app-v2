@@ -5,7 +5,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { AppLoader } from "./components";
+import { AppLoader } from "./components/common";
 
 //—————————————————————————————————————————————————————————————————
 // Lazy Loading pages
