@@ -1,0 +1,62 @@
+@use "../../../styles/globals" as *;
+
+.bookmark {
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+    @include flex-gap(16px, column);
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  &__header {
+    @include flex-gap(12px);
+    align-items: center;
+  }
+
+  &__info {
+    flex: 1;
+    @include flex-gap(4px, column);
+  }
+
+  &__menu {
+    align-self: flex-start;
+    border-radius: 8px;
+  }
+
+  &__divider {
+    width: 100%;
+    min-height: 1px;
+    background: #333;
+  }
+
+  &__description {
+    flex: 1;
+    overflow-y: hidden;
+  }
+
+  &__tags {
+    @include flex-gap(8px);
+  }
+
+  &__tag {
+    padding: 2px 0;
+    border-radius: 4px;
+  }
+
+  &__footer {
+    @include flex-gap(8px);
+    padding: 12px 16px;
+  }
+
+  &__footer-info {
+    @include flex-gap(16px);
+
+    & > * {
+      @include flex-gap(6px);
+    }
+  }
+}

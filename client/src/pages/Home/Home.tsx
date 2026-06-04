@@ -1,6 +1,7 @@
 import { useStartApp } from "@/hooks";
 import { useBookmarksStore, useThemeStore } from "@/stores";
 
+import { BookmarkItem, FilterItem, TagItem } from "@/components/common";
 import { Icon } from "@/components/shared";
 import { CiBookmark } from "react-icons/ci";
 import avatar from "@/assets/images/image-avatar.webp";
@@ -11,8 +12,6 @@ const Home = () => {
 
   // Temp
   const notDesktop = false;
-  const isPinned = false;
-  const isArchived = false;
   const isTagsActive = false;
 
   const bookmarks = useBookmarksStore((s) => s.bookmarks);
@@ -39,19 +38,8 @@ const Home = () => {
 
           <div className="home__nav-body">
             <div className="home__filters">
-              <div className="home__filter">
-                <div className="home__filter-content">
-                  <Icon name="icon-home" />
-                  <span>All</span>
-                </div>
-              </div>
-
-              <div className="home__filter">
-                <div className="home__filter-content">
-                  <Icon name="icon-archive" />
-                  <span>Archived</span>
-                </div>
-              </div>
+              <FilterItem label="All" icon="icon-home" />
+              <FilterItem label="Archived" icon="icon-archive" />
             </div>
 
             <div className="home__tags">
@@ -65,16 +53,7 @@ const Home = () => {
 
               <div className="home__tags-list">
                 {[...tags].map(([key, value]) => (
-                  <div className="home__tag" key={key}>
-                    <div className="home__tag-content">
-                      <div className="home__tag-header">
-                        <input type="checkbox" id="select-tag" />
-                        <div className="home__tag-title">{key}</div>
-                      </div>
-
-                      <div className="home__tag-total">{value}</div>
-                    </div>
-                  </div>
+                  <TagItem key={key} label={key} count={value} />
                 ))}
               </div>
             </div>
@@ -116,72 +95,7 @@ const Home = () => {
 
           <div className="home__bookmark-grid">
             {bookmarks.map((b) => (
-              <div className="home__bookmark bookmark" key={b._id}>
-                <div className="bookmark__content">
-                  <div className="bookmark__header">
-                    <img
-                      src={b.favicon}
-                      alt="bookmark icon"
-                      className="bookmark__logo"
-                    />
-
-                    <div className="bookmark__info">
-                      <div className="bookmark__title">{b.title}</div>
-
-                      <div className="bookmark__url">url here</div>
-                    </div>
-
-                    <div className="bookmark__menu">
-                      <Icon name="icon-menu-bookmark" />
-                    </div>
-                  </div>
-
-                  <div className="bookmark__divider"></div>
-
-                  <div className="bookmark__description">{b.description}</div>
-
-                  <div className="bookmark__tags">
-                    {b.tags.map((t) => (
-                      <div className="bookmark__tag">{t}</div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bookmark__footer">
-                  <div className="bookmark__footer-info">
-                    <div className="bookmark__visit-count">
-                      <Icon name="icon-visit-count" />
-                      {b.visitCount}
-                    </div>
-
-                    <div className="bookmark__last-visited">
-                      <Icon name="icon-last-visited" />
-                      {new Date(b.lastVisited).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                      })}
-                    </div>
-
-                    <div className="bookmark__created">
-                      <Icon name="icon-created" />
-                      {new Date().toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="bookmark__state">
-                    {isPinned && (
-                      <Icon className="bookmark__pinned" name="icon-pin" />
-                    )}
-
-                    {isArchived && (
-                      <div className="bookmark__archived">archived</div>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <BookmarkItem bookmark={b} />
             ))}
           </div>
         </div>
