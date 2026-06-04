@@ -1,4 +1,4 @@
 export { AppLoader } from "./AppLoader/AppLoader";
 export { FilterItem } from "./FIlterItem/FilterItem";
-export { TagItem } from "./TagItem/TagItem";
-export { BookmarkItem } from "./BookmarkItem/BookmarkItem";
+export { RenderTags } from "./TagList/RenderTags";
+export { RenderBookmarks } from "./BookmarkList/RenderBookmarks";

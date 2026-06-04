@@ -1,7 +1,7 @@
 import { useStartApp } from "@/hooks";
 import { useBookmarksStore, useThemeStore } from "@/stores";
 
-import { BookmarkItem, FilterItem, TagItem } from "@/components/common";
+import { RenderBookmarks, RenderTags, FilterItem } from "@/components/common";
 import { Icon } from "@/components/shared";
 import { CiBookmark } from "react-icons/ci";
 import avatar from "@/assets/images/image-avatar.webp";
@@ -14,8 +14,6 @@ const Home = () => {
   const notDesktop = false;
   const isTagsActive = false;
 
-  const bookmarks = useBookmarksStore((s) => s.bookmarks);
-  const tags = useBookmarksStore((s) => s.tags);
   const toggleTheme = useThemeStore((s) => s.toggleTheme);
 
   return (
@@ -51,11 +49,7 @@ const Home = () => {
                 )}
               </div>
 
-              <div className="home__tags-list">
-                {[...tags].map(([key, value]) => (
-                  <TagItem key={key} tag={[key, value]} />
-                ))}
-              </div>
+              <RenderTags />
             </div>
           </div>
         </div>
@@ -93,11 +87,7 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="home__bookmark-grid">
-            {bookmarks.map((b) => (
-              <BookmarkItem bookmark={b} />
-            ))}
-          </div>
+          <RenderBookmarks />
         </div>
       </div>
 

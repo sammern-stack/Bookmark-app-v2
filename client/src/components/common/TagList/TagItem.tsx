@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared";
-import "./TagItem.scss";
+import "./styles.scss";
 
 interface TagItemProps {
   tag: [string, number];

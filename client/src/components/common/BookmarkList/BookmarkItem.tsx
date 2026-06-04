@@ -1,6 +1,6 @@
 import type { BookmarkModel } from "@/types";
 import { Icon } from "@/components/shared";
-import "./BookmarkItem.scss";
+import "./styles.scss";
 
 interface BookmarkItemProps {
   bookmark: BookmarkModel;
