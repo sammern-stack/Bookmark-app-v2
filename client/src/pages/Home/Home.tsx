@@ -1,9 +1,9 @@
-import { useStartApp } from "../../hooks/useStartApp";
-import { useBookmarksStore, useThemeStore } from "../../stores";
+import { useStartApp } from "@/hooks";
+import { useBookmarksStore, useThemeStore } from "@/stores";
 
-import { Icon } from "../../components/shared";
+import { Icon } from "@/components/shared";
 import { CiBookmark } from "react-icons/ci";
-import avatar from "../../assets/images/image-avatar.webp";
+import avatar from "@/assets/images/image-avatar.webp";
 import "./Home.scss";
 
 const Home = () => {

@@ -1,0 +1,1 @@
+export { useStartApp } from "./useStartApp";
