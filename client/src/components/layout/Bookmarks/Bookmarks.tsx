@@ -1,6 +1,6 @@
 import { RenderBookmarks } from "@/components/common";
 import { Icon } from "@/components/shared";
-import "./Bookmarks.scss";
+import "./styles.scss";
 
 export const Bookmarks = () => {
   return (
