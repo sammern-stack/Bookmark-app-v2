@@ -1,0 +1,18 @@
+@use "../../../styles/globals" as *;
+
+.home {
+  &__header {
+    padding: 16px 32px;
+    @include flex-between;
+    align-items: center;
+  }
+
+  &__header-left {
+    @include flex-gap(16px);
+  }
+
+  &__header-right {
+    @include flex-gap(16px);
+    align-items: center;
+  }
+}
