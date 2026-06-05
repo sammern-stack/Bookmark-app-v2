@@ -8,7 +8,7 @@ export const RenderBookmarks = () => {
   return (
     <div className="home__bookmark-grid">
       {bookmarks.map((b) => (
-        <BookmarkItem bookmark={b} />
+        <BookmarkItem bookmark={b} key={b._id} />
       ))}
     </div>
   );

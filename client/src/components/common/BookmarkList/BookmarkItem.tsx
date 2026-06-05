@@ -33,7 +33,9 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
 
         <div className="bookmark__tags">
           {b.tags.map((t) => (
-            <div className="bookmark__tag">{t}</div>
+            <div className="bookmark__tag" key={t}>
+              {t}
+            </div>
           ))}
         </div>
       </div>
