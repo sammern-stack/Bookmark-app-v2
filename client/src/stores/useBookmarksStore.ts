@@ -6,7 +6,8 @@ interface BookmarksStore {
   bookmarks: BookmarkModel[];
   tags: Map<string, number>;
 
-  setBookmarks: () => Promise<void>;
+  fetchBookmarks: (query?: Record<string, unknown>) => Promise<BookmarkModel[]>;
+  setBookmarks: (query?: Record<string, unknown>) => Promise<void>;
   createBookmark: (bookmark: IBookmark) => Promise<void>;
   fetchTags: () => void;
 
@@ -18,11 +19,14 @@ export const useBookmarksStore = create<BookmarksStore>((set, get) => ({
   bookmarks: [],
   tags: new Map(),
 
-  setBookmarks: async () => {
-    const res = await getBookmarksRequest({});
+  fetchBookmarks: async (query) => {
+    const res = await getBookmarksRequest(query ?? {});
     if (!res.ok) throw new Error(res.message);
+    return res.data;
+  },
 
-    const bookmarks = res.data;
+  setBookmarks: async (query) => {
+    const bookmarks = await get().fetchBookmarks(query);
     get().fetchTags();
 
     set({ bookmarks });
@@ -35,10 +39,11 @@ export const useBookmarksStore = create<BookmarksStore>((set, get) => ({
   },
 
   fetchTags: async () => {
-    if (!get().bookmarks || get().bookmarks.length === 0) return;
+    const bookmarks = await get().fetchBookmarks();
+    if (!bookmarks || bookmarks.length === 0) return;
 
-    const tags = get()
-      .bookmarks.flatMap((b) => b.tags)
+    const tags = bookmarks
+      .flatMap((b) => b.tags)
       .reduce((list, tag) => {
         list.set(tag, (list.get(tag) ?? 0) + 1);
         return list;
