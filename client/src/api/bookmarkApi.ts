@@ -1,4 +1,4 @@
-import { api } from "./axios";
+import api from "./axios";
 import { apiCall } from "./apiCall";
 
 import type {

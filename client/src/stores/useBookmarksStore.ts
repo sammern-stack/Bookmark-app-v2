@@ -2,53 +2,59 @@ import { create } from "zustand";
 import { getBookmarksRequest, createBookmarkRequest } from "../api/bookmarkApi";
 import type { BookmarkModel, IBookmark } from "../types";
 
-interface BookmarksStore {
-  bookmarks: BookmarkModel[];
-  tags: Map<string, number>;
+// Helper
+const countOccurrences = (arr: string[]) =>
+  arr.reduce((list, tag) => {
+    list.set(tag, (list.get(tag) ?? 0) + 1);
+    return list;
+  }, new Map<string, number>());
 
-  setBookmarks: () => Promise<void>;
+interface BookmarksStore {
+  // States
+  bookmarks: BookmarkModel[];
+  setBookmarks: (query?: Record<string, unknown>) => Promise<void>;
+
+  tags: Map<string, number>;
+  setTags: () => void;
+
+  // Api Actions
   createBookmark: (bookmark: IBookmark) => Promise<void>;
-  fetchTags: () => void;
 
   // Helper
+  fetchBookmarks: (query?: Record<string, unknown>) => Promise<BookmarkModel[]>;
   syncBookmarks: () => Promise<void>;
 }
 
 export const useBookmarksStore = create<BookmarksStore>((set, get) => ({
+  // States
   bookmarks: [],
+  setBookmarks: async (query) =>
+    set({ bookmarks: await get().fetchBookmarks(query) }),
+
   tags: new Map(),
-
-  setBookmarks: async () => {
-    const res = await getBookmarksRequest({});
-    if (!res.ok) throw new Error(res.message);
-
-    const bookmarks = res.data;
-    get().fetchTags();
-
-    set({ bookmarks });
+  setTags: async () => {
+    const bookmarks = await get().fetchBookmarks();
+    if (!bookmarks || bookmarks.length === 0) return;
+    const tags = bookmarks.flatMap((b) => b.tags);
+    set({ tags: countOccurrences(tags) });
   },
 
+  // Api Actions
   createBookmark: async (bookmark) => {
     const res = await createBookmarkRequest(bookmark);
     if (!res.ok) throw new Error(res.message);
     get().syncBookmarks();
   },
 
-  fetchTags: async () => {
-    if (!get().bookmarks || get().bookmarks.length === 0) return;
-
-    const tags = get()
-      .bookmarks.flatMap((b) => b.tags)
-      .reduce((list, tag) => {
-        list.set(tag, (list.get(tag) ?? 0) + 1);
-        return list;
-      }, new Map<string, number>());
-
-    set({ tags });
+  // Helpers
+  fetchBookmarks: async (query) => {
+    const res = await getBookmarksRequest(query ?? {});
+    if (!res.ok) throw new Error(res.message);
+    return res.data;
   },
 
   syncBookmarks: async () => {
     await get().setBookmarks();
-    get().fetchTags();
+    get().setTags();
   },
 }));
