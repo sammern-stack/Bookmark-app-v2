@@ -4,14 +4,26 @@ import { useBookmarksStore } from "./useBookmarksStore";
 
 type MainFilter = "all" | "archived";
 
+// Helper
+const buildQuery = (mainFilter: MainFilter, tagFilters: string[]) => {
+  const query: Record<string, unknown> = {};
+
+  if (mainFilter === "archived") query.isArchived = true;
+  if (tagFilters.length > 0) query.tags = tagFilters;
+
+  return query;
+};
+
 interface FiltersStore {
   mainFilter: MainFilter;
   setMainFilter: (filter: MainFilter) => void;
 
   tagFilters: string[];
   addTagFilter: (tag: string) => void;
+  removeTagFilter: (tag: string) => void;
 
-  query: Record<string, unknown>;
+  // Helper
+  applyFilters: () => void;
 }
 
 export const useFiltersStore = create<FiltersStore>()(
@@ -19,20 +31,35 @@ export const useFiltersStore = create<FiltersStore>()(
     (set, get) => ({
       mainFilter: "all",
       setMainFilter: (filter) => {
-        const { query, mainFilter } = get();
-        const { setBookmarks } = useBookmarksStore.getState();
-
         set({ mainFilter: filter });
-        query.isArchived = mainFilter === "archived" ? true : undefined;
-        setBookmarks(query);
+        get().applyFilters();
       },
 
       tagFilters: [],
-      addTagFilter: (tag) =>
-        set((s) => ({ tagFilters: [...s.tagFilters, tag] })),
+      addTagFilter: (tag) => {
+        set((s) => ({ tagFilters: [...s.tagFilters, tag] }));
+        console.log(get().tagFilters);
+        get().applyFilters();
+      },
 
-      query: {},
+      removeTagFilter: (tag) => {
+        set((s) => ({ tagFilters: s.tagFilters.filter((t) => t !== tag) }));
+        console.log(get().tagFilters);
+        get().applyFilters();
+      },
+
+      applyFilters: () => {
+        const { mainFilter, tagFilters } = get();
+        const query = buildQuery(mainFilter, tagFilters);
+        useBookmarksStore.getState().setBookmarks(query);
+      },
     }),
-    { name: "filters" },
+    {
+      name: "filters",
+      partialize: (s) => ({
+        mainFilter: s.mainFilter,
+        tagFilters: s.tagFilters,
+      }),
+    },
   ),
 );
