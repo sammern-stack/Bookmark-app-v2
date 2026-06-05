@@ -12,12 +12,12 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-  }
 
-  &__nav {
-    flex: 1;
-    @include flex-gap(16px, column);
-    min-height: 0;
+    &--wrapper {
+      flex: 1;
+      @include flex-gap(16px, column);
+      min-height: 0;
+    }
   }
 
   &__nav-header {
