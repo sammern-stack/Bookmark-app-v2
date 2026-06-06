@@ -1,3 +1,4 @@
+// ——— Imports —————————————————————————————————————————————————————————————————
 import api from "./axios";
 import { apiCall } from "./apiCall";
 
@@ -8,9 +9,11 @@ import type {
   IBookmark,
 } from "../types";
 
+// ——— Types ———————————————————————————————————————————————————————————————————
 type GetBookmarks = (filter: BookmarkFilters) => RequestFn<BookmarkModel[]>;
 type CreateBookmark = (bookmark: IBookmark) => RequestFn<BookmarkModel>;
 
+// ——— Api Requests ————————————————————————————————————————————————————————————
 export const getBookmarksRequest: GetBookmarks = async (filter) =>
   apiCall(() => api.get("/", { params: filter }));
 
