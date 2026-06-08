@@ -1,9 +1,10 @@
-import { useThemeStore } from "@/stores";
+import { useThemeStore, useBookmarksStore } from "@/stores";
 import avatar from "@/assets/images/image-avatar.webp";
 import "./styles.scss";
 
 export const Header = () => {
   const toggleTheme = useThemeStore((s) => s.toggleTheme);
+  const openForm = useBookmarksStore((s) => s.openForm);
 
   const notDesktop = false;
 
@@ -16,7 +17,9 @@ export const Header = () => {
       </div>
 
       <div className="home__header-right">
-        <div className="home__create-btn">+ Add Bookmark</div>
+        <div className="home__create-btn" onClick={() => openForm()}>
+          + Add Bookmark
+        </div>
 
         <div className="home__profile-icon" onClick={() => toggleTheme()}>
           <img src={avatar} alt="user's profile icon" width="40" height="40" />

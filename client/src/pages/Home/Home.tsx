@@ -1,5 +1,13 @@
 import { useStartApp } from "@/hooks";
-import { Bookmarks, Header, Sidebar, Toast } from "@/components/layout";
+
+import {
+  Bookmarks,
+  Header,
+  Sidebar,
+  Toast,
+  CreateBookmarkForm,
+} from "@/components/layout";
+
 import "./Home.scss";
 
 const Home = () => {
@@ -16,6 +24,7 @@ const Home = () => {
       </div>
 
       <Toast />
+      <CreateBookmarkForm />
     </div>
   );
 };
