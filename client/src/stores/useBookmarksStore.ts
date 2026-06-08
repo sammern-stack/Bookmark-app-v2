@@ -17,6 +17,10 @@ interface BookmarksStore {
   tags: Map<string, number>;
   setTags: () => void;
 
+  formState: "open" | "close";
+  openForm: () => void;
+  closeForm: () => void;
+
   // Api Actions
   createBookmark: (bookmark: IBookmark) => Promise<void>;
 
@@ -38,6 +42,10 @@ export const useBookmarksStore = create<BookmarksStore>((set, get) => ({
     const tags = bookmarks.flatMap((b) => b.tags);
     set({ tags: countOccurrences(tags) });
   },
+
+  formState: "close",
+  openForm: () => set({ formState: "open" }),
+  closeForm: () => set({ formState: "close" }),
 
   // Api Actions
   createBookmark: async (bookmark) => {
