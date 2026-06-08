@@ -1,8 +1,10 @@
+// ——— Imports —————————————————————————————————————————————————————————————————
 import { RenderTags } from "@/components/common";
 import { Container } from "@/components/shared";
 import { TagsHeader, MainFilters, NavHeader } from "./";
 import "./styles.scss";
 
+// ——— Component ———————————————————————————————————————————————————————————————
 export const Sidebar = () => (
   <Container className="home__sidebar" variant="simple">
     <NavHeader />

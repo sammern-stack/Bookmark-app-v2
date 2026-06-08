@@ -1,7 +1,9 @@
+// ——— Imports —————————————————————————————————————————————————————————————————
 import { PageLogo } from "@/components/common";
 import { Icon } from "@/components/shared";
 import "./styles.scss";
 
+// ——— Component ———————————————————————————————————————————————————————————————
 export const NavHeader = () => {
   const isDesktop = false;
 
