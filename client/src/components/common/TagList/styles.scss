@@ -4,7 +4,7 @@
   &__tag {
     padding: 2px 0;
     font: $manrope-3;
-    
+
 
     &--wrapper {
       padding: 8px 12px;
@@ -22,5 +22,20 @@
   &__tag-header {
     flex: 1;
     @include flex-gap(8px);
+    align-items: center;
+
+    input {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      padding: 10px;
+    }
+  }
+
+  &__tag-total {
+    border-radius: 100vh;
+    background: var(--surface-background);
+    border: 1px solid var(--layout-stroke);
+    padding: 2px 8px;
   }
 }

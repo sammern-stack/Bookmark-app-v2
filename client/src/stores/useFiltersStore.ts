@@ -21,6 +21,7 @@ interface FiltersStore {
   tagFilters: string[];
   addTagFilter: (tag: string) => void;
   removeTagFilter: (tag: string) => void;
+  clearTagsFilters: () => void;
 
   // Helper
   applyFilters: () => void;
@@ -38,13 +39,16 @@ export const useFiltersStore = create<FiltersStore>()(
       tagFilters: [],
       addTagFilter: (tag) => {
         set((s) => ({ tagFilters: [...s.tagFilters, tag] }));
-        console.log(get().tagFilters);
         get().applyFilters();
       },
 
       removeTagFilter: (tag) => {
         set((s) => ({ tagFilters: s.tagFilters.filter((t) => t !== tag) }));
-        console.log(get().tagFilters);
+        get().applyFilters();
+      },
+
+      clearTagsFilters: () => {
+        set({ tagFilters: [] });
         get().applyFilters();
       },
 
