@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useBookmarksStore } from "./useBookmarksStore";
 
-type MainFilter = "all" | "archived";
+type MainFilter = "home" | "archived";
 
 // Helper
 const buildQuery = (mainFilter: MainFilter, tagFilters: string[]) => {
@@ -29,7 +29,7 @@ interface FiltersStore {
 export const useFiltersStore = create<FiltersStore>()(
   persist(
     (set, get) => ({
-      mainFilter: "all",
+      mainFilter: "home",
       setMainFilter: (filter) => {
         set({ mainFilter: filter });
         get().applyFilters();

@@ -1,5 +1,4 @@
-import { PageLogo } from "@/components/common";
-import { Icon } from "@/components/shared";
+import { Icon, PageLogo } from "@/components/shared";
 import "./styles.scss";
 
 export const NavHeader = () => {

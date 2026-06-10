@@ -1,0 +1,22 @@
+@use "../../../styles/globals" as *;
+
+.home {
+  &__filter {
+    font: $manrope-3;
+    color: var(--text-color);
+    padding: 2px 0;
+    cursor: pointer;
+
+    &--active > &--wrapper {
+      background: var(--surface-background);
+      color: var(--text-color-active);
+    }
+
+    &--wrapper {
+      padding: 8px 12px;
+      border-radius: 6px;
+      @include flex-gap(8px);
+      align-items: center;
+    }
+  }
+}

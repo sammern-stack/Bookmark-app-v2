@@ -1,10 +1,11 @@
+import { useFiltersStore } from "@/stores";
 import "./styles.scss";
 
 export const TagsHeader = () => {
-  const isTagsActive = false;
+  const tagFilters = useFiltersStore((s) => s.tagFilters);
 
   const renderReset = () => {
-    if (!isTagsActive) return undefined;
+    if (tagFilters.length === 0) return undefined;
     return <button className="home__tags-reset">Reset</button>;
   };
 

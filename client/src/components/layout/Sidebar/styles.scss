@@ -6,6 +6,8 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
+    @include layout-styles(right);
+    color: var(--text-color);
 
     &--wrapper {
       flex: 1;
@@ -42,18 +44,6 @@
     flex-direction: column;
   }
 
-  &__filter {
-    padding: 2px 0;
-    cursor: pointer;
-
-    &--wrapper {
-      padding: 8px 12px;
-      border-radius: 6px;
-      @include flex-gap(8px);
-      align-items: center;
-    }
-  }
-
   // Tags Section
 
   &__tags {
@@ -69,6 +59,18 @@
     padding: 0 12px 4px 12px;
   }
 
+  &__tags-title {
+    text-transform: uppercase;
+    font: $manrope-3;
+  }
+
+  &__tags-reset {
+    text-decoration: underline;
+    font: $manrope-4-medium;
+    letter-spacing: 1%;
+    color: inherit;
+  }
+
   &__tags-list {
     flex: 1;
     display: flex;
@@ -79,26 +81,5 @@
     &::-webkit-scrollbar {
       display: none;
     }
-  }
-
-  &__tag {
-    padding: 2px 0;
-
-    &--wrapper {
-      padding: 8px 12px;
-      @include flex-gap(12px);
-      border-radius: 6px;
-    }
-  }
-
-  &__tag-content {
-    padding: 8px 12px;
-    @include flex-gap(12px);
-    border-radius: 6px;
-  }
-
-  &__tag-header {
-    flex: 1;
-    @include flex-gap(8px);
   }
 }

@@ -2,6 +2,7 @@ import type React from "react";
 
 type BaseProps = {
   className: string;
+  extraClassNames?: string;
   children: React.ReactNode;
 };
 
@@ -10,10 +11,10 @@ type ContainerProps =
   | ({ variant: "simple" } & BaseProps);
 
 export const Container = (props: ContainerProps) => {
-  const { className, variant, children } = props;
+  const { className, extraClassNames, variant, children } = props;
 
   const applyProps = {
-    className,
+    className: `${className} ${extraClassNames}`,
     ...(variant === "clickable" && { onClick: props.onClick }),
   };
 

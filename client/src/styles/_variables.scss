@@ -1,0 +1,69 @@
+// ——— BASE COLORS —————————————————————————————————————————————————————————————
+$neutral-0: #ffffff;
+
+$teal-700: #014745;
+$teal-800: #013c3b;
+
+$red-600: #fd4740;
+$red-800: #cb0a04;
+
+// ——— LIGHT THEMED COLORS —————————————————————————————————————————————————————
+$neutral-light-100: #e8f0ef;
+$neutral-light-300: #dde9e7;
+$neutral-light-400: #c0cfcc;
+$neutral-light-500: #899492;
+$neutral-light-800: #4c5c59;
+$neutral-light-900: #051513;
+
+// ——— DARK THEMED COLORS ——————————————————————————————————————————————————————
+$neutral-dark-100: #b1b9b9;
+$neutral-dark-300: #00706e;
+$neutral-dark-400: #004746;
+$neutral-dark-500: #004241;
+$neutral-dark-600: #002e2d;
+$neutral-dark-800: #001f1f;
+$neutral-dark-900: #001414;
+
+// ——— FONTS ———————————————————————————————————————————————————————————————————
+$font: "Manrope", sans-serif;
+
+$manrope-1: 700 24px/140% #{$font};
+
+$manrope-2: 700 20px/120% #{$font};
+$manrope-2-semibold: 600 20px/120% #{$font};
+
+$manrope-3: 600 16px/140% #{$font};
+$manrope-3-medium: 500 16px/130% #{$font};
+
+$manrope-4: 600 14px/140% #{$font};
+$manrope-4-medium: 500 14px/150% #{$font};
+
+$manrope-5: 500 12px/140% #{$font};
+
+// ——— APPS STYLES —————————————————————————————————————————————————————————————
+:root[data-theme="light"] {
+  // Colors
+  --primary-background: #{$neutral-0};
+  --secondary-background: #{$neutral-light-100};
+  --surface-background: #{$neutral-light-100};
+
+  --text-color: #{$neutral-light-800};
+  --text-color-active: #{$neutral-light-900};
+
+  // Strokes (border-colors)
+  --layout-stroke: #{$neutral-light-300};
+}
+
+:root[data-theme="dark"] {
+  // Colors
+  --primary-background: #{$neutral-dark-800};
+  --secondary-background: #{$neutral-dark-900};
+  --surface-background: #{$neutral-dark-600};
+
+  --text-color: #{$neutral-dark-100};
+  --text-color-active: #{$neutral-0};
+
+
+  // Strokes (border-colors)
+  --layout-stroke: #{$neutral-dark-500};
+}

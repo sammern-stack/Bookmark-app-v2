@@ -1,0 +1,26 @@
+@use "../../../styles/globals" as *;
+
+.home {
+  &__tag {
+    padding: 2px 0;
+    font: $manrope-3;
+    
+
+    &--wrapper {
+      padding: 8px 12px;
+      @include flex-gap(12px);
+      border-radius: 6px;
+    }
+  }
+
+  &__tag-content {
+    padding: 8px 12px;
+    @include flex-gap(12px);
+    border-radius: 6px;
+  }
+
+  &__tag-header {
+    flex: 1;
+    @include flex-gap(8px);
+  }
+}
