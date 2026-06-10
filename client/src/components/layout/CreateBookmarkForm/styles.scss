@@ -5,5 +5,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(570px, 90vw);
+    z-index: 1;
+    background: white;
   }
 }
