@@ -1,11 +1,88 @@
+@use "../../../styles/globals" as *;
+
 .create-form {
-  &__form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(570px, 90vw);
+  z-index: 1;
+  background: var(--primary-background);
+  @include flex-gap(32px, column);
+  padding: 32px;
+  border-radius: 16px;
+
+  &__close {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(570px, 90vw);
-    z-index: 1;
-    background: white;
+    top: 20px;
+    right: 20px;
+    border: 1px solid var(--btn-stroke);
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  &__header {
+    @include flex-gap(8px, column);
+  }
+
+  &__title {
+    font: $manrope-1;
+    color: var(--primary-text-color);
+  }
+
+  &__description {
+    font: $manrope-4-medium;
+    color: var(--secondary-text-color);
+  }
+
+  &__form {
+    @include flex-gap(32px, column);
+  }
+
+  &__fields {
+    @include flex-gap(20px, column);
+  }
+
+  &__field {
+    @include flex-gap(6px, column);
+
+    & > input,
+    & > textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--form-stroke);
+      font: $manrope-4-medium;
+      color: var(--primary-text-color);
+    }
+
+    & > textarea {
+      min-height: 91px;
+      resize: none;
+    }
+  }
+
+  &__label {
+    font: $manrope-4;
+    color: var(--primary-text-color);
+  }
+
+  &__error {
+    font: $manrope-4;
+    font-style: italic;
+    color: $red-800;
+  }
+
+  &__actions {
+    @include flex-gap(16px, row-reverse);
+  }
+
+  &__action {
+    &--submit {
+      @include button-styles;
+    }
+
+    &--cancel {
+      @include button-styles(secondary);
+    }
   }
 }
