@@ -46,6 +46,7 @@ $manrope-5: 500 12px/140% #{$font};
   --primary-background: #{$neutral-0};
   --secondary-background: #{$neutral-light-100};
   --surface-background: #{$neutral-light-100};
+  --theme-background: #{$neutral-light-300};
 
   --primary-text-color: #{$neutral-light-900};
   --secondary-text-color: #{$neutral-light-800};
@@ -55,6 +56,7 @@ $manrope-5: 500 12px/140% #{$font};
   --input-stroke: #{$neutral-light-500};
   --form-stroke: #{$neutral-light-500};
   --btn-stroke: #{$neutral-light-400};
+  --profile-menu-stroke: #e9eaeb;
 }
 
 :root[data-theme="dark"] {
@@ -62,6 +64,7 @@ $manrope-5: 500 12px/140% #{$font};
   --primary-background: #{$neutral-dark-800};
   --secondary-background: #{$neutral-dark-900};
   --surface-background: #{$neutral-dark-600};
+  --theme-background: #{$neutral-dark-500};
 
   --primary-text-color: #{$neutral-0};
   --secondary-text-color: #{$neutral-dark-100};
@@ -73,5 +76,5 @@ $manrope-5: 500 12px/140% #{$font};
   --input-stroke: #{$neutral-dark-300};
   --form-stroke: #{$neutral-dark-300};
   --btn-stroke: #{$neutral-dark-400};
-
+  --profile-menu-stroke: #{$neutral-dark-500};
 }
