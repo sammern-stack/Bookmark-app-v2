@@ -8,6 +8,31 @@
     @include layout-styles(bottom);
   }
 
+  &__search-bar {
+    width: 320px;
+    @include flex-gap(8px);
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--layout-stroke);
+    border-radius: 8px;
+    font: $manrope-4-medium;
+    color: var(--text-color);
+
+    & > input {
+      border: none;
+      flex: 1;
+      background: transparent;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__create-btn {
+    @include button-styles;
+  }
+
   &__header-left {
     @include flex-gap(16px);
   }

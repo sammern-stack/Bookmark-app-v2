@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @mixin flex-gap($gap, $direction: row) {
   display: flex;
   flex-direction: $direction;
@@ -10,10 +12,10 @@
   justify-content: space-between;
 }
 
-@mixin button-styles() {
-  padding: 16px 32px;
-  border-radius: 10px;
-}
+// @mixin button-styles() {
+//   padding: 16px 32px;
+//   border-radius: 10px;
+// }
 
 @mixin layout-styles($border: null) {
   background: var(--primary-background);
@@ -22,5 +24,43 @@
     border: 1px solid var(--layout-stroke);
   } @else {
     border-#{$border}: 1px solid var(--layout-stroke);
+  }
+}
+
+@mixin button-styles {
+  @include flex-gap(4px);
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: $teal-700;
+  box-shadow: 0 0 0 1px rgb(34 38 39 / 0.12);
+  font: $manrope-3;
+  color: $neutral-0;
+  position: relative;
+
+  &:hover {
+    background: $teal-800;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* border thickness */
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }

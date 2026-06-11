@@ -24,11 +24,22 @@
     @include flex-gap(8px);
     align-items: center;
 
-    input {
+    & > input {
+      appearance: none;
+      border: 1px solid var(--input-stroke);
       width: 16px;
       height: 16px;
       border-radius: 4px;
       padding: 10px;
+      cursor: pointer;
+
+      &:checked {
+        background: $teal-700 url(../../../assets/images/icon-check.svg);
+      }
+    }
+
+    & > label {
+      flex: 1;
     }
   }
 

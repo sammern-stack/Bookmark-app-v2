@@ -52,6 +52,7 @@ $manrope-5: 500 12px/140% #{$font};
 
   // Strokes (border-colors)
   --layout-stroke: #{$neutral-light-300};
+  --input-stroke: #{$neutral-light-500};
 }
 
 :root[data-theme="dark"] {
@@ -66,4 +67,5 @@ $manrope-5: 500 12px/140% #{$font};
 
   // Strokes (border-colors)
   --layout-stroke: #{$neutral-dark-500};
+  --input-stroke: #{$neutral-dark-300};
 }
