@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { useBookmarksStore } from "./useBookmarksStore";
 
 type MainFilter = "home" | "archived";
+export type SortBy = "Recently added" | "Recently visited" | "Most visited";
 
 // Helper
 const buildQuery = (mainFilter: MainFilter, tagFilters: string[]) => {
@@ -23,6 +24,9 @@ interface FiltersStore {
   removeTagFilter: (tag: string) => void;
   clearTagsFilters: () => void;
 
+  sortByFilter: SortBy;
+  setSortByFilter: (sortBy: SortBy) => void;
+
   // Helper
   applyFilters: () => void;
   updatePageTitle: (title: string) => void;
@@ -41,7 +45,9 @@ export const useFiltersStore = create<FiltersStore>()(
       addTagFilter: (tag) => {
         set((s) => ({ tagFilters: [...s.tagFilters, tag] }));
         get().applyFilters();
-        get().updatePageTitle(`Tagged: ${get().tagFilters.join(", ")}`);
+        get().updatePageTitle(
+          `Bookmarks tagged: ${get().tagFilters.join(", ")}`,
+        );
       },
 
       removeTagFilter: (tag) => {
@@ -50,7 +56,7 @@ export const useFiltersStore = create<FiltersStore>()(
 
         const pageTitle =
           get().tagFilters.length !== 0
-            ? `Tagged: ${get().tagFilters.join(", ")}`
+            ? `Bookmarks tagged: ${get().tagFilters.join(", ")}`
             : get().mainFilter === "home"
               ? "All bookmarks"
               : "Archived bookmarks";
@@ -62,6 +68,9 @@ export const useFiltersStore = create<FiltersStore>()(
         set({ tagFilters: [] });
         get().applyFilters();
       },
+
+      sortByFilter: "Recently added",
+      setSortByFilter: (sortBy) => set({ sortByFilter: sortBy }),
 
       // Helpers
       applyFilters: () => {
@@ -79,6 +88,7 @@ export const useFiltersStore = create<FiltersStore>()(
       partialize: (s) => ({
         mainFilter: s.mainFilter,
         tagFilters: s.tagFilters,
+        sortByFilter: s.sortByFilter,
       }),
     },
   ),

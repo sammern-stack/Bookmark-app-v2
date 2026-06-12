@@ -54,7 +54,7 @@ export const useBookmarksStore = create<BookmarksStore>()(
       openForm: () => set({ formState: "open" }),
       closeForm: () => set({ formState: "close" }),
 
-      activeTitle: "All Bookmarks",
+      activeTitle: "All bookmarks",
       setActiveTitle: (text) => set({ activeTitle: text }),
 
       // Api Actions
@@ -79,7 +79,7 @@ export const useBookmarksStore = create<BookmarksStore>()(
     {
       name: "bookmarks",
       partialize: (s) => ({
-        pageTitle: s.activeTitle,
+        activeTitle: s.activeTitle,
       }),
     },
   ),
