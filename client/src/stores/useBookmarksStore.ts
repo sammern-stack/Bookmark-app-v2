@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { getBookmarksRequest, createBookmarkRequest } from "../api/bookmarkApi";
 import type { BookmarkModel, IBookmark } from "../types";
 
@@ -21,6 +22,9 @@ interface BookmarksStore {
   openForm: () => void;
   closeForm: () => void;
 
+  activeTitle: string;
+  setActiveTitle: (text: string) => void;
+
   // Api Actions
   createBookmark: (bookmark: IBookmark) => Promise<void>;
 
@@ -29,40 +33,54 @@ interface BookmarksStore {
   syncBookmarks: () => Promise<void>;
 }
 
-export const useBookmarksStore = create<BookmarksStore>((set, get) => ({
-  // States
-  bookmarks: [],
-  setBookmarks: async (query) =>
-    set({ bookmarks: await get().fetchBookmarks(query) }),
+export const useBookmarksStore = create<BookmarksStore>()(
+  persist(
+    (set, get) => ({
+      // States
+      bookmarks: [],
+      setBookmarks: async (query) => {
+        set({ bookmarks: await get().fetchBookmarks(query) });
+      },
 
-  tags: new Map(),
-  setTags: async () => {
-    const bookmarks = await get().fetchBookmarks();
-    if (!bookmarks || bookmarks.length === 0) return;
-    const tags = bookmarks.flatMap((b) => b.tags);
-    set({ tags: countOccurrences(tags) });
-  },
+      tags: new Map(),
+      setTags: async () => {
+        const bookmarks = await get().fetchBookmarks();
+        if (!bookmarks || bookmarks.length === 0) return;
+        const tags = bookmarks.flatMap((b) => b.tags);
+        set({ tags: countOccurrences(tags) });
+      },
 
-  formState: "close",
-  openForm: () => set({ formState: "open" }),
-  closeForm: () => set({ formState: "close" }),
+      formState: "close",
+      openForm: () => set({ formState: "open" }),
+      closeForm: () => set({ formState: "close" }),
 
-  // Api Actions
-  createBookmark: async (bookmark) => {
-    const res = await createBookmarkRequest(bookmark);
-    if (!res.ok) throw new Error(res.message);
-    get().syncBookmarks();
-  },
+      activeTitle: "All Bookmarks",
+      setActiveTitle: (text) => set({ activeTitle: text }),
 
-  // Helpers
-  fetchBookmarks: async (query) => {
-    const res = await getBookmarksRequest(query ?? {});
-    if (!res.ok) throw new Error(res.message);
-    return res.data;
-  },
+      // Api Actions
+      createBookmark: async (bookmark) => {
+        const res = await createBookmarkRequest(bookmark);
+        if (!res.ok) throw new Error(res.message);
+        get().syncBookmarks();
+      },
 
-  syncBookmarks: async () => {
-    await get().setBookmarks();
-    get().setTags();
-  },
-}));
+      // Helpers
+      fetchBookmarks: async (query) => {
+        const res = await getBookmarksRequest(query ?? {});
+        if (!res.ok) throw new Error(res.message);
+        return res.data;
+      },
+
+      syncBookmarks: async () => {
+        await get().setBookmarks();
+        get().setTags();
+      },
+    }),
+    {
+      name: "bookmarks",
+      partialize: (s) => ({
+        pageTitle: s.activeTitle,
+      }),
+    },
+  ),
+);

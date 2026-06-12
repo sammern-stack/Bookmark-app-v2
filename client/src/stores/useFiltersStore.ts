@@ -25,6 +25,7 @@ interface FiltersStore {
 
   // Helper
   applyFilters: () => void;
+  updatePageTitle: (title: string) => void;
 }
 
 export const useFiltersStore = create<FiltersStore>()(
@@ -40,11 +41,21 @@ export const useFiltersStore = create<FiltersStore>()(
       addTagFilter: (tag) => {
         set((s) => ({ tagFilters: [...s.tagFilters, tag] }));
         get().applyFilters();
+        get().updatePageTitle(`Tagged: ${get().tagFilters.join(", ")}`);
       },
 
       removeTagFilter: (tag) => {
         set((s) => ({ tagFilters: s.tagFilters.filter((t) => t !== tag) }));
         get().applyFilters();
+
+        const pageTitle =
+          get().tagFilters.length !== 0
+            ? `Tagged: ${get().tagFilters.join(", ")}`
+            : get().mainFilter === "home"
+              ? "All bookmarks"
+              : "Archived bookmarks";
+
+        get().updatePageTitle(pageTitle);
       },
 
       clearTagsFilters: () => {
@@ -52,10 +63,15 @@ export const useFiltersStore = create<FiltersStore>()(
         get().applyFilters();
       },
 
+      // Helpers
       applyFilters: () => {
         const { mainFilter, tagFilters } = get();
         const query = buildQuery(mainFilter, tagFilters);
         useBookmarksStore.getState().setBookmarks(query);
+      },
+
+      updatePageTitle: (title) => {
+        useBookmarksStore.getState().setActiveTitle(title);
       },
     }),
     {
