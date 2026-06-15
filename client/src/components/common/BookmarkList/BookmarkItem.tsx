@@ -1,5 +1,6 @@
 import type { BookmarkModel } from "@/types";
-import { Icon } from "@/components/shared";
+import { Dropdown, Icon } from "@/components/shared";
+import { BookmarkMenu } from "./BookmarkMenu";
 import "./styles.scss";
 
 interface BookmarkItemProps {
@@ -31,11 +32,11 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
             </div>
           </div>
 
-          <button className="bookmark__menu">
-            <Icon name="icon-menu-bookmark" />
-          </button>
-
-          <div className="bookmark__dropdown-menu"></div>
+          <Dropdown
+            className="bookmark"
+            toggleEl={<Icon name="icon-menu-bookmark" />}
+            menuEl={<BookmarkMenu />}
+          />
         </div>
 
         <div className="bookmark__divider"></div>

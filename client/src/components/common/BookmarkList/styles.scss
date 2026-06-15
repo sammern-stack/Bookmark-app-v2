@@ -47,19 +47,37 @@
   }
 
   &__menu {
+    position: relative;
     align-self: flex-start;
     border-radius: 8px;
     border: 1px solid var(--layout-stroke);
+  }
+
+  &__toggle-menu {
     padding: 8px;
-    anchor-name: --bookmark-menu;
+    cursor: pointer;
   }
 
   &__dropdown-menu {
     position: absolute;
-    position-anchor: --bookmark-menu;
-    top: anchor(bottom);
-    right: anchor(right);
-    margin-top: 15px;
+    top: calc(100% + 15px);
+    right: 0;
+    z-index: 1;
+    @include flex-gap(4px, column);
+    padding: 8px;
+    background: var(--primary-background);
+    color: var(--secondary-text-color);
+    font: $manrope-4;
+    border: 1px solid var(--btn-stroke);
+    border-radius: 8px;
+    width: 200px;
+  }
+
+  &__menu-item {
+    @include flex-gap(10px);
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
   }
 
   &__divider {
