@@ -47,6 +47,27 @@
     display: inline-block;
   }
 
+  &__menu {
+    anchor-name: --profile;
+    display: inline-block;
+  }
+
+  &__dropdown-menu {
+    position: absolute;
+    position-anchor: --profile;
+    top: anchor(bottom);
+    right: anchor(right);
+    width: 248px;
+    margin-top: 15px;
+    background: var(--primary-background);
+    @include flex-gap(4px, column);
+    border-radius: 8px;
+    @include linear-border;
+    color: var(--secondary-text-color);
+    font: $manrope-4;
+    z-index: 10;
+  }
+
   &__profile-menu {
     position: absolute;
     position-anchor: --profile;
@@ -60,6 +81,7 @@
     @include linear-border;
     color: var(--secondary-text-color);
     font: $manrope-4;
+    z-index: 10;
   }
 
   &__profile-header {

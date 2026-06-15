@@ -14,17 +14,28 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
     <div className="bookmark">
       <div className="bookmark__content">
         <div className="bookmark__header">
-          <img src={b.favicon} alt="bookmark icon" className="bookmark__logo" />
+          <div
+            className="bookmark__logo"
+            style={{
+              backgroundImage: `url(${b.favicon})`,
+            }}
+          ></div>
 
           <div className="bookmark__info">
             <div className="bookmark__title">{b.title}</div>
 
-            <div className="bookmark__url">url here</div>
+            <div className="bookmark__url">
+              {b.url.split(
+                b.url.startsWith("https://") ? "https://" : "http://",
+              )}
+            </div>
           </div>
 
-          <div className="bookmark__menu">
+          <button className="bookmark__menu">
             <Icon name="icon-menu-bookmark" />
-          </div>
+          </button>
+
+          <div className="bookmark__dropdown-menu"></div>
         </div>
 
         <div className="bookmark__divider"></div>

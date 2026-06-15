@@ -4,6 +4,20 @@
   height: 320px;
   display: flex;
   flex-direction: column;
+  background: var(--primary-background);
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px rgb(0 0 0 / 0.25);
+  margin: 5px;
+
+  &__logo {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--layout-stroke);
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55px 55px;
+  }
 
   &__content {
     flex: 1;
@@ -22,20 +36,43 @@
     @include flex-gap(4px, column);
   }
 
+  &__title {
+    font: $manrope-2;
+    color: var(--primary-text-color);
+  }
+
+  &__url {
+    font: $manrope-5;
+    color: var(--secondary-text-color);
+  }
+
   &__menu {
     align-self: flex-start;
     border-radius: 8px;
+    border: 1px solid var(--layout-stroke);
+    padding: 8px;
+    anchor-name: --bookmark-menu;
+  }
+
+  &__dropdown-menu {
+    position: absolute;
+    position-anchor: --bookmark-menu;
+    top: anchor(bottom);
+    right: anchor(right);
+    margin-top: 15px;
   }
 
   &__divider {
     width: 100%;
     min-height: 1px;
-    background: #333;
+    background: var(--layout-stroke);
   }
 
   &__description {
     flex: 1;
     overflow-y: hidden;
+    font: $manrope-4-medium;
+    color: var(--secondary-text-color);
   }
 
   &__tags {
@@ -43,13 +80,19 @@
   }
 
   &__tag {
-    padding: 2px 0;
+    padding: 2px 8px;
     border-radius: 4px;
+    background: var(--secondary-background);
+    font: $manrope-5;
+    color: var(--secondary-text-color);
   }
 
   &__footer {
     @include flex-gap(8px);
     padding: 12px 16px;
+    border-top: 1px solid var(--layout-stroke);
+    font: $manrope-5;
+    color: var(--secondary-text-color);
   }
 
   &__footer-info {
@@ -57,6 +100,7 @@
 
     & > * {
       @include flex-gap(6px);
+      align-items: center;
     }
   }
 }

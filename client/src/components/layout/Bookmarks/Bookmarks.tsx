@@ -33,7 +33,6 @@ export const Bookmarks = () => {
           <Icon name="icon-sort" />
           <span>Sort by</span>
         </button>
-
         {openMenu && (
           <div className="home__bookmark-sort-by-menu">
             <ul className="home__bookmark-sort-by-list">
@@ -43,6 +42,7 @@ export const Bookmarks = () => {
             </ul>
           </div>
         )}
+
       </div>
 
       <RenderBookmarks />
