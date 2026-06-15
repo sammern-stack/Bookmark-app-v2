@@ -1,18 +1,13 @@
-//—————————————————————————————————————————————————————————————————
-// Imports
-//—————————————————————————————————————————————————————————————————
-
+// ——— Imports —————————————————————————————————————————————————————————————————
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AppLoader } from "./components/common";
 
-//—————————————————————————————————————————————————————————————————
-// Lazy Loading pages
-//—————————————————————————————————————————————————————————————————
-
+// ——— Pages with lazy loading —————————————————————————————————————————————————
 const HomePage = lazy(() => import("./pages/Home/Home"));
 
+// ——— App Component ———————————————————————————————————————————————————————————
 const App = () => {
   return (
     <BrowserRouter>
