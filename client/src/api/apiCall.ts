@@ -1,5 +1,7 @@
+// ——— Imports —————————————————————————————————————————————————————————————————
 import type { AxiosFn, RequestFn } from "../types";
 
+// ——— Helper ——————————————————————————————————————————————————————————————————
 export const apiCall = async <T>(fn: AxiosFn<T>): RequestFn<T> => {
   try {
     const { data } = await fn();
