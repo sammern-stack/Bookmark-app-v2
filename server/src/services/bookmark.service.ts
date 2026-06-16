@@ -13,10 +13,13 @@ import { AppError } from "../utils/AppError.js";
 // ——— Types ———————————————————————————————————————————————————————————————————
 type BookmarkDocument = HydratedDocument<BookmarkModel>;
 
+type TFnNeedsId = (id: string) => Promise<void>;
 type GetBookmarks = (filters: BookmarkFilters) => Promise<BookmarkModel[]>;
 type CreateBookmark = (bookmark: IBookmark) => Promise<BookmarkModel>;
-type UpdateIsArchived = (id: string) => Promise<void>;
-type DeleteBookmark = (id: string) => Promise<void>;
+type UpdateBookmark = (
+  id: string,
+  updates: IBookmark,
+) => Promise<BookmarkModel>;
 
 // ——— Helpers —————————————————————————————————————————————————————————————————
 const searchBookmark = async (id: string): Promise<BookmarkDocument> => {
@@ -47,12 +50,30 @@ export const createBookmark: CreateBookmark = async (body) => {
   return Bookmark.create(body);
 };
 
-export const updateIsArchived: UpdateIsArchived = async (id) => {
+export const updateIsArchived: TFnNeedsId = async (id) => {
   const bookmark = await searchBookmark(id);
   await Bookmark.findByIdAndUpdate(id, { isArchived: !bookmark.isArchived });
 };
 
-export const deleteBookmark: DeleteBookmark = async (id) => {
+export const updatePinned: TFnNeedsId = async (id) => {
+  const bookmark = await searchBookmark(id);
+  await Bookmark.findByIdAndUpdate(id, { pinned: !bookmark.pinned });
+};
+
+export const updateBookmark: UpdateBookmark = async (id, updates) => {
+  await searchBookmark(id);
+
+  const updatedBookmark = await Bookmark.findByIdAndUpdate(id, updates, {
+    returnDocument: "after",
+    runValidators: true,
+  });
+
+  if (!updatedBookmark) throw new AppError("Bookmark was not found", 404);
+
+  return updatedBookmark;
+};
+
+export const deleteBookmark: TFnNeedsId = async (id) => {
   await searchBookmark(id);
   await Bookmark.findByIdAndDelete(id);
 };

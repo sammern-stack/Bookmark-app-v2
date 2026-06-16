@@ -27,6 +27,26 @@ export const updateIsArchived = asyncHandler(
   },
 );
 
+export const updatePinned = asyncHandler(
+  async (req: Request<{ id?: string }>, res: Response) => {
+    const { id } = req.params;
+    if (!id) throw new AppError("Id isn't present in params", 400);
+
+    await bookmarkService.updatePinned(id);
+    sendSuccess(res, {}, 200);
+  },
+);
+
+export const updateBookmark = asyncHandler(
+  async (req: Request<{ id?: string }, {}, IBookmark>, res: Response) => {
+    const { id } = req.params;
+    if (!id) throw new AppError("Id isn't present in params", 400);
+
+    const updatedBookmark = await bookmarkService.updateBookmark(id, req.body);
+    sendSuccess(res, updatedBookmark, 200);
+  },
+);
+
 export const deleteBookmark = asyncHandler(
   async (req: Request<{ id?: string }>, res: Response) => {
     const { id } = req.params;
