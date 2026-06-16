@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { Icon, PageLogo } from "@/components/shared";
-=======
 // ——— Imports —————————————————————————————————————————————————————————————————
-import { PageLogo } from "@/components/common";
+import { PageLogo } from "@/components/shared";
 import { Icon } from "@/components/shared";
->>>>>>> 46d30b80cf70a4709323a2879ce057762ee46b49
 import "./styles.scss";
 
 // ——— Component ———————————————————————————————————————————————————————————————

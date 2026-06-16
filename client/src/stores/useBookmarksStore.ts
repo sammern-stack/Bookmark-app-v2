@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { getBookmarksRequest, createBookmarkRequest } from "../api/bookmarkApi";
+
+import {
+  getBookmarksRequest,
+  createBookmarkRequest,
+  updateIsArchived,
+  deleteBookmark,
+} from "../api/bookmarkApi";
+
 import type { BookmarkModel, IBookmark } from "../types";
 
 // Helper
@@ -27,6 +34,8 @@ interface BookmarksStore {
 
   // Api Actions
   createBookmark: (bookmark: IBookmark) => Promise<void>;
+  updateIsArchived: (id: string) => Promise<void>;
+  deleteBookmark: (id: string) => Promise<void>;
 
   // Helper
   fetchBookmarks: (query?: Record<string, unknown>) => Promise<BookmarkModel[]>;
@@ -60,6 +69,18 @@ export const useBookmarksStore = create<BookmarksStore>()(
       // Api Actions
       createBookmark: async (bookmark) => {
         const res = await createBookmarkRequest(bookmark);
+        if (!res.ok) throw new Error(res.message);
+        get().syncBookmarks();
+      },
+
+      updateIsArchived: async (id) => {
+        const res = await updateIsArchived(id);
+        if (!res.ok) throw new Error(res.message);
+        get().syncBookmarks();
+      },
+
+      deleteBookmark: async (id) => {
+        const res = await deleteBookmark(id);
         if (!res.ok) throw new Error(res.message);
         get().syncBookmarks();
       },
