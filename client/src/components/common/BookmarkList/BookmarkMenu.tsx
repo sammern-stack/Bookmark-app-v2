@@ -9,6 +9,7 @@ interface BookmarkMenuProps {
 export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const deleteBookmark = useBookmarksStore((s) => s.deleteBookmark);
   const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
+  const updatePinned = useBookmarksStore((s) => s.updatePinned);
 
   return (
     <>
@@ -24,9 +25,28 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
 
       {!b.isArchived && (
         <>
-          <div className="bookmark__menu-item">
-            <Icon name="icon-pin" />
-            Pin
+          <div
+            className="bookmark__menu-item"
+            onClick={() => {
+              const confirm = window.confirm(
+                b.pinned
+                  ? "Do you want to unpinned this bookmark?"
+                  : "Do you want to pin this bookmark?",
+              );
+              if (confirm) updatePinned(b._id);
+            }}
+          >
+            {b.pinned ? (
+              <>
+                <Icon name="icon-unpin" />
+                Unpin
+              </>
+            ) : (
+              <>
+                <Icon name="icon-pin" />
+                Pin
+              </>
+            )}
           </div>
 
           <div className="bookmark__menu-item">
