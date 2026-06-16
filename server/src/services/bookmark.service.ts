@@ -52,7 +52,13 @@ export const createBookmark: CreateBookmark = async (body) => {
 
 export const updateIsArchived: TFnNeedsId = async (id) => {
   const bookmark = await searchBookmark(id);
-  await Bookmark.findByIdAndUpdate(id, { isArchived: !bookmark.isArchived });
+
+  if (!bookmark.pinned) {
+    await Bookmark.findByIdAndUpdate(id, { isArchived: !bookmark.isArchived });
+    return;
+  }
+
+  await Bookmark.findByIdAndUpdate(id, { pinned: false, isArchived: true });
 };
 
 export const updatePinned: TFnNeedsId = async (id) => {

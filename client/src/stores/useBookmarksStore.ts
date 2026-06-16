@@ -56,7 +56,12 @@ export const useBookmarksStore = create<BookmarksStore>()(
       // States
       bookmarks: [],
       setBookmarks: async (query) => {
-        set({ bookmarks: await get().fetchBookmarks(query) });
+        const bookmarks = await get().fetchBookmarks(query);
+
+        const pinned = bookmarks.filter((b) => b.pinned);
+        const rest = bookmarks.filter((b) => !b.pinned);
+
+        set({ bookmarks: [...pinned, ...rest] });
       },
 
       tags: new Map(),
