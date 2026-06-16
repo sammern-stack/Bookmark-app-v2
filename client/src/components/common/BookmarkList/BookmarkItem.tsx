@@ -9,7 +9,6 @@ interface BookmarkItemProps {
 
 export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
   const isPinned = false;
-  const isArchived = false;
 
   return (
     <div className="bookmark">
@@ -35,7 +34,7 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
           <Dropdown
             className="bookmark"
             toggleEl={<Icon name="icon-menu-bookmark" />}
-            menuEl={<BookmarkMenu />}
+            menuEl={<BookmarkMenu bookmark={b} />}
           />
         </div>
 
@@ -79,7 +78,7 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
         <div className="bookmark__state">
           {isPinned && <Icon className="bookmark__pinned" name="icon-pin" />}
 
-          {isArchived && <div className="bookmark__archived">archived</div>}
+          {b.isArchived && <div className="bookmark__archived">Archived</div>}
         </div>
       </div>
     </div>
