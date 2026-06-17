@@ -79,6 +79,14 @@ export const updateBookmark: UpdateBookmark = async (id, updates) => {
   return updatedBookmark;
 };
 
+export const increaseVisitCount: TFnNeedsId = async (id) => {
+  const bookmark = await searchBookmark(id);
+  await Bookmark.findByIdAndUpdate(id, {
+    visitCount: bookmark.visitCount + 1,
+    lastVisited: Date.now(),
+  });
+};
+
 export const deleteBookmark: TFnNeedsId = async (id) => {
   await searchBookmark(id);
   await Bookmark.findByIdAndDelete(id);

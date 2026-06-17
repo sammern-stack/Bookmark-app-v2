@@ -6,6 +6,7 @@ import {
   updateIsArchived,
   updatePinned,
   updateBookmark,
+  increaseVisitCount,
   deleteBookmark,
 } from "../controllers/bookmark.controller.js";
 
@@ -16,5 +17,6 @@ router.route("/:id").delete(deleteBookmark).put(updateBookmark);
 
 router.patch("/archive/:id", updateIsArchived);
 router.patch("/pin/:id", updatePinned);
+router.patch("/visit-count/:id", increaseVisitCount);
 
 export default router;

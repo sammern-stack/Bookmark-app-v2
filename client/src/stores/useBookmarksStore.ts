@@ -8,6 +8,7 @@ import {
   deleteBookmarkRequest,
   updatePinnedRequest,
   updateBookmarkRequest,
+  increaseVisitCountRequest,
 } from "../api/bookmarkApi";
 
 import type { ApiResponse, BookmarkModel, IBookmark } from "../types";
@@ -39,6 +40,7 @@ interface BookmarksStore {
   updateIsArchived: (id: string) => Promise<void>;
   updatePinned: (id: string) => Promise<void>;
   updateBookmark: (id: string, updates: IBookmark) => Promise<void>;
+  increaseVisitCount: (id: string) => Promise<void>;
   deleteBookmark: (id: string) => Promise<void>;
 
   // Helper
@@ -91,6 +93,9 @@ export const useBookmarksStore = create<BookmarksStore>()(
 
       updateBookmark: async (id, updates) =>
         await get().runApiRequest(updateBookmarkRequest, id, updates),
+
+      increaseVisitCount: async (id) =>
+        await get().runApiRequest(increaseVisitCountRequest, id),
 
       deleteBookmark: async (id) =>
         await get().runApiRequest(deleteBookmarkRequest, id),

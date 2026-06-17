@@ -56,3 +56,13 @@ export const deleteBookmark = asyncHandler(
     sendSuccess(res, {}, 200);
   },
 );
+
+export const increaseVisitCount = asyncHandler(
+  async (req: Request<{ id?: string }>, res: Response) => {
+    const { id } = req.params;
+    if (!id) throw new AppError("Id isn't present in params", 400);
+
+    await bookmarkService.increaseVisitCount(id)
+    sendSuccess(res, {}, 200);
+  }
+)

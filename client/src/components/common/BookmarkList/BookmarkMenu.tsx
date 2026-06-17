@@ -10,15 +10,29 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const deleteBookmark = useBookmarksStore((s) => s.deleteBookmark);
   const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
   const updatePinned = useBookmarksStore((s) => s.updatePinned);
+  const increaseVisitCount = useBookmarksStore((s) => s.increaseVisitCount);
 
   return (
     <>
-      <div className="bookmark__menu-item">
+      <a
+        className="bookmark__menu-item"
+        href={b.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => increaseVisitCount(b._id)}
+      >
         <Icon name="icon-visit" />
         Visit
-      </div>
+      </a>
 
-      <div className="bookmark__menu-item">
+      <div
+        className="bookmark__menu-item"
+        onClick={async () => {
+          if (!navigator.clipboard) return;
+          await navigator.clipboard.writeText(b.url);
+          alert("Url copied");
+        }}
+      >
         <Icon name="icon-copy" />
         Copy URL
       </div>

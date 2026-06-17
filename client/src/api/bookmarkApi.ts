@@ -19,6 +19,7 @@ type UpdateBookmark = (
   updates: IBookmark,
 ) => RequestFn<BookmarkModel>;
 type DeleteBookmark = (id: string) => RequestFn<void>;
+type IncreaseVisitCount = (id: string) => RequestFn<void>;
 
 // ——— Api Requests ————————————————————————————————————————————————————————————
 export const getBookmarksRequest: GetBookmarks = async (filter) =>
@@ -32,6 +33,9 @@ export const updateIsArchivedRequest: UpdateIsArchived = async (id) =>
 
 export const updatePinnedRequest: UpdatePinned = async (id) =>
   apiCall(() => api.patch(`/pin/${id}`));
+
+export const increaseVisitCountRequest: IncreaseVisitCount = async (id) =>
+  apiCall(() => api.patch(`/visit-count/${id}`));
 
 export const updateBookmarkRequest: UpdateBookmark = async (id, updates) =>
   apiCall(() => api.put(`/${id}`, updates));
