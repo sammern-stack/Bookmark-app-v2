@@ -1,4 +1,4 @@
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore, useFormStore } from "@/stores";
 import { Icon } from "@/components/shared";
 import type { BookmarkModel } from "@/types";
 
@@ -11,6 +11,8 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
   const updatePinned = useBookmarksStore((s) => s.updatePinned);
   const increaseVisitCount = useBookmarksStore((s) => s.increaseVisitCount);
+  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
+  const setSelectedBookmark = useFormStore((s) => s.setSelectedBookmark);
 
   return (
     <>
@@ -63,7 +65,13 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
             )}
           </div>
 
-          <div className="bookmark__menu-item">
+          <div
+            className="bookmark__menu-item"
+            onClick={() => {
+              setSelectedBookmark(b);
+              setUpdateFormState("open");
+            }}
+          >
             <Icon name="icon-edit" />
             Edit
           </div>

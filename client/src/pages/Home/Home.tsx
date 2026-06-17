@@ -6,6 +6,7 @@ import {
   Sidebar,
   Toast,
   CreateBookmarkForm,
+  UpdateBookmarkForm
 } from "@/components/layout";
 
 import "./Home.scss";
@@ -25,6 +26,7 @@ const Home = () => {
 
       <Toast />
       <CreateBookmarkForm />
+      <UpdateBookmarkForm />
     </div>
   );
 };

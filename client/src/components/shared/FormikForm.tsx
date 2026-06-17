@@ -1,5 +1,5 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
-import { useBookmarksStore } from "@/stores";
+import { useFormStore } from "@/stores";
 import { Formik, Form, type FormikHelpers } from "formik";
 import type { ObjectSchema, AnyObject } from "yup";
 
@@ -20,34 +20,52 @@ interface BaseProps<T extends object> {
 
 type FormikFormProps<T extends object> =
   | ({ form: "create" } & BaseProps<T>)
+  | ({ form: "update" } & BaseProps<T>)
   | ({ form: "auth" } & BaseProps<T>);
 
 // ——— Form Component ——————————————————————————————————————————————————————————
-export const FormikForm = <T extends object>(props: FormikFormProps<T>) => (
-  <Formik {...props.formik}>
-    {({ isSubmitting }) => (
-      <Form className={`${props.className}__form`}>
-        {props.children}
+export const FormikForm = <T extends object>(props: FormikFormProps<T>) => {
+  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
+  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
 
-        <div className={`${props.className}__actions`}>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`${props.className}__action--submit`}
-          >
-            {isSubmitting ? props.submittingLabel : props.submitLabel}
-          </button>
+  const handleCloseForm = () =>
+    props.form === "create"
+      ? setCreateFormState("close")
+      : setUpdateFormState("close");
 
-          {props.form === "create" && (
+  const classNames = {
+    form: `${props.className}__form`,
+    actions: `${props.className}__actions`,
+    submit: `${props.className}__action--submit`,
+    cancel: `${props.className}__action--cancel`,
+  };
+
+  const renderCancelBtn = () =>
+    props.form === "create" || props.form === "update" ? (
+      <button className={classNames.cancel} onClick={handleCloseForm}>
+        Cancel
+      </button>
+    ) : null;
+
+  return (
+    <Formik {...props.formik}>
+      {({ isSubmitting }) => (
+        <Form className={classNames.form}>
+          {props.children}
+
+          <div className={classNames.actions}>
             <button
-              className={`${props.className}__action--cancel`}
-              onClick={() => useBookmarksStore.getState().closeForm()}
+              type="submit"
+              disabled={isSubmitting}
+              className={classNames.submit}
             >
-              Cancel
+              {isSubmitting ? props.submittingLabel : props.submitLabel}
             </button>
-          )}
-        </div>
-      </Form>
-    )}
-  </Formik>
-);
+
+            {renderCancelBtn()}
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+};

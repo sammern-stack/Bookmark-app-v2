@@ -1,25 +1,26 @@
-import { useBookmarksStore } from "@/stores";
+import { useFormStore } from "@/stores";
 import { useCreateForm } from "@/hooks";
 import { FormikForm, FormikField, Icon } from "@/components/shared";
 import "./styles.scss";
 
 export const CreateBookmarkForm = () => {
   const formik = useCreateForm();
-  const formState = useBookmarksStore((s) => s.formState);
-  const closeForm = useBookmarksStore((s) => s.closeForm);
+  const createFormState = useFormStore((s) => s.createFormState);
+  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
+  const handleCloseForm = () => setCreateFormState("close");
 
-  if (formState === "close") return null;
+  if (createFormState === "close") return null;
 
   return (
     <>
-      <div className="create-form">
-        <button className="create-form__close" onClick={() => closeForm()}>
+      <div className="bookmark-form">
+        <button className="bookmark-form__close" onClick={handleCloseForm}>
           <Icon name="icon-close" />
         </button>
 
-        <div className="create-form__header">
-          <h1 className="create-form__title">Add a bookmark</h1>
-          <p className="create-form__description">
+        <div className="bookmark-form__header">
+          <h1 className="bookmark-form__title">Add a bookmark</h1>
+          <p className="bookmark-form__description">
             Save a link with details to keep your collection organized. We
             extract the favicon automatically from the URL.
           </p>
@@ -28,13 +29,13 @@ export const CreateBookmarkForm = () => {
         <FormikForm
           form="create"
           formik={formik}
-          className="create-form"
+          className="bookmark-form"
           submitLabel="Add Bookmark"
           submittingLabel="Adding..."
         >
-          <div className="create-form__fields">
+          <div className="bookmark-form__fields">
             <FormikField
-              className="create-form"
+              className="bookmark-form"
               inputName="title"
               errorName="title"
               type="text"
@@ -43,14 +44,14 @@ export const CreateBookmarkForm = () => {
 
             <FormikField
               as="textarea"
-              className="create-form"
+              className="bookmark-form"
               inputName="description"
               errorName="description"
               label="Description"
             />
 
             <FormikField
-              className="create-form"
+              className="bookmark-form"
               inputName="url"
               errorName="url"
               type="text"
@@ -58,7 +59,7 @@ export const CreateBookmarkForm = () => {
             />
 
             <FormikField
-              className="create-form"
+              className="bookmark-form"
               inputName="tags"
               errorName="tags"
               type="text"

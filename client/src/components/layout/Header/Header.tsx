@@ -1,11 +1,12 @@
-import { useBookmarksStore } from "@/stores";
+import { useFormStore } from "@/stores";
 import { Icon, Dropdown } from "@/components/shared";
 import { ProfileToggle } from "./ProfileToggle";
 import { ProfileMenu } from "./ProfileMenu";
 import "./styles.scss";
 
 export const Header = () => {
-  const openForm = useBookmarksStore((s) => s.openForm);
+  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
+  const handleCloseForm = () => setCreateFormState("open");
 
   const notDesktop = false;
 
@@ -21,7 +22,7 @@ export const Header = () => {
       </div>
 
       <div className="home__header-right">
-        <button className="home__create-btn" onClick={() => openForm()}>
+        <button className="home__create-btn" onClick={handleCloseForm}>
           <Icon name="icon-add" />
           <span>Add Bookmark</span>
         </button>
