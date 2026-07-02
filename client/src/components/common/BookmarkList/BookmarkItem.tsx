@@ -1,6 +1,7 @@
 import type { BookmarkModel } from "@/types";
 import { Dropdown, Icon } from "@/components/shared";
 import { BookmarkMenu } from "./BookmarkMenu";
+import { formatDate, formatUrl } from "@utils/formatters";
 import "./styles.scss";
 
 interface BookmarkItemProps {
@@ -21,12 +22,7 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
 
           <div className="bookmark__info">
             <div className="bookmark__title">{b.title}</div>
-
-            <div className="bookmark__url">
-              {b.url.split(
-                b.url.startsWith("https://") ? "https://" : "http://",
-              )}
-            </div>
+            <div className="bookmark__url">{formatUrl(b.url)}</div>
           </div>
 
           <Dropdown
@@ -58,24 +54,17 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
 
           <div className="bookmark__last-visited">
             <Icon name="icon-last-visited" />
-            {new Date(b.lastVisited).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-            })}
+            {formatDate(b.lastVisited)}
           </div>
 
           <div className="bookmark__created">
             <Icon name="icon-created" />
-            {new Date().toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-            })}
+            {formatDate(b.createdAt)}
           </div>
         </div>
 
         <div className="bookmark__state">
           {b.pinned && <Icon className="bookmark__pinned" name="icon-pin" />}
-
           {b.isArchived && <div className="bookmark__archived">Archived</div>}
         </div>
       </div>

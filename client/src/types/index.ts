@@ -9,9 +9,9 @@ export interface BookmarkModel {
   pinned: boolean;
   isArchived: boolean;
   visitCount: number;
-  lastVisited: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  lastVisited: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type BookmarkFilters = {
