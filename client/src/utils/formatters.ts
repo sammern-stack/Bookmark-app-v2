@@ -9,5 +9,5 @@ export const formatDate = (date: string) => {
 
 export const formatUrl = (url: string) => {
   const urlProtocol = url.split("://")[0]
-  return url.split(`${urlProtocol}://`);
+  return url.split(`${urlProtocol}://`)[1];
 };
