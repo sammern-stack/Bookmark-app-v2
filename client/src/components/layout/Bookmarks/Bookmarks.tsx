@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useBookmarksStore } from "@/stores";
 import { SortByItem } from "./SortByItem";
-import { RenderBookmarks } from "@/components/common";
-import { Icon } from "@/components/shared";
+import { BookmarkItem } from "@/components/common";
+import { Icon, List } from "@/components/shared";
 import "./styles.scss";
 
 export const Bookmarks = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const activeTitle = useBookmarksStore((s) => s.activeTitle);
+  const bookmarks = useBookmarksStore((s) => s.bookmarks);
 
   const renderTitle = () => {
     if (activeTitle.includes("Bookmarks tagged")) {
@@ -42,10 +43,13 @@ export const Bookmarks = () => {
             </ul>
           </div>
         )}
-
       </div>
 
-      <RenderBookmarks />
+      <List
+        className="home__bookmark-grid"
+        list={bookmarks}
+        render={(b) => <BookmarkItem bookmark={b} />}
+      />
     </div>
   );
 };
