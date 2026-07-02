@@ -8,8 +8,6 @@ interface BookmarkItemProps {
 }
 
 export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
-  const isPinned = false;
-
   return (
     <div className="bookmark">
       <div className="bookmark__content">
@@ -76,7 +74,7 @@ export const BookmarkItem = ({ bookmark: b }: BookmarkItemProps) => {
         </div>
 
         <div className="bookmark__state">
-          {isPinned && <Icon className="bookmark__pinned" name="icon-pin" />}
+          {b.pinned && <Icon className="bookmark__pinned" name="icon-pin" />}
 
           {b.isArchived && <div className="bookmark__archived">Archived</div>}
         </div>

@@ -4,18 +4,25 @@ import { persist } from "zustand/middleware";
 import {
   getBookmarksRequest,
   createBookmarkRequest,
-  updateIsArchived,
-  deleteBookmark,
+  updateIsArchivedRequest,
+  deleteBookmarkRequest,
+  updatePinnedRequest,
+  updateBookmarkRequest,
+  increaseVisitCountRequest,
 } from "../api/bookmarkApi";
 
-import type { BookmarkModel, IBookmark } from "../types";
+import type { ApiResponse, BookmarkModel, IBookmark } from "../types";
 
 // Helper
-const countOccurrences = (arr: string[]) =>
-  arr.reduce((list, tag) => {
+const countOccurrences = (arr: string[]): Map<string, number> => {
+  const tags = arr.reduce((list, tag) => {
     list.set(tag, (list.get(tag) ?? 0) + 1);
     return list;
   }, new Map<string, number>());
+
+  const sortedTags = [...tags].sort((a, b) => a[0].localeCompare(b[0]));
+  return new Map(sortedTags);
+};
 
 interface BookmarksStore {
   // States
@@ -35,11 +42,18 @@ interface BookmarksStore {
   // Api Actions
   createBookmark: (bookmark: IBookmark) => Promise<void>;
   updateIsArchived: (id: string) => Promise<void>;
+  updatePinned: (id: string) => Promise<void>;
+  updateBookmark: (id: string, updates: IBookmark) => Promise<void>;
+  increaseVisitCount: (id: string) => Promise<void>;
   deleteBookmark: (id: string) => Promise<void>;
 
   // Helper
   fetchBookmarks: (query?: Record<string, unknown>) => Promise<BookmarkModel[]>;
   syncBookmarks: () => Promise<void>;
+  runApiRequest: <A extends unknown[], T>(
+    fn: (...args: A) => Promise<ApiResponse<T>>,
+    ...args: A
+  ) => Promise<void>;
 }
 
 export const useBookmarksStore = create<BookmarksStore>()(
@@ -48,7 +62,12 @@ export const useBookmarksStore = create<BookmarksStore>()(
       // States
       bookmarks: [],
       setBookmarks: async (query) => {
-        set({ bookmarks: await get().fetchBookmarks(query) });
+        const bookmarks = await get().fetchBookmarks(query);
+
+        const pinned = bookmarks.filter((b) => b.pinned);
+        const rest = bookmarks.filter((b) => !b.pinned);
+
+        set({ bookmarks: [...pinned, ...rest] });
       },
 
       tags: new Map(),
@@ -67,29 +86,38 @@ export const useBookmarksStore = create<BookmarksStore>()(
       setActiveTitle: (text) => set({ activeTitle: text }),
 
       // Api Actions
-      createBookmark: async (bookmark) => {
-        const res = await createBookmarkRequest(bookmark);
-        if (!res.ok) throw new Error(res.message);
-        get().syncBookmarks();
-      },
+      createBookmark: async (bookmark) =>
+        await get().runApiRequest(createBookmarkRequest, bookmark),
 
-      updateIsArchived: async (id) => {
-        const res = await updateIsArchived(id);
-        if (!res.ok) throw new Error(res.message);
-        get().syncBookmarks();
-      },
+      updateIsArchived: async (id) =>
+        await get().runApiRequest(updateIsArchivedRequest, id),
 
-      deleteBookmark: async (id) => {
-        const res = await deleteBookmark(id);
-        if (!res.ok) throw new Error(res.message);
-        get().syncBookmarks();
-      },
+      updatePinned: async (id) =>
+        await get().runApiRequest(updatePinnedRequest, id),
+
+      updateBookmark: async (id, updates) =>
+        await get().runApiRequest(updateBookmarkRequest, id, updates),
+
+      increaseVisitCount: async (id) =>
+        await get().runApiRequest(increaseVisitCountRequest, id),
+
+      deleteBookmark: async (id) =>
+        await get().runApiRequest(deleteBookmarkRequest, id),
 
       // Helpers
       fetchBookmarks: async (query) => {
         const res = await getBookmarksRequest(query ?? {});
         if (!res.ok) throw new Error(res.message);
         return res.data;
+      },
+
+      runApiRequest: async <A extends unknown[], T>(
+        fn: (...args: A) => Promise<ApiResponse<T>>,
+        ...args: A
+      ) => {
+        const res = await fn(...args);
+        if (!res.ok) throw new Error(res.message);
+        await get().syncBookmarks();
       },
 
       syncBookmarks: async () => {

@@ -1,4 +1,4 @@
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore, useFormStore } from "@/stores";
 import { Icon } from "@/components/shared";
 import type { BookmarkModel } from "@/types";
 
@@ -9,27 +9,69 @@ interface BookmarkMenuProps {
 export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const deleteBookmark = useBookmarksStore((s) => s.deleteBookmark);
   const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
+  const updatePinned = useBookmarksStore((s) => s.updatePinned);
+  const increaseVisitCount = useBookmarksStore((s) => s.increaseVisitCount);
+  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
+  const setSelectedBookmark = useFormStore((s) => s.setSelectedBookmark);
 
   return (
     <>
-      <div className="bookmark__menu-item">
+      <a
+        className="bookmark__menu-item"
+        href={b.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => increaseVisitCount(b._id)}
+      >
         <Icon name="icon-visit" />
         Visit
-      </div>
+      </a>
 
-      <div className="bookmark__menu-item">
+      <div
+        className="bookmark__menu-item"
+        onClick={async () => {
+          if (!navigator.clipboard) return;
+          await navigator.clipboard.writeText(b.url);
+          alert("Url copied");
+        }}
+      >
         <Icon name="icon-copy" />
         Copy URL
       </div>
 
       {!b.isArchived && (
         <>
-          <div className="bookmark__menu-item">
-            <Icon name="icon-pin" />
-            Pin
+          <div
+            className="bookmark__menu-item"
+            onClick={() => {
+              const confirm = window.confirm(
+                b.pinned
+                  ? "Do you want to unpinned this bookmark?"
+                  : "Do you want to pin this bookmark?",
+              );
+              if (confirm) updatePinned(b._id);
+            }}
+          >
+            {b.pinned ? (
+              <>
+                <Icon name="icon-unpin" />
+                Unpin
+              </>
+            ) : (
+              <>
+                <Icon name="icon-pin" />
+                Pin
+              </>
+            )}
           </div>
 
-          <div className="bookmark__menu-item">
+          <div
+            className="bookmark__menu-item"
+            onClick={() => {
+              setSelectedBookmark(b);
+              setUpdateFormState("open");
+            }}
+          >
             <Icon name="icon-edit" />
             Edit
           </div>

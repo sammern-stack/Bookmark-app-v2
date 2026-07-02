@@ -1,7 +1,7 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
 import type { FormikObject } from "@/components/shared/FormikForm";
 import * as Yup from "yup";
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore, useFormStore } from "@/stores";
 
 type CreateBookmark = {
   title: string;
@@ -28,7 +28,8 @@ export const useCreateForm = (): FormikObject<CreateBookmark> => ({
 
   onSubmit: async (values, { setFieldError }) => {
     try {
-      const { createBookmark, closeForm } = useBookmarksStore.getState();
+      const { createBookmark } = useBookmarksStore.getState();
+      const { setCreateFormState } = useFormStore.getState();
 
       const normalizeTag = values.tags
         .split(",")
@@ -36,7 +37,7 @@ export const useCreateForm = (): FormikObject<CreateBookmark> => ({
         .filter(Boolean);
 
       await createBookmark({ ...values, tags: normalizeTag });
-      closeForm();
+      setCreateFormState("close");
     } catch (err) {
       console.log(err);
       setFieldError("error", "Error occurred");
