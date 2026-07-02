@@ -56,6 +56,10 @@
   &__toggle-menu {
     padding: 8px;
     cursor: pointer;
+
+    &:hover {
+      background: var(--secondary-background);
+    }
   }
 
   &__dropdown-menu {
@@ -75,6 +79,7 @@
 
   &__menu-item {
     @include flex-gap(10px);
+    border-radius: 6px;
     align-items: center;
     padding: 8px;
     cursor: pointer;
