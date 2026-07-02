@@ -14,11 +14,15 @@ import {
 import type { ApiResponse, BookmarkModel, IBookmark } from "../types";
 
 // Helper
-const countOccurrences = (arr: string[]) =>
-  arr.reduce((list, tag) => {
+const countOccurrences = (arr: string[]): Map<string, number> => {
+  const tags = arr.reduce((list, tag) => {
     list.set(tag, (list.get(tag) ?? 0) + 1);
     return list;
   }, new Map<string, number>());
+
+  const sortedTags = [...tags].sort((a, b) => a[0].localeCompare(b[0]));
+  return new Map(sortedTags);
+};
 
 interface BookmarksStore {
   // States
