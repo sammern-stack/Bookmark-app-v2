@@ -25,37 +25,40 @@
     }
   }
 
-  &__bookmark-sort-by {
-    position: relative;
-    anchor-name: --sort-by;
+  &__sort-by {
     @include flex-gap(4px);
-    align-items: center;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: var(--primary-background);
-    border: 1px solid var(--layout-stroke);
     color: var(--text-color);
-    font: $manrope-3;
+    
+    &__toggle-menu {
+      position: relative;
+      anchor-name: --sort-by;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--primary-background);
+      border: 1px solid var(--layout-stroke);
+      font: $manrope-3;
+    }
+
+    &__dropdown-menu {
+      position: absolute;
+      position-anchor: --sort-by;
+      top: anchor(bottom);
+      right: anchor(right);
+      margin-top: 8px;
+      width: 200px;
+      border-radius: 8px;
+      padding: 8px;
+      @include flex-gap(4px, column);
+      background: var(--primary-background);
+      border: 1px solid var(--layout-stroke);
+      font: $manrope-4;
+      color: var(--secondary-text-color);
+      z-index: 10;
+    }
   }
 
-  &__bookmark-sort-by-menu {
-    position: absolute;
-    position-anchor: --sort-by;
-    top: anchor(bottom);
-    right: anchor(right);
-    margin-top: 8px;
-    width: 200px;
-    border-radius: 8px;
-    padding: 8px;
-    @include flex-gap(4px, column);
-    background: var(--primary-background);
-    border: 1px solid var(--layout-stroke);
-    font: $manrope-4;
-    color: var(--secondary-text-color);
-    z-index: 10;
-  }
-
-  &__bookmark-sort-by-item {
+  &__sort-by-item {
     padding: 8px;
     display: flex;
     gap: 8px;

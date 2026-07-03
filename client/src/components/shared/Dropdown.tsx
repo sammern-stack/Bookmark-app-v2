@@ -28,9 +28,9 @@ export const Dropdown = (props: DropdownProps) => {
 
   return (
     <div className={`${props.className}__menu`} ref={menuRef}>
-      <div className={`${props.className}__toggle-menu`} onClick={toggleMenu}>
+      <button className={`${props.className}__toggle-menu`} onClick={toggleMenu}>
         {props.toggleEl}
-      </div>
+      </button>
 
       {openMenu && (
         <div className={`${props.className}__dropdown-menu`}>

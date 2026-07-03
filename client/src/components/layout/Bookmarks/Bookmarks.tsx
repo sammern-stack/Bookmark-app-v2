@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useBookmarksStore } from "@/stores";
 import { SortByItem } from "./SortByItem";
 import { BookmarkItem } from "@/components/common";
-import { Icon, List } from "@/components/shared";
+import { Dropdown, Icon, List } from "@/components/shared";
 import "./styles.scss";
 
 export const Bookmarks = () => {
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const activeTitle = useBookmarksStore((s) => s.activeTitle);
   const bookmarks = useBookmarksStore((s) => s.bookmarks);
 
@@ -23,26 +21,27 @@ export const Bookmarks = () => {
     }
   };
 
-  const toggleMenu = () => setOpenMenu((prev) => (prev ? false : true));
-
   return (
     <div className="home__bookmark-list">
       <div className="home__bookmark-header">
         <div className="home__bookmark-title">{renderTitle()}</div>
 
-        <button className="home__bookmark-sort-by" onClick={toggleMenu}>
-          <Icon name="icon-sort" />
-          <span>Sort by</span>
-        </button>
-        {openMenu && (
-          <div className="home__bookmark-sort-by-menu">
-            <ul className="home__bookmark-sort-by-list">
+        <Dropdown
+          className="home__sort-by"
+          toggleEl={
+            <button className="home__sort-by">
+              <Icon name="icon-sort" />
+              <span>Sort by</span>
+            </button>
+          }
+          menuEl={
+            <ul className="home__sort-by-list">
               <SortByItem sortBy="Recently added" />
               <SortByItem sortBy="Recently visited" />
               <SortByItem sortBy="Most visited" />
             </ul>
-          </div>
-        )}
+          }
+        />
       </div>
 
       <List

@@ -10,10 +10,7 @@ export const SortByItem = ({ sortBy }: SortByItemProps) => {
   const setSortByFilter = useFiltersStore((s) => s.setSortByFilter);
 
   return (
-    <li
-      className="home__bookmark-sort-by-item"
-      onClick={() => setSortByFilter(sortBy)}
-    >
+    <li className="home__sort-by-item" onClick={() => setSortByFilter(sortBy)}>
       <span>{sortBy}</span>
       {sortByFilter === sortBy && (
         <Icon name="icon-sort-by-check" width="16" height="16" />
