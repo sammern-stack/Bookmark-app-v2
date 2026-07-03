@@ -56,6 +56,8 @@
   &__toggle-menu {
     padding: 8px;
     cursor: pointer;
+    border-radius: 8px;
+    color: var(--primary-text-color);
 
     &:hover {
       background: var(--secondary-background);
