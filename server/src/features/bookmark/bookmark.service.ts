@@ -1,13 +1,12 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
-import { Types } from "mongoose";
-import Bookmark from "@/models/Bookmark.js";
+import Bookmark from "./Bookmark.model.js";
 import { AppError } from "@/utils/AppError.js";
 import { searchDocument } from "@/shared/utils/searchDocument.js";
 import type {
   BookmarkFilterQuery,
   BookmarkCreateBody,
   BookmarkUpdateBody,
-} from "@/shared/types/markdown.types.js";
+} from "./bookmark.types.js";
 
 // ——— GET / ———————————————————————————————————————————————————————————————————————————————————————
 export const getBookmarks = async (filters: BookmarkFilterQuery) => {

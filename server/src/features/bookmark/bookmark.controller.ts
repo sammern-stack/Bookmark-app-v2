@@ -1,6 +1,10 @@
 import type { Response, Request } from "express";
-import * as bookmarkService from "../services/bookmark.service.js";
-import { AppError, asyncHandler, sendSuccess } from "../utils/index.js";
+import * as bookmarkService from "./bookmark.service.js";
+
+import { AppError } from "@/utils/AppError.js";
+import { asyncHandler } from "@/utils/asyncHandler.js";
+import { sendSuccess } from "@/utils/apiResponse.js";
+
 import type {
   GetAllRequest,
   GetOneRequest,
@@ -12,7 +16,7 @@ import type {
   BookmarkFilterQuery,
   BookmarkCreateBody,
   BookmarkUpdateBody,
-} from "@/shared/types/markdown.types.js";
+} from "./bookmark.types.js";
 
 export const getBookmarks = asyncHandler(
   async (req: GetAllRequest<BookmarkFilterQuery>, res: Response) => {

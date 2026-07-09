@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import type { BookmarkSchema } from "@/shared/types/markdown.types.js"
+import type { BookmarkSchema } from "./bookmark.types.js";
 
 const bookmarkSchema = new Schema<BookmarkSchema>(
   {

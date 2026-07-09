@@ -8,7 +8,7 @@ import {
   updateBookmark,
   increaseVisitCount,
   deleteBookmark,
-} from "../controllers/bookmark.controller.js";
+} from "./bookmark.controller.js";
 
 const router = Router();
 
