@@ -1,6 +1,7 @@
-import { config } from "./index.js";
+import { CLIENT_URL } from "./env.js";
 import type { CorsOptions } from "cors";
 
 export const corsOptions: CorsOptions = {
-  origin: config.clientUrl,
+  origin: CLIENT_URL,
+  credentials: true,
 };

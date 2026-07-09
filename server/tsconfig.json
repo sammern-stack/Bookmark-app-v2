@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
+
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     // Environment Settings
     "module": "nodenext",
