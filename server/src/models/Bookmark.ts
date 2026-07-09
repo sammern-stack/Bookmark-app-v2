@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import type { BookmarkModel } from "../types/index.js";
+import type { BookmarkSchema } from "@/shared/types/markdown.types.js"
 
-const BookmarkSchema = new Schema<BookmarkModel>(
+const bookmarkSchema = new Schema<BookmarkSchema>(
   {
     title: {
       type: String,
@@ -53,5 +53,5 @@ const BookmarkSchema = new Schema<BookmarkModel>(
   { timestamps: true },
 );
 
-const Bookmark = model("bookmark", BookmarkSchema);
+const Bookmark = model("bookmark", bookmarkSchema);
 export default Bookmark;

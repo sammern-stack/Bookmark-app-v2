@@ -1,93 +1,93 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
-import { Types, type HydratedDocument } from "mongoose";
-import Bookmark from "../models/Bookmark.js";
-
+import { Types } from "mongoose";
+import Bookmark from "@/models/Bookmark.js";
+import { AppError } from "@/utils/AppError.js";
+import { searchDocument } from "@/shared/utils/searchDocument.js";
 import type {
-  BookmarkModel,
-  BookmarkFilters,
-  IBookmark,
-} from "../types/index.js";
+  BookmarkFilterQuery,
+  BookmarkCreateBody,
+  BookmarkUpdateBody,
+} from "@/shared/types/markdown.types.js";
 
-import { AppError } from "../utils/AppError.js";
-
-// ——— Types ———————————————————————————————————————————————————————————————————
-type BookmarkDocument = HydratedDocument<BookmarkModel>;
-
-type TFnNeedsId = (id: string) => Promise<void>;
-type GetBookmarks = (filters: BookmarkFilters) => Promise<BookmarkModel[]>;
-type CreateBookmark = (bookmark: IBookmark) => Promise<BookmarkModel>;
-type UpdateBookmark = (
-  id: string,
-  updates: IBookmark,
-) => Promise<BookmarkModel>;
-
-// ——— Helpers —————————————————————————————————————————————————————————————————
-const searchBookmark = async (id: string): Promise<BookmarkDocument> => {
-  const validId = Types.ObjectId.isValid(id);
-  if (!validId) throw new AppError("Invalid ID format", 400);
-
-  const bookmark = await Bookmark.findById(id);
-  if (!bookmark) throw new AppError("Bookmark was not found", 404);
-
-  return bookmark;
-};
-
-// ——— Services ————————————————————————————————————————————————————————————————
-export const getBookmarks: GetBookmarks = async (filters) => {
+// ——— GET / ———————————————————————————————————————————————————————————————————————————————————————
+export const getBookmarks = async (filters: BookmarkFilterQuery) => {
   const query: Record<string, unknown> = {};
 
   if (filters.isArchived) query.isArchived = filters.isArchived;
   if (filters.tags) query.tags = { $all: filters.tags };
 
-  return Bookmark.find(query);
+  return await Bookmark.find(query);
 };
 
-export const createBookmark: CreateBookmark = async (body) => {
-  const urlExists = await Bookmark.findOne({ url: body.url });
+// ——— POST / ——————————————————————————————————————————————————————————————————————————————————————
+export const createBookmark = async (bookmark: BookmarkCreateBody) => {
+  const urlExists = await searchDocument({ url: bookmark.url }, Bookmark);
   if (urlExists)
     throw new AppError("Bookmark with the same url already exists", 409);
 
-  return Bookmark.create(body);
+  return await Bookmark.create(bookmark);
 };
 
-export const updateIsArchived: TFnNeedsId = async (id) => {
-  const bookmark = await searchBookmark(id);
+// ——— PUT /:id ————————————————————————————————————————————————————————————————————————————————————
+export const updateBookmark = async (
+  bookmarkId: string,
+  updates: BookmarkUpdateBody,
+) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
 
-  if (!bookmark.pinned) {
-    await Bookmark.findByIdAndUpdate(id, { isArchived: !bookmark.isArchived });
-    return;
-  }
-
-  await Bookmark.findByIdAndUpdate(id, { pinned: false, isArchived: true });
-};
-
-export const updatePinned: TFnNeedsId = async (id) => {
-  const bookmark = await searchBookmark(id);
-  await Bookmark.findByIdAndUpdate(id, { pinned: !bookmark.pinned });
-};
-
-export const updateBookmark: UpdateBookmark = async (id, updates) => {
-  await searchBookmark(id);
-
-  const updatedBookmark = await Bookmark.findByIdAndUpdate(id, updates, {
-    returnDocument: "after",
-    runValidators: true,
-  });
+  const updatedBookmark = await Bookmark.findByIdAndUpdate(
+    bookmarkId,
+    updates,
+    {
+      returnDocument: "after",
+      runValidators: true,
+    },
+  );
 
   if (!updatedBookmark) throw new AppError("Bookmark was not found", 404);
 
   return updatedBookmark;
 };
 
-export const increaseVisitCount: TFnNeedsId = async (id) => {
-  const bookmark = await searchBookmark(id);
-  await Bookmark.findByIdAndUpdate(id, {
-    visitCount: bookmark.visitCount + 1,
-    lastVisited: Date.now(),
+// ——— DELETE /:id —————————————————————————————————————————————————————————————————————————————————
+export const deleteBookmark = async (bookmarkId: string) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
+  await Bookmark.findByIdAndDelete(bookmarkId);
+};
+
+// ——— PATCH /archived/:id —————————————————————————————————————————————————————————————————————————
+export const updateIsArchived = async (bookmarkId: string) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
+
+  if (!bookmark.pinned) {
+    await Bookmark.findByIdAndUpdate(bookmarkId, {
+      isArchived: !bookmark.isArchived,
+    });
+    return;
+  }
+
+  await Bookmark.findByIdAndUpdate(bookmarkId, {
+    pinned: false,
+    isArchived: true,
   });
 };
 
-export const deleteBookmark: TFnNeedsId = async (id) => {
-  await searchBookmark(id);
-  await Bookmark.findByIdAndDelete(id);
+// ——— PATCH /pinned/:id ———————————————————————————————————————————————————————————————————————————
+export const updatePinned = async (bookmarkId: string) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
+  await Bookmark.findByIdAndUpdate(bookmarkId, { pinned: !bookmark.pinned });
+};
+
+// ——— PATCH /visit-count/:id ——————————————————————————————————————————————————————————————————————
+export const increaseVisitCount = async (bookmarkId: string) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
+  await Bookmark.findByIdAndUpdate(bookmarkId, {
+    visitCount: bookmark.visitCount + 1,
+    lastVisited: Date.now(),
+  });
 };
