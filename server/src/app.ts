@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bookmarkRoutes from "./routes/bookmark.route.js";
 import { corsOptions } from "./config/corsOptions.js";
-import { errorHandler } from "./middleware/errorHandler.js";
+import { errorHandler } from "@/shared/middleware/errorHandler.js";
 
 const app = express();
 
