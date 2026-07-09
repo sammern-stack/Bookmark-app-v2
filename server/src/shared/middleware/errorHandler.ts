@@ -3,7 +3,7 @@
 //—————————————————————————————————————————————————————————————————
 
 import type { Request, Response, NextFunction } from "express";
-import { AppError } from "../../utils/AppError.js";
+import { AppError } from "@/shared/utils/customErrors.js";
 
 //—————————————————————————————————————————————————————————————————
 // Types

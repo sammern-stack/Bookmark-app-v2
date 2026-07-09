@@ -1,4 +1,4 @@
-import { AppError } from "@/utils/AppError.js";
+import { AppError } from "@/shared/utils/customErrors.js";
 import { isMongooseId } from "@/shared/utils/validators.js";
 import type { Model, QueryFilter } from "mongoose";
 

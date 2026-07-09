@@ -1,9 +1,8 @@
 import type { Response, Request } from "express";
 import * as bookmarkService from "./bookmark.service.js";
 
-import { AppError } from "@/utils/AppError.js";
-import { asyncHandler } from "@/utils/asyncHandler.js";
-import { sendSuccess } from "@/utils/apiResponse.js";
+import { asyncHandler } from "@/shared/utils/asyncHandler.js";
+import { sendSuccess } from "@/shared/utils/apiResponse.js";
 
 import type {
   GetAllRequest,
@@ -21,63 +20,51 @@ import type {
 export const getBookmarks = asyncHandler(
   async (req: GetAllRequest<BookmarkFilterQuery>, res: Response) => {
     const bookmarks = await bookmarkService.getBookmarks(req.query);
-    sendSuccess(res, bookmarks, 200);
+    sendSuccess(res, 200, "Bookmarks fetched successfully", bookmarks);
   },
 );
 
 export const createBookmark = asyncHandler(
   async (req: CreateRequest<BookmarkCreateBody>, res: Response) => {
     const bookmark = await bookmarkService.createBookmark(req.body);
-    sendSuccess(res, bookmark, 200);
-  },
-);
-
-export const updateIsArchived = asyncHandler(
-  async (req: GetOneRequest, res: Response) => {
-    const { id } = req.params;
-    if (!id) throw new AppError("Id isn't present in params", 400);
-
-    await bookmarkService.updateIsArchived(id);
-    sendSuccess(res, {}, 200);
-  },
-);
-
-export const updatePinned = asyncHandler(
-  async (req: GetOneRequest, res: Response) => {
-    const { id } = req.params;
-    if (!id) throw new AppError("Id isn't present in params", 400);
-
-    await bookmarkService.updatePinned(id);
-    sendSuccess(res, {}, 200);
+    sendSuccess(res, 200, "Bookmark created successfully", bookmark);
   },
 );
 
 export const updateBookmark = asyncHandler(
   async (req: UpdateRequest<BookmarkUpdateBody>, res: Response) => {
-    const { id } = req.params;
-    if (!id) throw new AppError("Id isn't present in params", 400);
-
-    const updatedBookmark = await bookmarkService.updateBookmark(id, req.body);
-    sendSuccess(res, updatedBookmark, 200);
+    const updatedBookmark = await bookmarkService.updateBookmark(
+      req.params.id!,
+      req.body,
+    );
+    sendSuccess(res, 200, "Bookmark updated successfully", updatedBookmark);
   },
 );
 
 export const deleteBookmark = asyncHandler(
   async (req: DeleteRequest, res: Response) => {
-    const { id } = req.params;
-    if (!id) throw new AppError("Id isn't present in params", 400);
+    await bookmarkService.deleteBookmark(req.params.id!);
+    sendSuccess(res, 200, "Bookmark deleted successfully", {});
+  },
+);
 
-    await bookmarkService.deleteBookmark(id);
-    sendSuccess(res, {}, 200);
+export const updateIsArchived = asyncHandler(
+  async (req: GetOneRequest, res: Response) => {
+    await bookmarkService.updateIsArchived(req.params.id!);
+    sendSuccess(res, 200, "Bookmark archived status updated successfully", {});
+  },
+);
+
+export const updatePinned = asyncHandler(
+  async (req: GetOneRequest, res: Response) => {
+    await bookmarkService.updatePinned(req.params.id!);
+    sendSuccess(res, 200, "Bookmark pinned status updated successfully", {});
   },
 );
 
 export const increaseVisitCount = asyncHandler(
   async (req: GetOneRequest, res: Response) => {
-    const { id } = req.params;
-    if (!id) throw new AppError("Id isn't present in params", 400);
-
-    await bookmarkService.increaseVisitCount(id);
-    sendSuccess(res, {}, 200);
+    await bookmarkService.increaseVisitCount(req.params.id!);
+    sendSuccess(res, 200, "Bookmark visit count increased successfully", {});
   },
 );

@@ -1,6 +1,6 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
 import Bookmark from "./Bookmark.model.js";
-import { AppError } from "@/utils/AppError.js";
+import { AppError } from "@/shared/utils/customErrors.js";
 import { searchDocument } from "@/shared/utils/searchDocument.js";
 import type {
   BookmarkFilterQuery,
