@@ -1,4 +1,4 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .home {
   &__sidebar {
@@ -61,12 +61,12 @@
 
   &__tags-title {
     text-transform: uppercase;
-    font: $manrope-3;
+    font: var(--manrope-3);
   }
 
   &__tags-reset {
     text-decoration: underline;
-    font: $manrope-4-medium;
+    font: var(--manrope-4-medium);
     letter-spacing: 1%;
     color: inherit;
   }

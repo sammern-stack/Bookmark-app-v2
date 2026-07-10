@@ -1,4 +1,4 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .bookmark-form {
   position: absolute;
@@ -26,12 +26,12 @@
   }
 
   &__title {
-    font: $manrope-1;
+    font: var(--manrope-1);
     color: var(--primary-text-color);
   }
 
   &__description {
-    font: $manrope-4-medium;
+    font: var(--manrope-4-medium);
     color: var(--secondary-text-color);
   }
 
@@ -51,7 +51,7 @@
       padding: 12px;
       border-radius: 8px;
       border: 1px solid var(--form-stroke);
-      font: $manrope-4-medium;
+      font: var(--manrope-4-medium);
       color: var(--primary-text-color);
       background: transparent;
     }
@@ -63,14 +63,14 @@
   }
 
   &__label {
-    font: $manrope-4;
+    font: var(--manrope-4);
     color: var(--primary-text-color);
   }
 
   &__error {
-    font: $manrope-4;
+    font: var(--manrope-4);
     font-style: italic;
-    color: $red-800;
+    color: var(--red-800);
   }
 
   &__actions {

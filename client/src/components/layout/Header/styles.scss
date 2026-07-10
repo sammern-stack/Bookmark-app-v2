@@ -1,4 +1,4 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .home {
   &__header {
@@ -15,7 +15,7 @@
     padding: 12px;
     border: 1px solid var(--layout-stroke);
     border-radius: 8px;
-    font: $manrope-4-medium;
+    font: var(--manrope-4-medium);
     color: var(--secondary-text-color);
 
     & > input {
@@ -64,7 +64,7 @@
     border-radius: 8px;
     @include linear-border;
     color: var(--secondary-text-color);
-    font: $manrope-4;
+    font: var(--manrope-4);
     z-index: 10;
   }
 
@@ -80,7 +80,7 @@
     border-radius: 8px;
     @include linear-border;
     color: var(--secondary-text-color);
-    font: $manrope-4;
+    font: var(--manrope-4);
     z-index: 10;
   }
 
@@ -95,7 +95,7 @@
   }
 
   &__profile-email {
-    font: $manrope-4-medium;
+    font: var(--manrope-4-medium);
     color: var(--secondary-text-color);
   }
 

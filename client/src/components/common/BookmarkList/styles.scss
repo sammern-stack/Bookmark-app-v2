@@ -1,4 +1,4 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .bookmark {
   height: 320px;
@@ -37,12 +37,12 @@
   }
 
   &__title {
-    font: $manrope-2;
+    font: var(--manrope-2);
     color: var(--primary-text-color);
   }
 
   &__url {
-    font: $manrope-5;
+    font: var(--manrope-5);
     color: var(--secondary-text-color);
   }
 
@@ -73,7 +73,7 @@
     padding: 8px;
     background: var(--primary-background);
     color: var(--secondary-text-color);
-    font: $manrope-4;
+    font: var(--manrope-4);
     border: 1px solid var(--btn-stroke);
     border-radius: 8px;
     width: 200px;
@@ -96,7 +96,7 @@
   &__description {
     flex: 1;
     overflow-y: hidden;
-    font: $manrope-4-medium;
+    font: var(--manrope-4-medium);
     color: var(--secondary-text-color);
   }
 
@@ -108,7 +108,7 @@
     padding: 2px 8px;
     border-radius: 4px;
     background: var(--secondary-background);
-    font: $manrope-5;
+    font: var(--manrope-5);
     color: var(--secondary-text-color);
   }
 
@@ -118,7 +118,7 @@
     align-items: center;
     padding: 12px 16px;
     border-top: 1px solid var(--layout-stroke);
-    font: $manrope-5;
+    font: var(--manrope-5);
     color: var(--secondary-text-color);
   }
 

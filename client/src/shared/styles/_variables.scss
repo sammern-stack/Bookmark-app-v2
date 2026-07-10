@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
 // ——— BASE COLORS —————————————————————————————————————————————————————————————
 $neutral-0: #ffffff;
 
@@ -39,6 +41,25 @@ $manrope-4: 600 14px/140% #{$font};
 $manrope-4-medium: 500 14px/150% #{$font};
 
 $manrope-5: 500 12px/140% #{$font};
+
+:root {
+  --font-family: "Manrope", sans-serif;
+
+  --manrope-1: 700 24px/140% var(--font-family);
+  --manrope-2: 700 20px/120% var(--font-family);
+  --manrope-2-semibold: 600 20px/120% var(--font-family);
+  --manrope-3: 600 16px/140% var(--font-family);
+  --manrope-3-medium: 500 16px/130% var(--font-family);
+  --manrope-4: 600 14px/140% var(--font-family);
+  --manrope-4-medium: 500 14px/150% var(--font-family);
+  --manrope-5: 500 12px/140% var(--font-family);
+
+  --neutral-0: #ffffff;
+  --teal-700: #014745;
+  --teal-800: #013c3b;
+  --red-600: #fd4740;
+  --red-800: #cb0a04;
+}
 
 // ——— APPS STYLES —————————————————————————————————————————————————————————————
 :root[data-theme="light"] {

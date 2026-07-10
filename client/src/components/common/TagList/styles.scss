@@ -1,11 +1,10 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .home {
   &__tag {
     padding: 2px 0;
-    font: $manrope-3;
+    font: var(--manrope-3);
     color: var(--secondary-text-color);
-
 
     &--wrapper {
       padding: 8px 12px;
@@ -35,7 +34,7 @@
       cursor: pointer;
 
       &:checked {
-        background: $teal-700 url(../../../assets/images/icon-check.svg);
+        background: var(--teal-700) url(../../../assets/images/icon-check.svg);
       }
     }
 

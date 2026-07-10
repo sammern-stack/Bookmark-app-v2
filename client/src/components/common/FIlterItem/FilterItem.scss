@@ -1,8 +1,8 @@
-@use "../../../styles/globals" as *;
+@use "../../../shared/styles/mixins" as *;
 
 .home {
   &__filter {
-    font: $manrope-3;
+    font: var(--manrope-3);
     color: var(--secondary-text-color);
     padding: 2px 0;
     cursor: pointer;
