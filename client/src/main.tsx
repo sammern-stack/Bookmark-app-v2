@@ -1,16 +1,14 @@
-// ——— Imports —————————————————————————————————————————————————————————————————
+import "./index.scss";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-
-import "./index.scss";
-
+import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
 
-// ——— Root ————————————————————————————————————————————————————————————————————
-const root = document.getElementById("root");
-
-createRoot(root!).render(
+const root = document.getElementById("root")!;
+createRoot(root).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 );

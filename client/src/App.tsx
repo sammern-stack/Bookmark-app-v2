@@ -1,6 +1,6 @@
 // ——— Imports —————————————————————————————————————————————————————————————————
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 
 import { AppLoader } from "./components/common";
 
@@ -10,13 +10,11 @@ const HomePage = lazy(() => import("./pages/Home/Home"));
 // ——— App Component ———————————————————————————————————————————————————————————
 const App = () => {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<AppLoader />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <Suspense fallback={<AppLoader />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Suspense>
   );
 };
 
