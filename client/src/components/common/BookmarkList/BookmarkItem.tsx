@@ -1,7 +1,7 @@
 import type { BookmarkModel } from "@/types";
 import { Dropdown, Icon, Label } from "@/components/shared";
 import { BookmarkMenu } from "./BookmarkMenu";
-import { formatDate, formatUrl } from "@utils/formatters";
+import { formatDate, formatUrl } from "@/shared/utils/formatters";
 import "./styles.scss";
 
 interface BookmarkItemProps {
