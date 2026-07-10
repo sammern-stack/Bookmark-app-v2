@@ -1,24 +1,24 @@
 import { useStartApp } from "@/hooks";
-
+import { useState } from "react";
 import {
   Bookmarks,
-  Header,
   Toast,
   CreateBookmarkForm,
   UpdateBookmarkForm,
 } from "@/components/layout";
-import { BookmarkSidebar } from "@/layout";
+import { BookmarkSidebar, PageHeader } from "@/layout";
 
 import "./Home.scss";
 
 const Home = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   useStartApp();
 
   return (
     <div className="home">
-      <BookmarkSidebar />
+      <BookmarkSidebar isOpen={isSidebarOpen} />
       <div className="home__main-content">
-        <Header />
+        <PageHeader setSidebarOpen={setIsSidebarOpen} />
         <Bookmarks />
       </div>
       <Toast />

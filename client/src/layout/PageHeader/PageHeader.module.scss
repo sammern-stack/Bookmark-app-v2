@@ -1,0 +1,36 @@
+@use "../../shared/styles/mixins" as *;
+
+.pageHeader {
+  padding: 16px 32px;
+  @include flex-gap(16px);
+  align-items: center;
+  @include layout-styles(bottom);
+
+  &__hamburgerMenu {
+    padding: 12px;
+    border: 1px solid var(--layout-stroke);
+    border-radius: 8px;
+    color: var(--primary-text-color);
+  }
+
+  &__profile {
+    anchor-name: --profile;
+    display: inline-block;
+
+    [data-dropdown="menu"] {
+      position: absolute;
+      position-anchor: --profile;
+      top: anchor(bottom);
+      right: anchor(right);
+      width: 248px;
+      margin-top: 15px;
+      background: var(--primary-background);
+      @include flex-gap(4px, column);
+      border-radius: 8px;
+      @include linear-border;
+      color: var(--secondary-text-color);
+      font: var(--manrope-4);
+      z-index: 10;
+    }
+  }
+}

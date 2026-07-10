@@ -1,0 +1,17 @@
+@use "../../../../shared/styles/mixins" as *;
+
+.profileInfo {
+  @include flex-gap(12px);
+  align-items: center;
+  padding: 12px 16px;
+
+  &__username {
+    font: inherit;
+    color: var(--primary-text-color);
+  }
+
+  &__email {
+    font: var(--manrope-4-medium);
+    color: var(--secondary-text-color);
+  }
+}

@@ -1,0 +1,28 @@
+@use "../../../../shared/styles/mixins" as *;
+
+.searchbar {
+  flex: 1;
+
+  [data-stacked-container="true"] {
+    width: 320px;
+    @include flex-gap(8px);
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--layout-stroke);
+    border-radius: 8px;
+    font: var(--manrope-4-medium);
+    color: var(--secondary-text-color);
+    background: var(--search-background);
+
+    > input {
+      border: none;
+      flex: 1;
+      background: transparent;
+      color: inherit;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.themeSwitch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 12px;
+  gap: 10px;
+  border-top: 1px solid var(--profile-menu-stroke);
+  border-bottom: 1px solid var(--profile-menu-stroke);
+
+  &__text {
+    flex: 1;
+    text-align: left;
+  }
+
+  &__control {
+    display: flex;
+    padding: 2px;
+    border-radius: 4px;
+    background: var(--theme-background);
+
+    & > * {
+      color: var(--primary-text-color);
+      padding: 6px 8px;
+      border-radius: 4px;
+    }
+  }
+
+  &--active {
+    background: var(--primary-background);
+  }
+}
