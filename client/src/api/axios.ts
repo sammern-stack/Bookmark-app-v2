@@ -4,7 +4,7 @@ import qs from "qs";
 
 // ——— Axios Instance ——————————————————————————————————————————————————————————
 const api = axios.create({
-  baseURL: "http://localhost:3001/api/bookmarks",
+  baseURL: "http://localhost:3001/api/bookmark",
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
