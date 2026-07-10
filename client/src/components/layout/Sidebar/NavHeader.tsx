@@ -1,22 +1,17 @@
-// ——— Imports —————————————————————————————————————————————————————————————————
-import { PageLogo } from "@/components/shared";
-import { Icon } from "@/components/shared";
+import { AppLogo } from "@/shared/components";
+import CloseIcon from "@/assets/images/icon-close.svg?react";
 import "./styles.scss";
 
 // ——— Component ———————————————————————————————————————————————————————————————
 export const NavHeader = () => {
   const isDesktop = false;
 
-  const renderCloseBtn = () => {
-    if (!isDesktop) return undefined;
-    return <Icon name="icon-close" />;
-  };
-
   return (
     <div className="home__nav-header">
-      <PageLogo />
-
-      <div className="home__nav-close">{renderCloseBtn()}</div>
+      <AppLogo />
+      <div className="home__nav-close">
+        {isDesktop ? <CloseIcon /> : undefined}
+      </div>
     </div>
   );
 };
