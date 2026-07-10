@@ -1,12 +1,12 @@
-import { Container } from "@/components/shared";
-import "./styles.scss";
+import styles from "./TagFilter.module.scss";
+import { Container } from "@/shared/components";
 import { useFiltersStore } from "@/stores";
 
-interface TagItemProps {
+interface TagFilterProps {
   tag: [string, number];
 }
 
-export const TagItem = ({ tag }: TagItemProps) => {
+export const TagFilter = ({ tag }: TagFilterProps) => {
   const tagFilters = useFiltersStore((s) => s.tagFilters);
   const addTagFilter = useFiltersStore((s) => s.addTagFilter);
   const removeTagFilter = useFiltersStore((s) => s.removeTagFilter);
@@ -20,8 +20,8 @@ export const TagItem = ({ tag }: TagItemProps) => {
   };
 
   return (
-    <Container className="home__tag" variant="simple">
-      <div className="home__tag-header">
+    <Container className={styles.tag} variant="stacked">
+      <div className={styles.tag__header}>
         <input
           type="checkbox"
           id={`select-tag--${tagValue}`}
@@ -29,12 +29,15 @@ export const TagItem = ({ tag }: TagItemProps) => {
           onChange={(e) => handleApplyTagFilter(e)}
         />
 
-        <label className="home__tag-title" htmlFor={`select-tag--${tagValue}`}>
+        <label
+          className={styles.tag__title}
+          htmlFor={`select-tag--${tagValue}`}
+        >
           {tagValue}
         </label>
       </div>
 
-      <div className="home__tag-total">{tagCount}</div>
+      <div className={styles.tag__total}>{tagCount}</div>
     </Container>
   );
 };

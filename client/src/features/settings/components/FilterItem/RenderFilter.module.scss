@@ -1,0 +1,20 @@
+@use "../../../../shared/styles/mixins" as *;
+
+.renderFilter {
+  font: var(--manrope-3);
+  color: var(--secondary-text-color);
+  padding: 2px 0;
+  cursor: pointer;
+
+  &--active > [data-stacked-container="true"] {
+    background: var(--surface-background);
+    color: var(--primary-text-color);
+  }
+
+  [data-stacked-container="true"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    @include flex-gap(8px);
+    align-items: center;
+  }
+}

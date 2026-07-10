@@ -3,11 +3,11 @@ import { useStartApp } from "@/hooks";
 import {
   Bookmarks,
   Header,
-  Sidebar,
   Toast,
   CreateBookmarkForm,
-  UpdateBookmarkForm
+  UpdateBookmarkForm,
 } from "@/components/layout";
+import { BookmarkSidebar } from "@/layout";
 
 import "./Home.scss";
 
@@ -16,14 +16,11 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Sidebar />
-
+      <BookmarkSidebar />
       <div className="home__main-content">
         <Header />
-
         <Bookmarks />
       </div>
-
       <Toast />
       <CreateBookmarkForm />
       <UpdateBookmarkForm />

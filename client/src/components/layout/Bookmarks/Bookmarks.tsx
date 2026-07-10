@@ -1,7 +1,8 @@
 import { useBookmarksStore } from "@/stores";
 import { SortByItem } from "./SortByItem";
 import { BookmarkItem } from "@/components/common";
-import { Dropdown, Icon, List } from "@/components/shared";
+import { Dropdown, Icon } from "@/components/shared";
+import { List } from "@/shared/components";
 import "./styles.scss";
 
 export const Bookmarks = () => {
@@ -44,11 +45,9 @@ export const Bookmarks = () => {
         />
       </div>
 
-      <List
-        className="home__bookmark-grid"
-        list={bookmarks}
-        render={(b) => <BookmarkItem bookmark={b} />}
-      />
+      <List className="home__bookmark-grid" list={bookmarks}>
+        {(b) => <BookmarkItem bookmark={b} />}
+      </List>
     </div>
   );
 };

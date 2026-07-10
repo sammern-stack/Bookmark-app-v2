@@ -8,6 +8,10 @@ export const formatDate = (date: string) => {
 };
 
 export const formatUrl = (url: string) => {
-  const urlProtocol = url.split("://")[0]
+  const urlProtocol = url.split("://")[0];
   return url.split(`${urlProtocol}://`)[1];
+};
+
+export const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
