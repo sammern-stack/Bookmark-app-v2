@@ -15,3 +15,16 @@ export const formatUrl = (url: string) => {
 export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+/**
+ * The api expects the tags to be in the form of an array,
+ * so this function is used to convert the string into the required format.
+ * @param tags the string containing the tags of the selected bookmark
+ * @returns tags in the form of an array
+ */
+export const normalizeTags = (tags: string) => {
+  return tags
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+};
