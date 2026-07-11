@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 
 import {
   getBookmarksRequest,
+  getBookmarkRequest,
   createBookmarkRequest,
   updateIsArchivedRequest,
   deleteBookmarkRequest,
@@ -49,6 +50,7 @@ interface BookmarksStore {
 
   // Helper
   fetchBookmarks: (query?: Record<string, unknown>) => Promise<BookmarkModel[]>;
+  fetchBookmark: (id: string) => Promise<BookmarkModel>;
   syncBookmarks: () => Promise<void>;
   runApiRequest: <A extends unknown[], T>(
     fn: (...args: A) => Promise<ApiResponse<T>>,
@@ -107,6 +109,12 @@ export const useBookmarksStore = create<BookmarksStore>()(
       // Helpers
       fetchBookmarks: async (query) => {
         const res = await getBookmarksRequest(query ?? {});
+        if (!res.ok) throw new Error(res.message);
+        return res.data;
+      },
+
+      fetchBookmark: async (id) => {
+        const res = await getBookmarkRequest(id);
         if (!res.ok) throw new Error(res.message);
         return res.data;
       },
