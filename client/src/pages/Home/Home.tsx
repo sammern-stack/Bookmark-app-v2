@@ -1,11 +1,8 @@
 import { useStartApp } from "@/hooks";
 import { useState } from "react";
-import {
-  Toast,
-  CreateBookmarkForm,
-  UpdateBookmarkForm,
-} from "@/components/layout";
+import { Toast } from "@/shared/components";
 import { BookmarkSidebar, BookmarkContent, PageHeader } from "@/layout";
+import { CreateBookmarkForm, UpdateBookmarkForm } from "@/features/bookmark";
 
 import "./Home.scss";
 
