@@ -1,22 +1,21 @@
 import { Router } from "express";
-
-import {
-  getBookmarks,
-  createBookmark,
-  updateIsArchived,
-  updatePinned,
-  updateBookmark,
-  increaseVisitCount,
-  deleteBookmark,
-} from "./bookmark.controller.js";
+import * as bookmarkController from "./bookmark.controller.js";
 
 const router = Router();
 
-router.route("/").get(getBookmarks).post(createBookmark);
-router.route("/:id").delete(deleteBookmark).put(updateBookmark);
+router
+  .route("/")
+  .get(bookmarkController.getBookmarks)
+  .post(bookmarkController.createBookmark);
 
-router.patch("/archive/:id", updateIsArchived);
-router.patch("/pin/:id", updatePinned);
-router.patch("/visit-count/:id", increaseVisitCount);
+router
+  .route("/:id")
+  .get(bookmarkController.getBookmark)
+  .delete(bookmarkController.deleteBookmark)
+  .put(bookmarkController.updateBookmark);
+
+router.patch("/archive/:id", bookmarkController.updateIsArchived);
+router.patch("/pin/:id", bookmarkController.updatePinned);
+router.patch("/visit-count/:id", bookmarkController.increaseVisitCount);
 
 export default router;

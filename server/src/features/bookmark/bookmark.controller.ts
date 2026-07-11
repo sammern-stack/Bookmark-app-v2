@@ -24,6 +24,13 @@ export const getBookmarks = asyncHandler(
   },
 );
 
+export const getBookmark = asyncHandler(
+  async (req: GetOneRequest, res: Response) => {
+    const bookmark = await bookmarkService.getBookmarkById(req.params.id!);
+    sendSuccess(res, 200, "Bookmark fetched successfully", bookmark);
+  },
+);
+
 export const createBookmark = asyncHandler(
   async (req: CreateRequest<BookmarkCreateBody>, res: Response) => {
     const bookmark = await bookmarkService.createBookmark(req.body);

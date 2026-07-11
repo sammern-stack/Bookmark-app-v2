@@ -18,6 +18,12 @@ export const getBookmarks = async (filters: BookmarkFilterQuery) => {
   return await Bookmark.find(query);
 };
 
+export const getBookmarkById = async (bookmarkId: string) => {
+  const bookmark = await searchDocument(bookmarkId, Bookmark);
+  if (!bookmark) throw new AppError("Bookmark was not found", 404);
+  return bookmark;
+};
+
 // ——— POST / ——————————————————————————————————————————————————————————————————————————————————————
 export const createBookmark = async (bookmark: BookmarkCreateBody) => {
   const urlExists = await searchDocument({ url: bookmark.url }, Bookmark);
