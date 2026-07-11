@@ -2,8 +2,14 @@
 
 .home {
   flex: 1;
+  display: grid;
+  grid-template-areas:
+  "sidebar header"
+  "sidebar main";
+  grid-template-columns: 296px 1fr;
+  grid-template-rows: auto 1fr;
   min-height: 0;
-  display: flex;
+
 
   &__main-content {
     flex: 1;

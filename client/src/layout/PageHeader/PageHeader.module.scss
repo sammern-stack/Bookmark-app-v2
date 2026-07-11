@@ -1,6 +1,7 @@
 @use "../../shared/styles/mixins" as *;
 
 .pageHeader {
+  grid-area: header;
   padding: 16px 32px;
   @include flex-gap(16px);
   align-items: center;

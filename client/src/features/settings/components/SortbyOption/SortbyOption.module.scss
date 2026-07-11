@@ -1,0 +1,10 @@
+.sortByOption {
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+
+  & > span {
+    flex: 1;
+  }
+}

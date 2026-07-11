@@ -1,0 +1,65 @@
+@use "../../shared/styles/mixins" as *;
+
+.bookmarkContent {
+  grid-area: main;
+  flex: 1;
+  @include flex-gap(20px, column);
+  min-height: 0;
+  padding: 32px 32px 64px 32px;
+  background: var(--secondary-background);
+
+  &__header {
+    @include flex-gap(16px);
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__sortBy {
+    @include flex-gap(4px);
+    color: var(--text-color);
+
+    [data-dropdown="toggle"] {
+      position: relative;
+      anchor-name: --sort-by;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--primary-background);
+      border: 1px solid var(--layout-stroke);
+      font: var(--manrope-3);
+    }
+
+    [data-dropdown="menu"] {
+      position: absolute;
+      position-anchor: --sort-by;
+      top: anchor(bottom);
+      right: anchor(right);
+      margin-top: 8px;
+      width: 200px;
+      border-radius: 8px;
+      padding: 8px;
+      @include flex-gap(4px, column);
+      background: var(--primary-background);
+      border: 1px solid var(--layout-stroke);
+      font: var(--manrope-4);
+      color: var(--secondary-text-color);
+      z-index: 10;
+    }
+  }
+
+  &__bookmarkGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(338px, 1fr));
+    gap: 30px;
+    padding-bottom: 32px;
+    overflow-y: auto;
+
+    & > * {
+      min-height: 0;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

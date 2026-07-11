@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 interface DropdownProps {
   className: string;
   toggle: React.ReactElement;
-  children: React.ReactElement[];
+  children: (false | React.ReactElement)[] | React.ReactElement;
 }
 
 export const Dropdown = (props: DropdownProps) => {

@@ -1,9 +1,11 @@
-@use "../../../shared/styles/mixins" as *;
+@use "../../../../shared/styles/mixins" as *;
 
 .bookmark {
   height: 320px;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   background: var(--primary-background);
   border-radius: 12px;
   box-shadow: 0px 4px 4px 0px rgb(0 0 0 / 0.25);
@@ -19,16 +21,17 @@
     background-size: 55px 55px;
   }
 
-  &__content {
-    flex: 1;
-    @include flex-gap(16px, column);
-    padding: 16px;
-    border-radius: 10px;
-  }
+  // &__content {
+  //   flex: 1;
+  //   @include flex-gap(16px, column);
+  //   padding: 16px;
+  //   border-radius: 10px;
+  // }
 
   &__header {
     @include flex-gap(12px);
     align-items: center;
+    padding: 16px;
   }
 
   &__info {
@@ -46,62 +49,23 @@
     color: var(--secondary-text-color);
   }
 
-  &__menu {
-    position: relative;
-    align-self: flex-start;
-    border-radius: 8px;
-    border: 1px solid var(--layout-stroke);
-  }
-
-  &__toggle-menu {
-    padding: 8px;
-    cursor: pointer;
-    border-radius: 8px;
-    color: var(--primary-text-color);
-
-    &:hover {
-      background: var(--secondary-background);
-    }
-  }
-
-  &__dropdown-menu {
-    position: absolute;
-    top: calc(100% + 15px);
-    right: 0;
-    z-index: 1;
-    @include flex-gap(4px, column);
-    padding: 8px;
-    background: var(--primary-background);
-    color: var(--secondary-text-color);
-    font: var(--manrope-4);
-    border: 1px solid var(--btn-stroke);
-    border-radius: 8px;
-    width: 200px;
-  }
-
-  &__menu-item {
-    @include flex-gap(10px);
-    border-radius: 6px;
-    align-items: center;
-    padding: 8px;
-    cursor: pointer;
-  }
-
   &__divider {
-    width: 100%;
     min-height: 1px;
     background: var(--layout-stroke);
+    margin: 0px 16px;
   }
 
   &__description {
-    flex: 1;
     overflow-y: hidden;
     font: var(--manrope-4-medium);
     color: var(--secondary-text-color);
+    padding: 10px;
   }
 
   &__tags {
     @include flex-gap(8px);
+    flex-wrap: wrap;
+    padding: 8px;
   }
 
   &__tag {

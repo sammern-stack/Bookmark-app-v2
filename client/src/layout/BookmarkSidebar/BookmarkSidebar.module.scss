@@ -1,6 +1,7 @@
 @use "../../shared/styles/mixins" as *;
 
 .bookmarkSidebar {
+  grid-area: sidebar;
   width: 296px;
   display: flex;
   flex-direction: column;
@@ -8,9 +9,8 @@
   @include layout-styles(right);
   color: var(--text-color);
 
-  [data-stacked-container="true"] {
+  > [data-stacked-container="true"] {
     flex: 1;
-    // @include flex-gap(16px, column);
     min-height: 0;
     padding: 0 16px 20px 16px;
   }

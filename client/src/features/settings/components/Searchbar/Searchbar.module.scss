@@ -3,7 +3,7 @@
 .searchbar {
   flex: 1;
 
-  [data-stacked-container="true"] {
+  > [data-stacked-container="true"] {
     width: 320px;
     @include flex-gap(8px);
     align-items: center;

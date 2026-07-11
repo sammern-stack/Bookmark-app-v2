@@ -1,0 +1,42 @@
+@use "../../../../shared/styles/mixins" as *;
+
+.bookmarkMenu {
+  position: relative;
+  align-self: flex-start;
+  border-radius: 8px;
+  border: 1px solid var(--layout-stroke);
+
+  > [data-dropdown="toggle"] {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--primary-text-color);
+
+    &:hover {
+      background: var(--secondary-background);
+    }
+  }
+
+  > [data-dropdown="menu"] {
+    position: absolute;
+    top: calc(100% + 15px);
+    right: 0;
+    z-index: 1;
+    @include flex-gap(4px, column);
+    padding: 8px;
+    background: var(--primary-background);
+    color: var(--secondary-text-color);
+    font: var(--manrope-4);
+    border: 1px solid var(--btn-stroke);
+    border-radius: 8px;
+    width: 200px;
+  }
+
+  &__item {
+    @include flex-gap(10px);
+    border-radius: 6px;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+}

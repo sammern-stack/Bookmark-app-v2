@@ -11,7 +11,7 @@
     color: var(--primary-text-color);
   }
 
-  [data-stacked-container="true"] {
+  > [data-stacked-container="true"] {
     padding: 8px 12px;
     border-radius: 6px;
     @include flex-gap(8px);

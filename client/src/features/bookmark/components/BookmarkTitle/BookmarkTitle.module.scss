@@ -1,0 +1,9 @@
+.bookmarkTitle {
+  flex: 1;
+  font: var(--manrope-1);
+  color: var(--primary-text-color);
+
+  & > span:last-child {
+    color: var(--secondary-text-color);
+  }
+}

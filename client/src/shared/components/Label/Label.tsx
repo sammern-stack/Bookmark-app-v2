@@ -1,17 +1,16 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
-import { Icon } from "./Icon";
 
 type LabelProps<T extends ElementType> = {
   as?: T;
   className?: string;
-  label: string | number;
-  icon?: string;
+  children: string | number;
+  icon?: React.ReactNode;
 } & ComponentPropsWithoutRef<T>;
 
 export const Label = <T extends ElementType>({
   as,
   className,
-  label,
+  children,
   icon,
   ...props
 }: LabelProps<T>) => {
@@ -19,8 +18,8 @@ export const Label = <T extends ElementType>({
 
   return (
     <Component className={className} {...props}>
-      {icon && <Icon name={icon} />}
-      {label}
+      {icon && icon}
+      {children}
     </Component>
   );
 };

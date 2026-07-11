@@ -1,12 +1,11 @@
 import { useStartApp } from "@/hooks";
 import { useState } from "react";
 import {
-  Bookmarks,
   Toast,
   CreateBookmarkForm,
   UpdateBookmarkForm,
 } from "@/components/layout";
-import { BookmarkSidebar, PageHeader } from "@/layout";
+import { BookmarkSidebar, BookmarkContent, PageHeader } from "@/layout";
 
 import "./Home.scss";
 
@@ -17,13 +16,11 @@ const Home = () => {
   return (
     <div className="home">
       <BookmarkSidebar isOpen={isSidebarOpen} />
-      <div className="home__main-content">
-        <PageHeader setSidebarOpen={setIsSidebarOpen} />
-        <Bookmarks />
-      </div>
-      <Toast />
+      <PageHeader setSidebarOpen={setIsSidebarOpen} />
+      <BookmarkContent />
       <CreateBookmarkForm />
       <UpdateBookmarkForm />
+      <Toast />
     </div>
   );
 };

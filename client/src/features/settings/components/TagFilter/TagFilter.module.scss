@@ -5,7 +5,7 @@
   font: var(--manrope-3);
   color: var(--secondary-text-color);
 
-  [data-stacked-container="true"] {
+  > [data-stacked-container="true"] {
     padding: 8px 12px;
     @include flex-gap(12px);
     border-radius: 6px;
