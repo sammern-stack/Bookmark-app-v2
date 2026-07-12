@@ -10,11 +10,16 @@ interface ThemeStore {
 
 export const useThemeStore = create<ThemeStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       theme: "light",
       toggleTheme: () =>
-        set({ theme: get().theme === "light" ? "dark" : "light" }),
+        set((s) => ({
+          theme: s.theme === "light" ? "dark" : "light",
+        })),
     }),
-    { name: "theme" },
+    {
+      name: "theme",
+      partialize: (s) => ({ theme: s.theme }),
+    },
   ),
 );

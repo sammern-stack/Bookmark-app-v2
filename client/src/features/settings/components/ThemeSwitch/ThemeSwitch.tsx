@@ -1,5 +1,5 @@
 import styles from "./ThemeSwitch.module.scss";
-import { useThemeStore } from "@/stores";
+import { useThemeStore } from "@/shared/stores";
 import ThemeIcon from "@/assets/images/icon-theme.svg";
 import LightThemeIcon from "@/assets/images/icon-light-theme.svg";
 import DarkThemeIcon from "@/assets/images/icon-dark-theme.svg";
