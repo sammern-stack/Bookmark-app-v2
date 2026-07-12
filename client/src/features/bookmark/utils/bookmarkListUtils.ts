@@ -1,5 +1,5 @@
 import { toTimestamp } from "@/shared/utils/date";
-import type { SortBy } from "@/stores/useFiltersStore";
+import type { SortBy } from "@/features/settings/stores/filterStore";
 import type { BookmarkSchema } from "../types";
 
 export const sortBookmarks = (bookmarks: BookmarkSchema[], sortby: SortBy) => {

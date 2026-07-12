@@ -1,5 +1,5 @@
 import styles from "./BookmarkMenu.module.scss";
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 import { useUIVisibilityStore } from "@/shared/stores";
 import {
   useDeleteBookmark,
@@ -10,10 +10,10 @@ import {
 import { Dropdown } from "@/shared/components";
 import { BookmarkMenuItem } from "./BookmarkMenuItem";
 import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
-import type { BookmarkModel } from "@/types";
+import type { BookmarkSchema } from "../../types";
 
 interface BookmarkMenuProps {
-  bookmark: BookmarkModel;
+  bookmark: BookmarkSchema;
 }
 
 export type MenuIds =

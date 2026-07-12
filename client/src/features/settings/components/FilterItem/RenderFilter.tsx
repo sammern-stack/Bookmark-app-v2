@@ -1,5 +1,6 @@
 import styles from "./RenderFilter.module.scss";
-import { useFiltersStore, useBookmarksStore } from "@/stores";
+import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
+import { useFiltersStore } from "@/features/settings/stores/filterStore";
 import { Container } from "@/shared/components";
 import { capitalize } from "@/shared/utils/formatters";
 import HomeIcon from "@/assets/images/icon-home.svg";

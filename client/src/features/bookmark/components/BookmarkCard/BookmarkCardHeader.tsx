@@ -2,10 +2,10 @@ import styles from "./BookmarkCard.module.scss";
 import { BookmarkMenu } from "../BookmarkMenu/BookmarkMenu";
 import { Label } from "@/shared/components";
 import { formatUrl } from "@/shared/utils/formatters";
-import type { BookmarkModel } from "@/types";
+import type { BookmarkSchema } from "../../types";
 
 interface BookmarkCardHeaderProps {
-  bookmark: BookmarkModel;
+  bookmark: BookmarkSchema;
 }
 
 export const BookmarkCardHeader = ({

@@ -1,6 +1,6 @@
 import styles from "./BookmarkContent.module.scss";
 import { useMemo } from "react";
-import { useFiltersStore } from "@/stores";
+import { useFiltersStore } from "@/features/settings/stores/filterStore";
 
 import { useBookmarks } from "@/features/bookmark/hooks/useBookmarks";
 import { useBookmarkQueryFilters } from "@/features/bookmark/hooks/useBookmarkQueryFilters";

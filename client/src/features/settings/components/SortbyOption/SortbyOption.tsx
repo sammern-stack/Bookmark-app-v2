@@ -1,6 +1,9 @@
 import styles from "./SortbyOption.module.scss";
 import SortbyCheckIcon from "@/assets/images/icon-sort-by-check.svg";
-import { useFiltersStore, type SortBy } from "@/stores/useFiltersStore";
+import {
+  useFiltersStore,
+  type SortBy,
+} from "@/features/settings/stores/filterStore";
 
 interface SortbyOptionProps {
   sortBy: SortBy;

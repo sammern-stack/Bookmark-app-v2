@@ -1,5 +1,5 @@
 import styles from "./ResetTagsBtn.module.scss";
-import { useFiltersStore } from "@/stores";
+import { useFiltersStore } from "@/features/settings/stores/filterStore";
 
 export const ResetTagsBtn = () => {
   const tagFilters = useFiltersStore((s) => s.tagFilters);

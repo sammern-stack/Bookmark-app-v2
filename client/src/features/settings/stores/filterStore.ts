@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useBookmarksStore } from "./useBookmarksStore";
+import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 
 type MainFilter = "home" | "archived";
 export type SortBy = "Recently added" | "Recently visited" | "Most visited";
 
-interface FiltersStore {
+interface FilterStore {
   mainFilter: MainFilter;
   setMainFilter: (filter: MainFilter) => void;
 
@@ -17,11 +17,10 @@ interface FiltersStore {
   sortByFilter: SortBy;
   setSortByFilter: (sortBy: SortBy) => void;
 
-  // Helper
   updatePageTitle: (title: string) => void;
 }
 
-export const useFiltersStore = create<FiltersStore>()(
+export const useFiltersStore = create<FilterStore>()(
   persist(
     (set, get) => ({
       mainFilter: "home",
@@ -35,23 +34,26 @@ export const useFiltersStore = create<FiltersStore>()(
 
       tagFilters: [],
       addTagFilter: (tag) => {
-        const { updatePageTitle, tagFilters } = get();
-        updatePageTitle(`Bookmarks tagged: ${tagFilters.join(", ")}`);
-        set((s) => ({ tagFilters: [...s.tagFilters, tag] }));
+        set((state) => {
+          const nextTags = [...state.tagFilters, tag];
+          get().updatePageTitle(`Bookmarks tagged: ${nextTags.join(", ")}`);
+          return { tagFilters: nextTags };
+        });
       },
 
       removeTagFilter: (tag) => {
-        const { tagFilters, mainFilter, updatePageTitle } = get();
+        set((state) => {
+          const nextTags = state.tagFilters.filter((t) => t !== tag);
+          const pageTitle =
+            nextTags.length !== 0
+              ? `Bookmarks tagged: ${nextTags.join(", ")}`
+              : state.mainFilter === "home"
+                ? "All bookmarks"
+                : "Archived bookmarks";
 
-        const pageTitle =
-          tagFilters.length !== 0
-            ? `Bookmarks tagged: ${tagFilters.join(", ")}`
-            : mainFilter === "home"
-              ? "All bookmarks"
-              : "Archived bookmarks";
-
-        updatePageTitle(pageTitle);
-        set((s) => ({ tagFilters: s.tagFilters.filter((t) => t !== tag) }));
+          get().updatePageTitle(pageTitle);
+          return { tagFilters: nextTags };
+        });
       },
 
       clearTagsFilters: () => {
@@ -71,10 +73,10 @@ export const useFiltersStore = create<FiltersStore>()(
     }),
     {
       name: "filters",
-      partialize: (s) => ({
-        mainFilter: s.mainFilter,
-        tagFilters: s.tagFilters,
-        sortByFilter: s.sortByFilter,
+      partialize: (state) => ({
+        mainFilter: state.mainFilter,
+        tagFilters: state.tagFilters,
+        sortByFilter: state.sortByFilter,
       }),
     },
   ),

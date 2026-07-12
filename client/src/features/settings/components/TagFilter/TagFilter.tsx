@@ -1,6 +1,6 @@
 import styles from "./TagFilter.module.scss";
 import { Container } from "@/shared/components";
-import { useFiltersStore } from "@/stores";
+import { useFiltersStore } from "@/features/settings/stores/filterStore";
 
 interface TagFilterProps {
   tag: [string, number];

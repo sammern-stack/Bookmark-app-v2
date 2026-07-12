@@ -1,5 +1,5 @@
 import styles from "./BookmarkForms.module.scss";
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 import { useUIVisibilityStore } from "@/shared/stores";
 import { useBookmarkUpdateForm } from "../../hooks/useBookmarkUpdateForm";
 import { Form, FormField } from "@/shared/components";

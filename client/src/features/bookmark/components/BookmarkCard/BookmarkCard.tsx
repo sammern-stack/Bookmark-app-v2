@@ -3,10 +3,10 @@ import { Label } from "@/shared/components";
 import { BookmarkCardHeader } from "./BookmarkCardHeader";
 import { BookmarkCardTags } from "./BookmarkCardTags";
 import { BookmarkCardFooter } from "./BookmarkCardFooter";
-import type { BookmarkModel } from "@/types";
+import type { BookmarkSchema } from "../../types";
 
 interface BookmarkItemProps {
-  bookmark: BookmarkModel;
+  bookmark: BookmarkSchema;
 }
 
 export const BookmarkCard = ({ bookmark: b }: BookmarkItemProps) => (

@@ -1,5 +1,5 @@
 import styles from "./BookmarkTitle.module.scss";
-import { useBookmarksStore } from "@/stores";
+import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 
 export const BookmarkTitle = () => {
   const activeTitle = useBookmarksStore((s) => s.activeTitle);
