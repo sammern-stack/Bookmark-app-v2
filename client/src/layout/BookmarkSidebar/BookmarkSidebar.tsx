@@ -1,13 +1,24 @@
 import styles from "./BookmarkSidebar.module.scss";
+import { useMemo } from "react";
 import { useUIVisibilityStore } from "@/shared/stores";
 import { AppLogo, Container, List } from "@/shared/components";
 import { RenderFilter, TagFilter, ResetTagsBtn } from "@/features/settings";
+import { useBookmarks } from "@/features/bookmark/hooks/useBookmarks";
+import { countOccurrences } from "@/shared/utils/collections";
 import CloseIcon from "@/assets/images/icon-close.svg";
-import { useBookmarksStore } from "@/stores";
 
 export const BookmarkSidebar = () => {
-  const bookmarkSidebar = useUIVisibilityStore((s) => s.visibilityFlags.bookmarkSidebar);
-  const tags = [...useBookmarksStore((s) => s.tags)];
+  const bookmarkSidebar = useUIVisibilityStore(
+    (s) => s.visibilityFlags.bookmarkSidebar,
+  );
+
+  const { data = [] } = useBookmarks();
+
+  const tags = useMemo(() => {
+    const getTags = data.flatMap((bookmark) => bookmark.tags);
+    return countOccurrences(getTags);
+  }, [data]);
+
   // TODO: remove it when implement responsive design
   const isMobile = false;
 
