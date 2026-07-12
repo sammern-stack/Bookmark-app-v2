@@ -21,3 +21,12 @@ export type BookmarkFormValues = Pick<
   BookmarkSchema,
   "title" | "url" | "description"
 > & { tags: string };
+
+export type BookmarkCreateBody = Pick<
+  BookmarkSchema,
+  "title" | "url" | "description" | "tags"
+>;
+
+export type BookmarkUpdateBody = Partial<
+  Pick<BookmarkSchema, "title" | "url" | "description" | "tags">
+>;
