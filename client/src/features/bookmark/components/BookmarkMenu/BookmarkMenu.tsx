@@ -1,6 +1,12 @@
 import styles from "./BookmarkMenu.module.scss";
 import { useBookmarksStore } from "@/stores";
 import { useUIVisibilityStore } from "@/shared/stores";
+import {
+  useDeleteBookmark,
+  useUpdateIsArchived,
+  useUpdatePinned,
+  useIncreaseVisitCount,
+} from "../../hooks/useBookmarks";
 import { Dropdown } from "@/shared/components";
 import { BookmarkMenuItem } from "./BookmarkMenuItem";
 import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
@@ -33,14 +39,15 @@ const confirmAndRun = (message: string, callback: () => void) => {
 };
 
 export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
-  const deleteBookmark = useBookmarksStore((s) => s.deleteBookmark);
-  const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
-  const updatePinned = useBookmarksStore((s) => s.updatePinned);
-  const increaseVisitCount = useBookmarksStore((s) => s.increaseVisitCount);
+  const { mutate: deleteBookmark } = useDeleteBookmark(b._id);
+  const { mutate: updateIsArchived } = useUpdateIsArchived(b._id);
+  const { mutate: updatePinned } = useUpdatePinned(b._id);
+  const { mutate: increaseVisitCount } = useIncreaseVisitCount(b._id);
+
   const setSelectedBookmark = useBookmarksStore((s) => s.setSelectedBookmark);
   const toggle = useUIVisibilityStore((s) => s.toggle);
 
-  const handleVisit = () => increaseVisitCount(b._id);
+  const handleVisit = () => increaseVisitCount();
 
   const handleCopyUrl = async () => {
     try {
@@ -60,12 +67,12 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
       b.isArchived
         ? "Do you want to move this bookmark to the active list?"
         : "Do you want to archive this bookmark?",
-      () => updateIsArchived(b._id),
+      () => updateIsArchived(),
     );
 
   const handleDelete = () =>
     confirmAndRun("Do you want to delete this bookmark?", () =>
-      deleteBookmark(b._id),
+      deleteBookmark(),
     );
 
   const handleTogglePin = () =>
@@ -73,7 +80,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
       b.pinned
         ? "Do you want to unpin this bookmark?"
         : "Do you want to pin this bookmark?",
-      () => updatePinned(b._id),
+      () => updatePinned(),
     );
 
   const handleEdit = () => {

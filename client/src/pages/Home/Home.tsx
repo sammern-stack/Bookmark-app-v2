@@ -1,12 +1,18 @@
-import { useStartApp } from "@/hooks";
 import { Toast } from "@/shared/components";
 import { BookmarkSidebar, BookmarkContent, PageHeader } from "@/layout";
 import { BookmarkCreateForm, BookmarkUpdateForm } from "@/features/bookmark";
+import { useUIVisibilityStore } from "@/shared/stores";
 
 import "./Home.scss";
 
 const Home = () => {
-  useStartApp();
+  const createFormFlag = useUIVisibilityStore(
+    (s) => s.visibilityFlags.createForm,
+  );
+
+  const updateFormFlag = useUIVisibilityStore(
+    (s) => s.visibilityFlags.updateForm,
+  );
 
   return (
     <div className="home">
@@ -16,6 +22,10 @@ const Home = () => {
       <BookmarkCreateForm />
       <BookmarkUpdateForm />
       <Toast />
+
+      {(createFormFlag || updateFormFlag) && (
+        <div className="home__backdrop"></div>
+      )}
     </div>
   );
 };
