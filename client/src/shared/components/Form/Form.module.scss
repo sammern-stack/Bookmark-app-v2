@@ -1,0 +1,18 @@
+@use "../../../shared/styles/mixins" as *;
+
+.form {
+  @include flex-gap(20px, column);
+
+  &__actions {
+    margin-top: 12px;
+    @include flex-gap(16px, row-reverse);
+  }
+
+  &__submit {
+    @include button-styles;
+  }
+
+  &__cancel {
+    @include button-styles(secondary);
+  }
+}

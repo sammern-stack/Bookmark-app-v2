@@ -2,7 +2,7 @@ import { useStartApp } from "@/hooks";
 import { useState } from "react";
 import { Toast } from "@/shared/components";
 import { BookmarkSidebar, BookmarkContent, PageHeader } from "@/layout";
-import { CreateBookmarkForm, UpdateBookmarkForm } from "@/features/bookmark";
+import { BookmarkCreateForm, BookmarkUpdateForm } from "@/features/bookmark";
 
 import "./Home.scss";
 
@@ -15,8 +15,8 @@ const Home = () => {
       <BookmarkSidebar isOpen={isSidebarOpen} />
       <PageHeader setSidebarOpen={setIsSidebarOpen} />
       <BookmarkContent />
-      <CreateBookmarkForm />
-      <UpdateBookmarkForm />
+      <BookmarkCreateForm />
+      <BookmarkUpdateForm />
       <Toast />
     </div>
   );

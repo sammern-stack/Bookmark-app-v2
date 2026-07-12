@@ -1,6 +1,6 @@
 @use "../../../../shared/styles/mixins" as *;
 
-.bookmark-form {
+.bookmarkForm {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -35,19 +35,16 @@
     color: var(--secondary-text-color);
   }
 
-  &__form {
-    @include flex-gap(32px, column);
-  }
-
-  &__fields {
-    @include flex-gap(20px, column);
-  }
-
   &__field {
     @include flex-gap(6px, column);
 
-    & > input,
-    & > textarea {
+    > [data-form="label"] {
+      font: var(--manrope-4);
+      color: var(--primary-text-color);
+    }
+
+    > [data-form="input"],
+    > [data-form="textarea"] {
       padding: 12px;
       border-radius: 8px;
       border: 1px solid var(--form-stroke);
@@ -56,34 +53,15 @@
       background: transparent;
     }
 
-    & > textarea {
+    > [data-form="textarea"] {
       min-height: 91px;
       resize: none;
     }
-  }
 
-  &__label {
-    font: var(--manrope-4);
-    color: var(--primary-text-color);
-  }
-
-  &__error {
-    font: var(--manrope-4);
-    font-style: italic;
-    color: var(--red-800);
-  }
-
-  &__actions {
-    @include flex-gap(16px, row-reverse);
-  }
-
-  &__action {
-    &--submit {
-      @include button-styles;
-    }
-
-    &--cancel {
-      @include button-styles(secondary);
+    > [data-form="error"] {
+      font: var(--manrope-4);
+      font-style: italic;
+      color: var(--red-800);
     }
   }
 }
