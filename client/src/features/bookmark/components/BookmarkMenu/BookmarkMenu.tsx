@@ -1,5 +1,6 @@
 import styles from "./BookmarkMenu.module.scss";
-import { useBookmarksStore, useFormStore } from "@/stores";
+import { useBookmarksStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { Dropdown } from "@/shared/components";
 import { BookmarkMenuItem } from "./BookmarkMenuItem";
 import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
@@ -36,8 +37,8 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const updateIsArchived = useBookmarksStore((s) => s.updateIsArchived);
   const updatePinned = useBookmarksStore((s) => s.updatePinned);
   const increaseVisitCount = useBookmarksStore((s) => s.increaseVisitCount);
-  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
-  const setSelectedBookmark = useFormStore((s) => s.setSelectedBookmark);
+  const setSelectedBookmark = useBookmarksStore((s) => s.setSelectedBookmark);
+  const toggle = useUIVisibilityStore((s) => s.toggle);
 
   const handleVisit = () => increaseVisitCount(b._id);
 
@@ -77,7 +78,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
 
   const handleEdit = () => {
     setSelectedBookmark(b);
-    setUpdateFormState("open");
+    toggle("updateForm");
   };
 
   const baseMenuOptions: MenuOption[] = [

@@ -1,10 +1,10 @@
 import styles from "./OpenBookmarkForm.module.scss";
-import { useFormStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 import AddIcon from "@/assets/images/icon-add.svg";
 
 export const OpenBookmarkForm = () => {
-  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
-  const handleOpenForm = () => setCreateFormState("open");
+  const toggle = useUIVisibilityStore((s) => s.toggle);
+  const handleOpenForm = () => toggle("createForm");
 
   return (
     <button className={styles.openBookmarkForm} onClick={handleOpenForm}>

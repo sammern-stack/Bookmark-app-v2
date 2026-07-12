@@ -1,15 +1,13 @@
 import styles from "./PageHeader.module.scss";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { Searchbar, ThemeSwitch } from "@/features/settings";
 import { OpenBookmarkForm } from "@/features/bookmark";
 import { ProfileIcon, ProfileInfo, LogoutButton } from "@/features/profile";
 import { Dropdown } from "@/shared/components";
 import HamburgerIcon from "@/assets/images/icon-menu-hamburger.svg";
 
-interface PageHeaderProps {
-  setSidebarOpen: (value: boolean) => void;
-}
-
-export const PageHeader = ({ setSidebarOpen }: PageHeaderProps) => {
+export const PageHeader = () => {
+  const toggle = useUIVisibilityStore((s) => s.toggle);
   // TODO: remove it when implement responsive design
   const isMobile = false;
 
@@ -18,7 +16,7 @@ export const PageHeader = ({ setSidebarOpen }: PageHeaderProps) => {
       {isMobile && (
         <button
           className={styles.pageHeader__hamburgerMenu}
-          onClick={() => setSidebarOpen(true)}
+          onClick={() => toggle("bookmarkSidebar")}
         >
           <HamburgerIcon />
         </button>

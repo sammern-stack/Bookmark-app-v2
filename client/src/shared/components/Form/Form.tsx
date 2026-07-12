@@ -1,7 +1,7 @@
 import styles from "./Form.module.scss";
 import { Formik, Form as FormikForm } from "formik";
 import type { FormikObject } from "@/shared/types/formik.types";
-import { useFormStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 
 type FormProps<T extends object> = {
   form: "create" | "update" | "auth";
@@ -16,13 +16,10 @@ export const Form = <T extends object>({
   children,
   submit,
 }: FormProps<T>) => {
-  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
-  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
-
   const handleCloseForm = () =>
-    form === "create"
-      ? setCreateFormState("close")
-      : setUpdateFormState("close");
+    useUIVisibilityStore
+      .getState()
+      .toggle(form === "create" ? "createForm" : "updateForm");
 
   return (
     <Formik {...formik}>

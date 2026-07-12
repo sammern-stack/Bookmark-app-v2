@@ -1,4 +1,5 @@
-import { useBookmarksStore, useFormStore } from "@/stores";
+import { useBookmarksStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { normalizeTags } from "@/shared/utils/formatters";
 import { getValidationSchema } from "../utils/getValidationSchema";
 import { getInitialValues } from "../utils/getInitialValues";
@@ -10,9 +11,6 @@ type UseUpdateFormProps = BookmarkSchema | null;
 export const useBookmarkUpdateForm = (
   bookmark: UseUpdateFormProps,
 ): FormikObject<BookmarkFormValues> | null => {
-  const updateBookmark = useBookmarksStore.getState().updateBookmark;
-  const setUpdateFormState = useFormStore.getState().setUpdateFormState;
-
   if (bookmark === null) return null;
 
   return {
@@ -22,8 +20,12 @@ export const useBookmarkUpdateForm = (
     onSubmit: async (values, { setFieldError }) => {
       try {
         const updatedBookmark = { ...values, tags: normalizeTags(values.tags) };
-        await updateBookmark(bookmark._id, updatedBookmark);
-        setUpdateFormState("close");
+
+        await useBookmarksStore
+          .getState()
+          .updateBookmark(bookmark._id, updatedBookmark);
+
+        useUIVisibilityStore.getState().toggle("updateForm");
       } catch (err) {
         console.log(err);
         setFieldError("error", "Error occurred");

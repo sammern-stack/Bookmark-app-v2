@@ -1,18 +1,21 @@
 import styles from "./BookmarkForms.module.scss";
-import { useFormStore } from "@/stores";
+import { useBookmarksStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { useBookmarkUpdateForm } from "../../hooks/useBookmarkUpdateForm";
 import { Form, FormField } from "@/shared/components";
 import CloseIcon from "@/assets/images/icon-close.svg";
-// import "./styles.scss";
 
 export const BookmarkUpdateForm = () => {
-  const selectedBookmark = useFormStore((s) => s.selectedBookmark);
+  const selectedBookmark = useBookmarksStore((s) => s.selectedBookmark);
   const formik = useBookmarkUpdateForm(selectedBookmark);
-  const updateFormState = useFormStore((s) => s.updateFormState);
-  const setUpdateFormState = useFormStore((s) => s.setUpdateFormState);
-  const handleCloseForm = () => setUpdateFormState("close");
+  const updateFormFlag = useUIVisibilityStore(
+    (s) => s.visibilityFlags.updateForm,
+  );
+  const toggle = useUIVisibilityStore((s) => s.toggle);
 
-  if (updateFormState === "close" || !formik) return null;
+  const handleCloseForm = () => toggle("updateForm");
+
+  if (!updateFormFlag || !formik) return null;
 
   return (
     <>

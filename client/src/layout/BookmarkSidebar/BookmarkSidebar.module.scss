@@ -9,6 +9,10 @@
   @include layout-styles(right);
   color: var(--text-color);
 
+  &--open {
+    // TODO: add transition effect
+  }
+
   > [data-stacked-container="true"] {
     flex: 1;
     min-height: 0;

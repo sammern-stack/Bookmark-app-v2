@@ -30,6 +30,9 @@ interface BookmarksStore {
   bookmarks: BookmarkModel[];
   setBookmarks: (query?: Record<string, unknown>) => Promise<void>;
 
+  selectedBookmark: BookmarkModel | null;
+  setSelectedBookmark: (b: BookmarkModel) => void;
+
   tags: Map<string, number>;
   setTags: () => void;
 
@@ -71,6 +74,9 @@ export const useBookmarksStore = create<BookmarksStore>()(
 
         set({ bookmarks: [...pinned, ...rest] });
       },
+
+      selectedBookmark: null,
+      setSelectedBookmark: (b) => set({ selectedBookmark: b }),
 
       tags: new Map(),
       setTags: async () => {

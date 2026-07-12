@@ -1,16 +1,21 @@
 import styles from "./BookmarkForms.module.scss";
-import { useFormStore } from "@/stores";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { useBookmarkCreateForm } from "../../hooks/useBookmarkCreateForm";
 import { Form, FormField } from "@/shared/components";
 import CloseIcon from "@/assets/images/icon-close.svg";
 
 export const BookmarkCreateForm = () => {
   const formik = useBookmarkCreateForm();
-  const createFormState = useFormStore((s) => s.createFormState);
-  const setCreateFormState = useFormStore((s) => s.setCreateFormState);
-  const handleCloseForm = () => setCreateFormState("close");
+  const createFormFlag = useUIVisibilityStore(
+    (s) => s.visibilityFlags.createForm,
+  );
+  const toggle = useUIVisibilityStore((s) => s.toggle);
 
-  if (createFormState === "close") return null;
+  const handleCloseForm = () => {
+    toggle("createForm");
+  };
+
+  if (!createFormFlag) return null;
 
   return (
     <>
