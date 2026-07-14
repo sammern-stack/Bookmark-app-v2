@@ -1,17 +1,17 @@
 import { Toast } from "@/shared/components";
 import { BookmarkSidebar, BookmarkContent, PageHeader } from "@/layout";
-import { BookmarkCreateForm, BookmarkUpdateForm } from "@/features/bookmark";
+import { BookmarkForm } from "@/features/bookmark";
 import { useUIVisibilityStore } from "@/shared/stores";
 
 import "./Home.scss";
+import { useShallow } from "zustand/shallow";
 
 const Home = () => {
-  const createFormFlag = useUIVisibilityStore(
-    (s) => s.visibilityFlags.createForm,
-  );
-
-  const updateFormFlag = useUIVisibilityStore(
-    (s) => s.visibilityFlags.updateForm,
+  const { createFormFlag, updateFormFlag } = useUIVisibilityStore(
+    useShallow((s) => ({
+      createFormFlag: s.visibilityFlags.createForm,
+      updateFormFlag: s.visibilityFlags.updateForm,
+    })),
   );
 
   return (
@@ -19,8 +19,7 @@ const Home = () => {
       <BookmarkSidebar />
       <PageHeader />
       <BookmarkContent />
-      <BookmarkCreateForm />
-      <BookmarkUpdateForm />
+      <BookmarkForm />
       <Toast />
 
       {(createFormFlag || updateFormFlag) && (

@@ -45,6 +45,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const { mutate: increaseVisitCount } = useIncreaseVisitCount(b._id);
 
   const setSelectedBookmark = useBookmarksStore((s) => s.setSelectedBookmark);
+  const setActiveForm = useBookmarksStore((s) => s.setActiveForm);
   const toggle = useUIVisibilityStore((s) => s.toggle);
 
   const handleVisit = () => increaseVisitCount();
@@ -85,6 +86,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
 
   const handleEdit = () => {
     setSelectedBookmark(b);
+    setActiveForm("update");
     toggle("updateForm");
   };
 

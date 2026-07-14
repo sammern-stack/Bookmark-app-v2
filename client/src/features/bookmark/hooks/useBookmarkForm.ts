@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { useCreateBookmark, useUpdateBookmark } from "./useBookmarks";
+import { useBookmarksStore } from "../stores/bookmarkStore";
 import { useUIVisibilityStore } from "@/shared/stores";
 import { normalizeTags } from "@/shared/utils/formatters";
 import type { BookmarkFormValues, BookmarkSchema } from "../types";
@@ -19,6 +20,8 @@ export const useBookmarkForm = (
   const bookmarkId = bookmark?._id ?? "";
   const { mutateAsync: createBookmark } = useCreateBookmark();
   const { mutateAsync: updateBookmark } = useUpdateBookmark(bookmarkId);
+  const toggle = useUIVisibilityStore.getState().toggle;
+  const setActiveForm = useBookmarksStore.getState().setActiveForm;
   const isEditMode = Boolean(bookmark?._id);
 
   const initialValues = {
@@ -37,15 +40,13 @@ export const useBookmarkForm = (
 
   const onSubmit: OnSubmit = async (values, { setFieldError }) => {
     try {
-      if (isEditMode) {
-        const newBookmark = { ...values, tags: normalizeTags(values.tags) };
-        await createBookmark(newBookmark);
-        useUIVisibilityStore.getState().toggle("createForm");
-      } else {
-        const updatedBookmark = { ...values, tags: normalizeTags(values.tags) };
-        await updateBookmark(updatedBookmark);
-        useUIVisibilityStore.getState().toggle("updateForm");
-      }
+      const bookmarkData = { ...values, tags: normalizeTags(values.tags) };
+
+      if (isEditMode) await updateBookmark(bookmarkData);
+      else await createBookmark(bookmarkData);
+
+      toggle(isEditMode ? "updateForm" : "createForm");
+      setActiveForm(null);
     } catch (err) {
       console.log(err);
       setFieldError("error", "Error occurred");
