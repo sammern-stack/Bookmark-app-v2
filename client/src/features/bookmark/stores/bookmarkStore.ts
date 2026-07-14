@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { useUIVisibilityStore } from "@/shared/stores";
 import type { BookmarkSchema } from "../types";
 
 interface BookmarkStore {
@@ -7,7 +8,9 @@ interface BookmarkStore {
   setSelectedBookmark: (bookmark: BookmarkSchema | null) => void;
 
   activeForm: "create" | "update" | null;
-  setActiveForm: (form: "create" | "update" | null) => void;
+  openCreateForm: () => void;
+  openUpdateForm: () => void;
+  closeForm: (check?: boolean) => void;
 
   activeTitle: string;
   setActiveTitle: (text: string) => void;
@@ -15,20 +18,39 @@ interface BookmarkStore {
 
 export const useBookmarksStore = create<BookmarkStore>()(
   persist(
-    (set) => ({
-      selectedBookmark: null,
-      setSelectedBookmark: (bookmark) => set({ selectedBookmark: bookmark }),
+    (set, get) => {
+      const toggle = useUIVisibilityStore.getState().toggle;
 
-      activeForm: null,
-      setActiveForm: (form) => set({ activeForm: form }),
+      return {
+        selectedBookmark: null,
+        setSelectedBookmark: (bookmark) => set({ selectedBookmark: bookmark }),
 
-      activeTitle: "All bookmarks",
-      setActiveTitle: (text) => set({ activeTitle: text }),
-    }),
+        activeForm: null,
+        openCreateForm: () => {
+          set({ activeForm: "create" });
+          toggle("createForm");
+        },
+        openUpdateForm: () => {
+          set({ activeForm: "update" });
+          toggle("updateForm");
+        },
+        closeForm: (check?: boolean) => {
+          const isCreateForm =
+            typeof check === "boolean" ? !check : get().activeForm === "create";
+
+          toggle(isCreateForm ? "createForm" : "updateForm");
+          set({ activeForm: null });
+        },
+
+        activeTitle: "All bookmarks",
+        setActiveTitle: (text) => set({ activeTitle: text }),
+      };
+    },
     {
       name: "bookmarks",
       partialize: (state) => ({
         selectedBookmark: state.selectedBookmark,
+        activeForm: state.activeForm,
         activeTitle: state.activeTitle,
       }),
     },

@@ -1,7 +1,6 @@
 import styles from "./Form.module.scss";
 import { Formik, Form as FormikForm } from "formik";
 import type { FormikObject } from "@/shared/types/formik.types";
-import { useUIVisibilityStore } from "@/shared/stores";
 import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 
 type FormProps<T extends object> = {
@@ -17,21 +16,15 @@ export const Form = <T extends object>({
   children,
   submit,
 }: FormProps<T>) => {
-  const setActiveForm = useBookmarksStore((s) => s.setActiveForm);
-  const toggle = useUIVisibilityStore((s) => s.toggle);
-
-  const handleCloseForm = () => {
-    setActiveForm(null);
-    toggle(form === "create" ? "createForm" : "updateForm");
-  };
+  const closeForm = useBookmarksStore((s) => s.closeForm);
+  const handleCloseForm = () => closeForm();
 
   return (
     <Formik {...formik}>
       {({ isSubmitting }) => {
-        const submitLabel = submit[0];
-        const submittingLabel = submit[1];
-
+        const [submitLabel, submittingLabel] = submit;
         const showCancelBtn = form === "create" || form === "update";
+        const submitBtnLabel = isSubmitting ? submittingLabel : submitLabel;
 
         return (
           <FormikForm className={styles.form}>
@@ -43,7 +36,7 @@ export const Form = <T extends object>({
                 disabled={isSubmitting}
                 className={styles.form__submit}
               >
-                {isSubmitting ? submittingLabel : submitLabel}
+                {submitBtnLabel}
               </button>
 
               {showCancelBtn && (

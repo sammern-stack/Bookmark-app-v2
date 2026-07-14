@@ -4,38 +4,32 @@ import { useBookmarksStore } from "../../stores/bookmarkStore";
 import { useBookmarkForm } from "../../hooks/useBookmarkForm";
 import { Form, FormField } from "@/shared/components";
 import CloseIcon from "@/assets/images/icon-close.svg";
+import { useShallow } from "zustand/shallow";
 
 export const BookmarkForm = () => {
   const selectedBookmark = useBookmarksStore((s) => s.selectedBookmark);
+
   const activeForm = useBookmarksStore((s) => s.activeForm);
-  const setActiveForm = useBookmarksStore((s) => s.setActiveForm);
+  const closeForm = useBookmarksStore((s) => s.closeForm);
+
   const createFormik = useBookmarkForm();
   const updateFormik = useBookmarkForm(selectedBookmark);
-  const createFormFlag = useUIVisibilityStore(
-    (s) => s.visibilityFlags.createForm,
+
+  const { createFormFlag, updateFormFlag } = useUIVisibilityStore(
+    useShallow((s) => ({
+      createFormFlag: s.visibilityFlags.createForm,
+      updateFormFlag: s.visibilityFlags.updateForm,
+    })),
   );
-  const updateFormFlag = useUIVisibilityStore(
-    (s) => s.visibilityFlags.updateForm,
-  );
-  const toggle = useUIVisibilityStore((s) => s.toggle);
 
-  const handleCloseForm = () => {
-    setActiveForm(null);
+  const handleCloseForm = () => closeForm();
 
-    if (activeForm === "create") {
-      toggle("createForm");
-    }
-
-    if (activeForm === "update") {
-      toggle("updateForm");
-    }
-  };
-
-  if (!activeForm) return null;
-  if (activeForm === "create" && !createFormFlag) return null;
-  if (activeForm === "update" && (!updateFormFlag || !selectedBookmark)) {
+  if (
+    !activeForm ||
+    (activeForm === "create" && !createFormFlag) ||
+    (activeForm === "update" && (!updateFormFlag || !selectedBookmark))
+  )
     return null;
-  }
 
   const isCreateForm = activeForm === "create";
   const formik = isCreateForm ? createFormik : updateFormik;

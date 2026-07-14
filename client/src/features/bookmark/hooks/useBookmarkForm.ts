@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { useCreateBookmark, useUpdateBookmark } from "./useBookmarks";
 import { useBookmarksStore } from "../stores/bookmarkStore";
-import { useUIVisibilityStore } from "@/shared/stores";
 import { normalizeTags } from "@/shared/utils/formatters";
 import type { BookmarkFormValues, BookmarkSchema } from "../types";
 import type { FormikHelpers } from "formik";
@@ -20,8 +19,7 @@ export const useBookmarkForm = (
   const bookmarkId = bookmark?._id ?? "";
   const { mutateAsync: createBookmark } = useCreateBookmark();
   const { mutateAsync: updateBookmark } = useUpdateBookmark(bookmarkId);
-  const toggle = useUIVisibilityStore.getState().toggle;
-  const setActiveForm = useBookmarksStore.getState().setActiveForm;
+  const closeForm = useBookmarksStore.getState().closeForm;
   const isEditMode = Boolean(bookmark?._id);
 
   const initialValues = {
@@ -45,8 +43,7 @@ export const useBookmarkForm = (
       if (isEditMode) await updateBookmark(bookmarkData);
       else await createBookmark(bookmarkData);
 
-      toggle(isEditMode ? "updateForm" : "createForm");
-      setActiveForm(null);
+      closeForm(isEditMode);
     } catch (err) {
       console.log(err);
       setFieldError("error", "Error occurred");
