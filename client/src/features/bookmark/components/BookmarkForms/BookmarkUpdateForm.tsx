@@ -1,13 +1,13 @@
 import styles from "./BookmarkForms.module.scss";
 import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 import { useUIVisibilityStore } from "@/shared/stores";
-import { useBookmarkUpdateForm } from "../../hooks/useBookmarkUpdateForm";
+import { useBookmarkForm } from "../../hooks/useBookmarkForm";
 import { Form, FormField } from "@/shared/components";
 import CloseIcon from "@/assets/images/icon-close.svg";
 
 export const BookmarkUpdateForm = () => {
   const selectedBookmark = useBookmarksStore((s) => s.selectedBookmark);
-  const formik = useBookmarkUpdateForm(selectedBookmark);
+  const formik = useBookmarkForm(selectedBookmark);
   const updateFormFlag = useUIVisibilityStore(
     (s) => s.visibilityFlags.updateForm,
   );
