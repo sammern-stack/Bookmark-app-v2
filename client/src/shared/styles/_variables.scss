@@ -54,11 +54,18 @@ $manrope-5: 500 12px/140% #{$font};
   --manrope-4-medium: 500 14px/150% var(--font-family);
   --manrope-5: 500 12px/140% var(--font-family);
 
-  --neutral-0: #ffffff;
+  --neutral-000: #ffffff;//#e8f0ef
+  --neutral-100: #e8f0ef;
+  --neutral-900: #001414;
   --teal-700: #014745;
   --teal-800: #013c3b;
   --red-600: #fd4740;
   --red-800: #cb0a04;
+
+  // Global
+  --button-primary-background: var(--teal-700);
+  --button-primary-background-hover: var(--teal-800);
+  --button-primary-text: var(--neutral-000);
 }
 
 // ——— APPS STYLES —————————————————————————————————————————————————————————————
@@ -79,6 +86,10 @@ $manrope-5: 500 12px/140% #{$font};
   --form-stroke: #{$neutral-light-500};
   --btn-stroke: #{$neutral-light-400};
   --profile-menu-stroke: #e9eaeb;
+
+  --button-secondary-background: var(--neutral-000);
+  --button-secondary-background-hover: var(--neutral-100);
+  --button-secondary-text: var(--neutral-900);
 }
 
 :root[data-theme="dark"] {

@@ -34,7 +34,7 @@
   border-radius: 8px;
   @if $type == primary {
     background: var(--teal-700);
-    color: var(--neutral-0);
+    color: var(--neutral-000);
 
     &:hover {
       background: var(--teal-800);

@@ -7,3 +7,5 @@ export { Label } from "./Label/Label";
 export { Form } from "./Form/Form";
 export { FormField } from "./FormField/FormField";
 export { Toast } from "./Toast/Toast";
+
+export { Button } from "./Button/Button"
