@@ -1,11 +1,13 @@
 import styles from "./PageHeader.module.scss";
-import { useUIVisibilityStore } from "@/shared/stores";
-import { Searchbar, ThemeSwitch } from "@/features/settings";
+import { ThemeSwitch } from "@/features/settings";
 import { useBookmarksStore } from "@/features/bookmark";
 import { ProfileIcon, ProfileInfo, LogoutButton } from "@/features/profile";
+import { useUIVisibilityStore } from "@/shared/stores";
 import { Dropdown, Button } from "@/shared/components";
+
 import HamburgerIcon from "@/assets/images/icon-menu-hamburger.svg?react";
 import PlusIcon from "@/assets/images/icon-add.svg";
+import SearchIcon from "@/assets/images/icon-search.svg";
 
 export const PageHeader = () => {
   const toggle = useUIVisibilityStore((s) => s.toggle);
@@ -14,28 +16,43 @@ export const PageHeader = () => {
   const handleOpenCreateBookmarkForm = () => openCreateForm();
   const handleToggleSidebar = () => toggle("bookmarkSidebar");
 
-  // TODO: remove it when implement responsive design
-  const isMobile = false;
-
   return (
     <div className={styles.pageHeader}>
-      {isMobile && (
-        <button
-          className={styles.pageHeader__hamburgerMenu}
-          onClick={handleToggleSidebar}
+      <div className={styles.pageHeader__section}>
+        <MobileMenu isMobile={false} onClick={handleToggleSidebar} />
+        <div className={styles.pageHeader__search}>
+          <SearchIcon />
+          <input type="text" placeholder="Search by title..." />
+        </div>
+      </div>
+      <div className={styles.pageHeader__section}>
+        <Button variant="primary" onClick={handleOpenCreateBookmarkForm}>
+          <PlusIcon /> Add Bookmark
+        </Button>
+        <Dropdown
+          className={styles.pageHeader__profile}
+          toggle={<ProfileIcon />}
         >
-          <HamburgerIcon />
-        </button>
-      )}
-      <Searchbar />
-      <Button variant="primary" onClick={handleOpenCreateBookmarkForm}>
-        <PlusIcon /> Add Bookmark
-      </Button>
-      <Dropdown className={styles.pageHeader__profile} toggle={<ProfileIcon />}>
-        <ProfileInfo />
-        <ThemeSwitch />
-        <LogoutButton />
-      </Dropdown>
+          <ProfileInfo />
+          <ThemeSwitch />
+          <LogoutButton />
+        </Dropdown>
+      </div>
     </div>
+  );
+};
+
+interface MobileMenuProps {
+  isMobile: boolean;
+  onClick: () => void;
+}
+
+const MobileMenu = ({ isMobile, onClick }: MobileMenuProps) => {
+  return (
+    isMobile && (
+      <button className={styles.pageHeader__hamburgerMenu} onClick={onClick}>
+        <HamburgerIcon />
+      </button>
+    )
   );
 };

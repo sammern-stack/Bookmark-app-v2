@@ -5,13 +5,46 @@
   padding: 16px 32px;
   @include flex-gap(16px);
   align-items: center;
+  justify-content: space-between;
   @include layout-styles(bottom);
+
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
   &__hamburgerMenu {
     padding: 12px;
     border: 1px solid var(--layout-stroke);
     border-radius: 8px;
     color: var(--primary-text-color);
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--input-border);
+    background: var(--input-background);
+    color: var(--input-color);
+    font-family: "Manrope";
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 1%;
+
+    input {
+      border: none;
+      flex: 1;
+      background: transparent;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   &__profile {
