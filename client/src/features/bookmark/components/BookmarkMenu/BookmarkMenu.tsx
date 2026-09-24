@@ -5,7 +5,8 @@ import {
   useUpdatePinned,
   useIncreaseVisitCount,
 } from "../../hooks/useBookmarks";
-import { Dropdown, Label } from "@/shared/components";
+import { useDropdown } from "@/shared/hooks";
+import { Button, Label } from "@/shared/components";
 import { useDialogStore } from "@/shared/stores/dialogStore";
 import type { BookmarkSchema } from "../../types";
 import { createBookmarkMenuOptions, type MenuIds } from "./bookmarkMenu.config";
@@ -25,6 +26,13 @@ interface BookmarkMenuProps {
 }
 
 export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
+  const { mutate: deleteBookmark } = useDeleteBookmark(b._id);
+  const { mutate: updateIsArchived } = useUpdateIsArchived(b._id);
+  const { mutate: updatePinned } = useUpdatePinned(b._id);
+  const { mutate: increaseVisitCount } = useIncreaseVisitCount(b._id);
+  const { openDialog } = useDialogStore.getState();
+  const { dropdownRef, openDropdown, toggle } = useDropdown();
+
   const iconById: Record<MenuIds, React.ReactNode> = {
     visit: <VisitIcon />,
     copy: <CopyIcon />,
@@ -36,12 +44,6 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
     delete: <DeleteIcon />,
   };
 
-  const { mutate: deleteBookmark } = useDeleteBookmark(b._id);
-  const { mutate: updateIsArchived } = useUpdateIsArchived(b._id);
-  const { mutate: updatePinned } = useUpdatePinned(b._id);
-  const { mutate: increaseVisitCount } = useIncreaseVisitCount(b._id);
-  const { openDialog } = useDialogStore.getState();
-
   const menuOptions = createBookmarkMenuOptions(b, {
     deleteBookmark,
     updateIsArchived,
@@ -51,22 +53,30 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   });
 
   return (
-    <Dropdown className={styles.bookmarkMenu} toggle={<BookmarkMenuIcon />}>
-      {menuOptions.map((item) => (
-        <Label
-          key={item.id}
-          {...(item.id === "visit" && {
-            as: "a",
-            href: item.href,
-            target: "_blank",
-            rel: "noopener noreferrer",
-          })}
-          className={styles.bookmarkMenu__item}
-          onClick={item.onClick}
-        >
-          {iconById[item.id]} {item.label}
-        </Label>
-      ))}
-    </Dropdown>
+    <div className={styles.bookmarkDropdown} ref={dropdownRef}>
+      <Button variant="secondary" onClick={toggle}>
+        <BookmarkMenuIcon />
+      </Button>
+
+      {openDropdown && (
+        <div className={styles.bookmarkDropdown__menu}>
+          {menuOptions.map((item) => (
+            <Label
+              key={item.id}
+              {...(item.id === "visit" && {
+                as: "a",
+                href: item.href,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              })}
+              className={styles.bookmarkDropdown__item}
+              onClick={item.onClick}
+            >
+              {iconById[item.id]} {item.label}
+            </Label>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };

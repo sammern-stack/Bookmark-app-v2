@@ -39,8 +39,13 @@
   }
 
   &--secondary {
+    background: var(--button-secondary-background);
     border: 1px solid var(--btn-stroke);
     color: var(--primary-text-color);
+
+     &:hover {
+      background: var(--button-secondary-background-hover);
+    }
   }
   box-shadow: 0 0 0 1px rgb(34 38 39 / 0.12);
   font: var(--manrope-3);
