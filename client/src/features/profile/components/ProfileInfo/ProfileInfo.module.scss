@@ -1,5 +1,3 @@
-@use "../../../../shared/styles/mixins" as *;
-
 .profileInfo {
   @include flex-gap(12px);
   align-items: center;

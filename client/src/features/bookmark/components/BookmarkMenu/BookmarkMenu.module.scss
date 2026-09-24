@@ -1,28 +1,17 @@
-@use "../../../../shared/styles/mixins" as *;
-
-.bookmarkMenu {
+.bookmarkDropdown {
   position: relative;
-  align-self: flex-start;
-  border-radius: 8px;
-  border: 1px solid var(--layout-stroke);
 
-  > [data-dropdown="toggle"] {
+  button {
     padding: 8px;
-    cursor: pointer;
-    border-radius: 8px;
-    color: var(--primary-text-color);
-
-    &:hover {
-      background: var(--secondary-background);
-    }
   }
 
-  > [data-dropdown="menu"] {
+  &__menu {
     position: absolute;
-    top: calc(100% + 15px);
+    top: 50px;
     right: 0;
-    z-index: 1;
-    @include flex-gap(4px, column);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     padding: 8px;
     background: var(--primary-background);
     color: var(--secondary-text-color);

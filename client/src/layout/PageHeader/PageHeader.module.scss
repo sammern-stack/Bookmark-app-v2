@@ -1,11 +1,16 @@
-@use "../../shared/styles/mixins" as *;
-
 .pageHeader {
   grid-area: header;
   padding: 16px 32px;
   @include flex-gap(16px);
   align-items: center;
+  justify-content: space-between;
   @include layout-styles(bottom);
+
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
   &__hamburgerMenu {
     padding: 12px;
@@ -14,24 +19,51 @@
     color: var(--primary-text-color);
   }
 
-  &__profile {
-    anchor-name: --profile;
-    display: inline-block;
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--input-border);
+    background: var(--input-background);
+    color: var(--input-color);
+    font-family: "Manrope";
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 1%;
 
-    [data-dropdown="menu"] {
-      position: absolute;
-      position-anchor: --profile;
-      top: anchor(bottom);
-      right: anchor(right);
-      width: 248px;
-      margin-top: 15px;
-      background: var(--primary-background);
-      @include flex-gap(4px, column);
-      border-radius: 8px;
-      @include linear-border;
-      color: var(--secondary-text-color);
-      font: var(--manrope-4);
-      z-index: 10;
+    input {
+      border: none;
+      flex: 1;
+      background: transparent;
+
+      &:focus {
+        outline: none;
+      }
     }
+  }
+
+  &__profileDropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__profileMenu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 248px;
+    margin-top: 15px;
+    background: var(--primary-background);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--layout-stroke);
+    color: var(--secondary-text-color);
+    font: var(--manrope-4);
+    z-index: 10;
   }
 }

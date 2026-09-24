@@ -1,10 +1,9 @@
 import styles from "./RenderFilter.module.scss";
-import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
+import { useBookmarksStore } from "@/features/bookmark";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
-import { Container } from "@/shared/components";
 import { capitalize } from "@/shared/utils/formatters";
-import HomeIcon from "@/assets/images/icon-home.svg";
-import ArchivedIcon from "@/assets/images/icon-archive.svg";
+import HomeIcon from "@/assets/images/icon-home.svg?react";
+import ArchivedIcon from "@/assets/images/icon-archive.svg?react";
 
 interface RenderFilterProps {
   label: "home" | "archived";
@@ -20,14 +19,15 @@ export const RenderFilter = ({ label }: RenderFilterProps) => {
     setActiveTitle(label === "home" ? "All bookmarks" : "Archived bookmarks");
   };
 
+  const renderClasses = [
+    styles.renderFilter,
+    mainFilter === label ? styles["renderFilter--active"] : "",
+  ].join(" ");
+
   return (
-    <Container
-      variant="stacked"
-      className={`${styles.renderFilter} ${mainFilter === label ? styles["renderFilter--active"] : ""}`}
-      onClick={handleOnClick}
-    >
+    <div className={renderClasses} onClick={handleOnClick}>
       {label === "home" ? <HomeIcon /> : <ArchivedIcon />}
       <span>{capitalize(label)}</span>
-    </Container>
+    </div>
   );
 };

@@ -1,23 +1,21 @@
 import styles from "./BookmarkSidebar.module.scss";
-import { useMemo } from "react";
 import { useUIVisibilityStore } from "@/shared/stores";
-import { AppLogo, Container, List } from "@/shared/components";
-import { RenderFilter, TagFilter, ResetTagsBtn } from "@/features/settings";
-import { useBookmarks } from "@/features/bookmark/hooks/useBookmarks";
-import { countOccurrences } from "@/shared/utils/collections";
-import CloseIcon from "@/assets/images/icon-close.svg";
+import { AppLogo } from "@/shared/components";
+import { RenderFilter, Tag } from "@/features/settings";
+import { useBookmarks, useCountTagOccurrences } from "@/features/bookmark";
+import { useFiltersStore } from "@/features/settings/stores/filterStore";
+import CloseIcon from "@/assets/images/icon-close.svg?react";
 
 export const BookmarkSidebar = () => {
+  const tagFilters = useFiltersStore((s) => s.tagFilters);
   const bookmarkSidebar = useUIVisibilityStore(
     (s) => s.visibilityFlags.bookmarkSidebar,
   );
+  const { clearTagsFilters } = useFiltersStore.getState();
+  const handleClear = () => clearTagsFilters();
 
   const { data = [] } = useBookmarks();
-
-  const tags = useMemo(() => {
-    const getTags = data.flatMap((bookmark) => bookmark.tags);
-    return countOccurrences(getTags);
-  }, [data]);
+  const tags = useCountTagOccurrences(data);
 
   // TODO: remove it when implement responsive design
   const isMobile = false;
@@ -28,7 +26,7 @@ export const BookmarkSidebar = () => {
   ].join(" ");
 
   return (
-    <Container variant="stacked" className={SidebarClasses}>
+    <div className={SidebarClasses}>
       <div className={styles.bookmarkSidebar__header}>
         <AppLogo />
         {isMobile && <CloseIcon />}
@@ -39,11 +37,17 @@ export const BookmarkSidebar = () => {
       </div>
       <div className={styles.bookmarkSidebar__tagsHeader}>
         <div className={styles.bookmarkSidebar__tagsTitle}>Tags</div>
-        <ResetTagsBtn />
+        {tagFilters.length !== 0 && (
+          <button type="button" onClick={handleClear}>
+            Reset
+          </button>
+        )}
       </div>
-      <List list={tags} className={styles.bookmarkSidebar__tagsList}>
-        {(tag) => <TagFilter tag={tag} />}
-      </List>
-    </Container>
+      <div className={styles.bookmarkSidebar__tagsList}>
+        {tags.map((tag) => (
+          <Tag tag={tag} />
+        ))}
+      </div>
+    </div>
   );
 };

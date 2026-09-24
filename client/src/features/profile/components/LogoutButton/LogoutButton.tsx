@@ -1,5 +1,5 @@
 import styles from "./LogoutButton.module.scss";
-import LogoutIcon from "@/assets/images/icon-logout.svg";
+import LogoutIcon from "@/assets/images/icon-logout.svg?react";
 
 export const LogoutButton = () => {
   return (
