@@ -3,8 +3,8 @@ import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
 import { Container } from "@/shared/components";
 import { capitalize } from "@/shared/utils/formatters";
-import HomeIcon from "@/assets/images/icon-home.svg";
-import ArchivedIcon from "@/assets/images/icon-archive.svg";
+import HomeIcon from "@/assets/images/icon-home.svg?react";
+import ArchivedIcon from "@/assets/images/icon-archive.svg?react";
 
 interface RenderFilterProps {
   label: "home" | "archived";

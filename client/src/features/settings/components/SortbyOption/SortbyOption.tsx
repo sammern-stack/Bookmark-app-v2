@@ -1,5 +1,5 @@
 import styles from "./SortbyOption.module.scss";
-import SortbyCheckIcon from "@/assets/images/icon-sort-by-check.svg";
+import SortbyCheckIcon from "@/assets/images/icon-sort-by-check.svg?react";
 import {
   useFiltersStore,
   type SortBy,

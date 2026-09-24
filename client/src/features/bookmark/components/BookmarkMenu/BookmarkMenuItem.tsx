@@ -2,14 +2,14 @@ import styles from "./BookmarkMenu.module.scss";
 import { Label } from "@/shared/components";
 import type { MenuIds } from "./BookmarkMenu";
 
-import VisitIcon from "@/assets/images/icon-visit.svg";
-import CopyIcon from "@/assets/images/icon-copy.svg";
-import PinIcon from "@/assets/images/icon-pin.svg";
-import UnpinIcon from "@/assets/images/icon-unpin.svg";
-import ArchiveIcon from "@/assets/images/icon-archive.svg";
-import UnarchiveIcon from "@/assets/images/icon-unarchive.svg";
-import EditIcon from "@/assets/images/icon-edit.svg";
-import DeleteIcon from "@/assets/images/icon-delete.svg";
+import VisitIcon from "@/assets/images/icon-visit.svg?react";
+import CopyIcon from "@/assets/images/icon-copy.svg?react";
+import PinIcon from "@/assets/images/icon-pin.svg?react";
+import UnpinIcon from "@/assets/images/icon-unpin.svg?react";
+import ArchiveIcon from "@/assets/images/icon-archive.svg?react";
+import UnarchiveIcon from "@/assets/images/icon-unarchive.svg?react";
+import EditIcon from "@/assets/images/icon-edit.svg?react";
+import DeleteIcon from "@/assets/images/icon-delete.svg?react";
 
 interface BookmarkMenuItemProps {
   id: MenuIds;

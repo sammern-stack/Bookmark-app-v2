@@ -1,5 +1,5 @@
 import styles from "./SortbyButton.module.scss";
-import SortbyIcon from "@/assets/images/icon-sort.svg";
+import SortbyIcon from "@/assets/images/icon-sort.svg?react";
 
 export const SortbyButton = () => {
   return (

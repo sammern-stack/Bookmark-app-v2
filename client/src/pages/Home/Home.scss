@@ -1,15 +1,12 @@
-@use "../../shared/styles/mixins" as *;
-
 .home {
   flex: 1;
   display: grid;
   grid-template-areas:
-  "sidebar header"
-  "sidebar main";
+    "sidebar header"
+    "sidebar main";
   grid-template-columns: 296px 1fr;
   grid-template-rows: auto 1fr;
   min-height: 0;
-
 
   &__main-content {
     flex: 1;

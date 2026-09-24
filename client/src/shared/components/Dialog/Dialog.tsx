@@ -4,7 +4,7 @@ import {
   BookmarkCreateDialog,
   BookmarkUpdateDialog,
 } from "@/features/bookmark";
-import CloseIcon from "@/assets/images/icon-close.svg";
+import CloseIcon from "@/assets/images/icon-close.svg?react";
 
 export const Dialog = () => {
   const dialog = useDialogStore((s) => s.dialog);

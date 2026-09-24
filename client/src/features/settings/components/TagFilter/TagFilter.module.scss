@@ -1,5 +1,3 @@
-@use "../../../../shared/styles/mixins" as *;
-
 .tag {
   padding: 2px 0;
   font: var(--manrope-3);
@@ -26,7 +24,8 @@
       cursor: pointer;
 
       &:checked {
-        background: var(--teal-700) url(../../../../assets/images/icon-check.svg);
+        background: var(--teal-700)
+          url(../../../../assets/images/icon-check.svg);
       }
     }
 

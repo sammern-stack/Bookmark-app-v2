@@ -2,11 +2,11 @@ import styles from "./BookmarkCard.module.scss";
 import type { BookmarkSchema } from "../../types";
 import { formatDate } from "@/shared/utils/formatters";
 import { Label } from "@/shared/components";
-import PinIcon from "@/assets/images/icon-pin.svg";
+import PinIcon from "@/assets/images/icon-pin.svg?react";
 
-import VisitCountIcon from "@/assets/images/icon-visit-count.svg";
-import LastVisitedIcon from "@/assets/images/icon-last-visited.svg";
-import CreatedIcon from "@/assets/images/icon-created.svg";
+import VisitCountIcon from "@/assets/images/icon-visit-count.svg?react";
+import LastVisitedIcon from "@/assets/images/icon-last-visited.svg?react";
+import CreatedIcon from "@/assets/images/icon-created.svg?react";
 
 interface BookmarkCardFooterProps {
   bookmark: BookmarkSchema;

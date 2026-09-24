@@ -5,8 +5,8 @@ import { useUIVisibilityStore } from "@/shared/stores";
 import { Dropdown, Button } from "@/shared/components";
 
 import HamburgerIcon from "@/assets/images/icon-menu-hamburger.svg?react";
-import PlusIcon from "@/assets/images/icon-add.svg";
-import SearchIcon from "@/assets/images/icon-search.svg";
+import PlusIcon from "@/assets/images/icon-add.svg?react";
+import SearchIcon from "@/assets/images/icon-search.svg?react";
 import { useDialogStore } from "@/shared/stores/dialogStore";
 
 export const PageHeader = () => {

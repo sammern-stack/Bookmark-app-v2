@@ -5,7 +5,7 @@ import { AppLogo, Container, List } from "@/shared/components";
 import { RenderFilter, TagFilter, ResetTagsBtn } from "@/features/settings";
 import { useBookmarks } from "@/features/bookmark/hooks/useBookmarks";
 import { countOccurrences } from "@/shared/utils/collections";
-import CloseIcon from "@/assets/images/icon-close.svg";
+import CloseIcon from "@/assets/images/icon-close.svg?react";
 
 export const BookmarkSidebar = () => {
   const bookmarkSidebar = useUIVisibilityStore(

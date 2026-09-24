@@ -9,7 +9,7 @@ import { Dropdown } from "@/shared/components";
 import { BookmarkMenuItem } from "./BookmarkMenuItem";
 import { useDialogStore } from "@/shared/stores/dialogStore";
 import type { BookmarkSchema } from "../../types";
-import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
+import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg?react";
 
 interface BookmarkMenuProps {
   bookmark: BookmarkSchema;
