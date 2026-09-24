@@ -1,5 +1,8 @@
 import styles from "./BookmarkContent.module.scss";
-import { useFiltersStore } from "@/features/settings/stores/filterStore";
+import {
+  useFiltersStore,
+  type SortBy,
+} from "@/features/settings/stores/filterStore";
 
 import {
   BookmarkCard,
@@ -9,15 +12,22 @@ import {
   useSortBookmarks,
 } from "@/features/bookmark";
 
-import { SortbyOption } from "@/features/settings";
 import { Button } from "@/shared/components";
 import { useDropdown } from "@/shared/hooks";
 
 import SortbyIcon from "@/assets/images/icon-sort.svg?react";
+import SortbyCheckIcon from "@/assets/images/icon-sort-by-check.svg?react";
+
+const sortByOptions: SortBy[] = [
+  "Most visited",
+  "Recently added",
+  "Recently visited",
+];
 
 export const BookmarkContent = () => {
   const { dropdownRef, openDropdown, toggle } = useDropdown();
   const sortByFilter = useFiltersStore((s) => s.sortByFilter);
+  const { setSortByFilter } = useFiltersStore.getState();
   const queryFilters = useBookmarkQueryFilters();
   const { data = [] } = useBookmarks(queryFilters);
   const bookmarks = useSortBookmarks(data, sortByFilter);
@@ -35,11 +45,14 @@ export const BookmarkContent = () => {
           </Button>
 
           {openDropdown && (
-            <div className={styles.bookmarkContent__sortByMenu}>
-              <SortbyOption sortBy="Recently added" />
-              <SortbyOption sortBy="Recently visited" />
-              <SortbyOption sortBy="Most visited" />
-            </div>
+            <ul className={styles.bookmarkContent__sortByMenu}>
+              {sortByOptions.map((option) => (
+                <li onClick={() => setSortByFilter(option)}>
+                  <span>{option}</span>
+                  {sortByFilter === option && <SortbyCheckIcon />}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>
