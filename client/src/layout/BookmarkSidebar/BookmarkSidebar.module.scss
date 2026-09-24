@@ -30,6 +30,14 @@
     display: flex;
     justify-content: space-between;
     padding: 4px 12px 4px 12px;
+
+    // Reset btn
+    button {
+      text-decoration: underline;
+      font: var(--manrope-4-medium);
+      letter-spacing: 1%;
+      color: inherit;
+    }
   }
 
   &__tagsTitle {

@@ -13,8 +13,6 @@ export const SortbyOption = ({ sortBy }: SortbyOptionProps) => {
   const sortByFilter = useFiltersStore((s) => s.sortByFilter);
   const setSortByFilter = useFiltersStore((s) => s.setSortByFilter);
 
-  console.log("sortByFilter", sortByFilter);
-
   return (
     <li className={styles.sortByOption} onClick={() => setSortByFilter(sortBy)}>
       <span>{sortBy}</span>
