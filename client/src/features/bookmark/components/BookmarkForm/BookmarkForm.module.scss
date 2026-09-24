@@ -1,28 +1,12 @@
-@use "../../../../shared/styles/mixins" as *;
-
-.bookmarkForm {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(570px, 90vw);
-  z-index: 1;
-  background: var(--primary-background);
-  @include flex-gap(32px, column);
-  padding: 32px;
-  border-radius: 16px;
-
-  &__close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    border: 1px solid var(--btn-stroke);
-    border-radius: 8px;
-    padding: 8px;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   &__header {
-    @include flex-gap(8px, column);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   &__title {
@@ -36,15 +20,17 @@
   }
 
   &__field {
-    @include flex-gap(6px, column);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 
-    > [data-form="label"] {
+    label {
       font: var(--manrope-4);
       color: var(--primary-text-color);
     }
 
-    > [data-form="input"],
-    > [data-form="textarea"] {
+    input,
+    textarea {
       padding: 12px;
       border-radius: 8px;
       border: 1px solid var(--form-stroke);
@@ -53,15 +39,22 @@
       background: transparent;
     }
 
-    > [data-form="textarea"] {
+    textarea {
       min-height: 91px;
       resize: none;
     }
 
-    > [data-form="error"] {
+    div {
       font: var(--manrope-4);
       font-style: italic;
       color: var(--red-800);
     }
+  }
+
+  &__actions {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 16px;
   }
 }

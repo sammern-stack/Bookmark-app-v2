@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type Flags = "createForm" | "updateForm" | "bookmarkSidebar";
+type Flags = "bookmarkSidebar";
 
 type UIVisibilityState = {
   visibilityFlags: Record<Flags, boolean>;
@@ -9,8 +9,6 @@ type UIVisibilityState = {
 
 export const useUIVisibilityStore = create<UIVisibilityState>((set) => ({
   visibilityFlags: {
-    createForm: false,
-    updateForm: false,
     bookmarkSidebar: false,
   },
 

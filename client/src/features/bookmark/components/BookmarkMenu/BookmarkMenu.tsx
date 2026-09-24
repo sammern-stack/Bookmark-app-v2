@@ -1,6 +1,4 @@
 import styles from "./BookmarkMenu.module.scss";
-import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
-// import { useUIVisibilityStore } from "@/shared/stores";
 import {
   useDeleteBookmark,
   useUpdateIsArchived,
@@ -9,8 +7,9 @@ import {
 } from "../../hooks/useBookmarks";
 import { Dropdown } from "@/shared/components";
 import { BookmarkMenuItem } from "./BookmarkMenuItem";
-import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
+import { useDialogStore } from "@/shared/stores/dialogStore";
 import type { BookmarkSchema } from "../../types";
+import BookmarkMenuIcon from "@/assets/images/icon-menu-bookmark.svg";
 
 interface BookmarkMenuProps {
   bookmark: BookmarkSchema;
@@ -44,10 +43,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
   const { mutate: updatePinned } = useUpdatePinned(b._id);
   const { mutate: increaseVisitCount } = useIncreaseVisitCount(b._id);
 
-  const setSelectedBookmark = useBookmarksStore((s) => s.setSelectedBookmark);
-  // const setActiveForm = useBookmarksStore((s) => s.setActiveForm);
-  const openUpdateForm = useBookmarksStore((s) => s.openUpdateForm);
-  // const toggle = useUIVisibilityStore((s) => s.toggle);
+  const { openDialog } = useDialogStore.getState();
 
   const handleVisit = () => increaseVisitCount();
 
@@ -85,10 +81,7 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
       () => updatePinned(),
     );
 
-  const handleEdit = () => {
-    setSelectedBookmark(b);
-    openUpdateForm();
-  };
+  const handleEdit = () => openDialog({ type: "updateBookmark", payload: b });
 
   const baseMenuOptions: MenuOption[] = [
     { id: "visit", label: "Visit", onClick: handleVisit, href: b.url },

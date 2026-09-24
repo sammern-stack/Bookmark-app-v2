@@ -5,13 +5,13 @@ type ButtonVariant = "default" | "primary" | "secondary";
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   className?: string;
-  variant: ButtonVariant;
+  variant?: ButtonVariant;
   children: React.ReactNode;
 }
 
 export const Button = ({
   className,
-  variant,
+  variant = "primary",
   children,
   ...props
 }: ButtonProps) => {
@@ -22,7 +22,7 @@ export const Button = ({
   ].join(" ");
 
   return (
-    <button type="button" className={buttonClasses} {...props}>
+    <button className={buttonClasses} {...props}>
       {children}
     </button>
   );

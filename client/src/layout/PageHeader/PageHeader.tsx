@@ -1,6 +1,5 @@
 import styles from "./PageHeader.module.scss";
 import { ThemeSwitch } from "@/features/settings";
-import { useBookmarksStore } from "@/features/bookmark";
 import { ProfileIcon, ProfileInfo, LogoutButton } from "@/features/profile";
 import { useUIVisibilityStore } from "@/shared/stores";
 import { Dropdown, Button } from "@/shared/components";
@@ -8,12 +7,15 @@ import { Dropdown, Button } from "@/shared/components";
 import HamburgerIcon from "@/assets/images/icon-menu-hamburger.svg?react";
 import PlusIcon from "@/assets/images/icon-add.svg";
 import SearchIcon from "@/assets/images/icon-search.svg";
+import { useDialogStore } from "@/shared/stores/dialogStore";
 
 export const PageHeader = () => {
   const toggle = useUIVisibilityStore((s) => s.toggle);
-  const openCreateForm = useBookmarksStore((s) => s.openCreateForm);
+  const { openDialog } = useDialogStore.getState();
 
-  const handleOpenCreateBookmarkForm = () => openCreateForm();
+  const handleOpenCreateBookmarkForm = () => {
+    openDialog({ type: "createBookmark", payload: null });
+  };
   const handleToggleSidebar = () => toggle("bookmarkSidebar");
 
   return (
