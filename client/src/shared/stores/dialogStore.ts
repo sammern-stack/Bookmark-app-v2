@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { BookmarkSchema } from "@/features/bookmark/types";
+import type { BookmarkSchema } from "@/features/bookmark";
 
 type Dialog =
   | { type: "createBookmark"; payload: null }

@@ -2,13 +2,14 @@ import styles from "./BookmarkContent.module.scss";
 import { useMemo } from "react";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
 
-import { useBookmarks } from "@/features/bookmark/hooks/useBookmarks";
-import { useBookmarkQueryFilters } from "@/features/bookmark/hooks/useBookmarkQueryFilters";
 import {
-  sortBookmarks,
+  BookmarkCard,
+  BookmarkTitle,
+  useBookmarkQueryFilters,
+  useBookmarks,
   prioritizePinnedBookmarks,
-} from "@/features/bookmark/utils/bookmarkListUtils";
-import { BookmarkTitle, BookmarkCard } from "@/features/bookmark";
+  sortBookmarks,
+} from "@/features/bookmark";
 
 import { SortbyButton, SortbyOption } from "@/features/settings";
 import { Dropdown, List } from "@/shared/components";

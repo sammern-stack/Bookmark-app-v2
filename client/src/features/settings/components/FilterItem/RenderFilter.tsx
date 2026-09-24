@@ -1,5 +1,5 @@
 import styles from "./RenderFilter.module.scss";
-import { useBookmarksStore } from "@/features/bookmark/stores/bookmarkStore";
+import { useBookmarksStore } from "@/features/bookmark";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
 import { Container } from "@/shared/components";
 import { capitalize } from "@/shared/utils/formatters";
