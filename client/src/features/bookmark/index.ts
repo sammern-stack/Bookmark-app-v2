@@ -17,18 +17,13 @@ export { useBookmarkQueryFilters } from "./hooks/useBookmarkQueryFilters";
 export { useCountTagOccurrences } from "./hooks/useCountTagOccurrences";
 export { useCreateBookmarkForm } from "./hooks/useCreateBookmarkForm";
 export { useUpdateBookmarkForm } from "./hooks/useUpdateBookmarkForm";
+export { useSortBookmarks } from "./hooks/useSortBookmarks";
 
 // Services
 export { bookmarkApi } from "./services/bookmarkApi";
 
 // Stores
 export { useBookmarksStore } from "./stores/bookmarkStore";
-
-// Utilities
-export {
-  prioritizePinnedBookmarks,
-  sortBookmarks,
-} from "./utils/bookmarkListUtils";
 
 // Types
 export type * from "./types";

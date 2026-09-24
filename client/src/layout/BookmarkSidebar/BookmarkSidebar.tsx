@@ -1,6 +1,6 @@
 import styles from "./BookmarkSidebar.module.scss";
 import { useUIVisibilityStore } from "@/shared/stores";
-import { AppLogo, Container, List } from "@/shared/components";
+import { AppLogo, Container } from "@/shared/components";
 import { RenderFilter, TagFilter, ResetTagsBtn } from "@/features/settings";
 import { useBookmarks, useCountTagOccurrences } from "@/features/bookmark";
 import CloseIcon from "@/assets/images/icon-close.svg?react";
@@ -35,9 +35,11 @@ export const BookmarkSidebar = () => {
         <div className={styles.bookmarkSidebar__tagsTitle}>Tags</div>
         <ResetTagsBtn />
       </div>
-      <List list={tags} className={styles.bookmarkSidebar__tagsList}>
-        {(tag) => <TagFilter tag={tag} />}
-      </List>
+      <div className={styles.bookmarkSidebar__tagsList}>
+        {tags.map((tag) => (
+          <TagFilter tag={tag} />
+        ))}
+      </div>
     </Container>
   );
 };

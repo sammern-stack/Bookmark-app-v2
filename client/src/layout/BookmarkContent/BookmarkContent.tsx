@@ -1,5 +1,4 @@
 import styles from "./BookmarkContent.module.scss";
-import { useMemo } from "react";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
 
 import {
@@ -7,29 +6,21 @@ import {
   BookmarkTitle,
   useBookmarkQueryFilters,
   useBookmarks,
-  prioritizePinnedBookmarks,
-  sortBookmarks,
+  useSortBookmarks,
 } from "@/features/bookmark";
 
 import { SortbyOption } from "@/features/settings";
-import { Button, List } from "@/shared/components";
+import { Button } from "@/shared/components";
 import { useDropdown } from "@/shared/hooks";
 
 import SortbyIcon from "@/assets/images/icon-sort.svg?react";
 
 export const BookmarkContent = () => {
   const { dropdownRef, openDropdown, toggle } = useDropdown();
-
-  // Fetch bookmarks based on the current filters
   const sortByFilter = useFiltersStore((s) => s.sortByFilter);
   const queryFilters = useBookmarkQueryFilters();
   const { data = [] } = useBookmarks(queryFilters);
-
-  // Process sorting bookmarks (prioritize pinned bookmarks on top)
-  const bookmarks = useMemo(() => {
-    const list = sortBookmarks(data, sortByFilter);
-    return prioritizePinnedBookmarks(list);
-  }, [data, sortByFilter]);
+  const bookmarks = useSortBookmarks(data, sortByFilter);
 
   return (
     <div className={styles.bookmarkContent}>
@@ -52,9 +43,11 @@ export const BookmarkContent = () => {
           )}
         </div>
       </div>
-      <List className={styles.bookmarkContent__bookmarkGrid} list={bookmarks}>
-        {(b) => <BookmarkCard bookmark={b} />}
-      </List>
+      <div className={styles.bookmarkContent__bookmarkGrid}>
+        {bookmarks.map((b) => (
+          <BookmarkCard bookmark={b} />
+        ))}
+      </div>
     </div>
   );
 };
