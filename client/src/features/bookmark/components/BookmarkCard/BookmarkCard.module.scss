@@ -1,7 +1,5 @@
 .bookmark {
   height: 320px;
-  // display: flex;
-  // flex-direction: column;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   background: var(--primary-background);
@@ -18,13 +16,6 @@
     background-position: center;
     background-size: 55px 55px;
   }
-
-  // &__content {
-  //   flex: 1;
-  //   @include flex-gap(16px, column);
-  //   padding: 16px;
-  //   border-radius: 10px;
-  // }
 
   &__header {
     @include flex-gap(12px);

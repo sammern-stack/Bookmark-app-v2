@@ -63,9 +63,8 @@ export const BookmarkMenu = ({ bookmark: b }: BookmarkMenuProps) => {
           })}
           className={styles.bookmarkMenu__item}
           onClick={item.onClick}
-          icon={iconById[item.id]}
         >
-          {item.label}
+          {iconById[item.id]} {item.label}
         </Label>
       ))}
     </Dropdown>
