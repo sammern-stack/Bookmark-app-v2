@@ -1,8 +1,5 @@
 import styles from "./RenderFilter.module.scss";
-import {
-  useFiltersStore,
-  type MainFilter,
-} from "@/features/settings/stores/filterStore";
+import { useFiltersStore, type MainFilter } from "@/features/settings";
 import type { PropsWithChildren } from "react";
 
 interface RenderFilterProps extends PropsWithChildren {

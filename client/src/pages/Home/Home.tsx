@@ -1,10 +1,7 @@
 import styles from "./Home.module.scss";
 import { BookmarkSidebar, PageHeader, PageLayout } from "@/layout";
 
-import {
-  useFiltersStore,
-  type SortBy,
-} from "@/features/settings/stores/filterStore";
+import { useFiltersStore, type SortBy } from "@/features/settings";
 
 import {
   BookmarkCard,

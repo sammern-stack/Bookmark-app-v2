@@ -1,7 +1,6 @@
 import styles from "./BookmarkSidebar.module.scss";
-import { RenderFilter, Tag } from "@/features/settings";
+import { RenderFilter, Tag, useFiltersStore } from "@/features/settings";
 import { useBookmarks, useCountTagOccurrences } from "@/features/bookmark";
-import { useFiltersStore } from "@/features/settings/stores/filterStore";
 import { useThemeStore } from "@/shared/stores";
 
 import LightThemeLogo from "@/assets/images/logo-dark-theme.svg?react";
