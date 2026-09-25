@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import { useThemeStore } from "@/shared/stores";
-import { Dialog } from "./shared/components/Dialog/Dialog";
+import { Dialog } from "./shared/components";
 
 const HomePage = lazy(() => import("./pages/Home/Home"));
 const LoadingPage = lazy(() => import("./pages/Loading/Loading"));

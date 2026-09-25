@@ -1,11 +1,14 @@
 import styles from "./BookmarkSidebar.module.scss";
-import { AppLogo } from "@/shared/components";
 import { RenderFilter, Tag } from "@/features/settings";
 import { useBookmarks, useCountTagOccurrences } from "@/features/bookmark";
 import { useFiltersStore } from "@/features/settings/stores/filterStore";
-import CloseIcon from "@/assets/images/icon-close.svg?react";
+import { useThemeStore } from "@/shared/stores";
+
+import LightThemeLogo from "@/assets/images/logo-dark-theme.svg?react";
+import DarkThemeLogo from "@/assets/images/logo-light-theme.svg?react";
 
 export const BookmarkSidebar = () => {
+  const theme = useThemeStore((s) => s.theme);
   const tagFilters = useFiltersStore((s) => s.tagFilters);
   const { clearTagsFilters } = useFiltersStore.getState();
   const handleClear = () => clearTagsFilters();
@@ -13,14 +16,10 @@ export const BookmarkSidebar = () => {
   const { data = [] } = useBookmarks();
   const tags = useCountTagOccurrences(data);
 
-  // TODO: remove it when implement responsive design
-  const isMobile = false;
-
   return (
     <>
-      <div className={styles.bookmarkSidebar__header}>
-        <AppLogo />
-        {isMobile && <CloseIcon />}
+      <div className={styles.bookmarkSidebar__logo}>
+        {theme === "dark" ? <LightThemeLogo /> : <DarkThemeLogo />}
       </div>
       <div className={styles.bookmarkSidebar__renderOptions}>
         <RenderFilter label="home" />
