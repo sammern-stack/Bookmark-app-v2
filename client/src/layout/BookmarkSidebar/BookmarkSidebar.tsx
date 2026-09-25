@@ -1,39 +1,34 @@
 import styles from "./BookmarkSidebar.module.scss";
-import { useUIVisibilityStore } from "@/shared/stores";
-import { AppLogo } from "@/shared/components";
-import { RenderFilter, Tag } from "@/features/settings";
+import { RenderFilter, Tag, useFiltersStore } from "@/features/settings";
 import { useBookmarks, useCountTagOccurrences } from "@/features/bookmark";
-import { useFiltersStore } from "@/features/settings/stores/filterStore";
-import CloseIcon from "@/assets/images/icon-close.svg?react";
+import { useThemeStore } from "@/shared/stores";
+
+import LightThemeLogo from "@/assets/images/logo-dark-theme.svg?react";
+import DarkThemeLogo from "@/assets/images/logo-light-theme.svg?react";
+import HomeIcon from "@/assets/images/icon-home.svg?react";
+import ArchivedIcon from "@/assets/images/icon-archive.svg?react";
 
 export const BookmarkSidebar = () => {
+  const theme = useThemeStore((s) => s.theme);
   const tagFilters = useFiltersStore((s) => s.tagFilters);
-  const bookmarkSidebar = useUIVisibilityStore(
-    (s) => s.visibilityFlags.bookmarkSidebar,
-  );
   const { clearTagsFilters } = useFiltersStore.getState();
   const handleClear = () => clearTagsFilters();
 
   const { data = [] } = useBookmarks();
   const tags = useCountTagOccurrences(data);
 
-  // TODO: remove it when implement responsive design
-  const isMobile = false;
-
-  const SidebarClasses = [
-    styles.bookmarkSidebar,
-    bookmarkSidebar ? styles["bookmarkSidebar--open"] : "",
-  ].join(" ");
-
   return (
-    <div className={SidebarClasses}>
-      <div className={styles.bookmarkSidebar__header}>
-        <AppLogo />
-        {isMobile && <CloseIcon />}
+    <>
+      <div className={styles.bookmarkSidebar__logo}>
+        {theme === "dark" ? <LightThemeLogo /> : <DarkThemeLogo />}
       </div>
       <div className={styles.bookmarkSidebar__renderOptions}>
-        <RenderFilter label="home" />
-        <RenderFilter label="archived" />
+        <RenderFilter label="home">
+          <HomeIcon /> Home
+        </RenderFilter>
+        <RenderFilter label="archived">
+          <ArchivedIcon /> Archived
+        </RenderFilter>
       </div>
       <div className={styles.bookmarkSidebar__tagsHeader}>
         <div className={styles.bookmarkSidebar__tagsTitle}>Tags</div>
@@ -48,6 +43,6 @@ export const BookmarkSidebar = () => {
           <Tag tag={tag} />
         ))}
       </div>
-    </div>
+    </>
   );
 };

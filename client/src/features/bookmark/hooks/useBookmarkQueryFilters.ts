@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useFiltersStore } from "@/features/settings/stores/filterStore";
+import { useFiltersStore } from "@/features/settings";
 import type { BookmarkFilters } from "../types";
 
 export const useBookmarkQueryFilters = (): BookmarkFilters => {

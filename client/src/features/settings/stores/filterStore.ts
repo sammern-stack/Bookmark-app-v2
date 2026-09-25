@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useBookmarksStore } from "@/features/bookmark";
 
-type MainFilter = "home" | "archived";
+export type MainFilter = "home" | "archived";
 export type SortBy = "Recently added" | "Recently visited" | "Most visited";
 
 interface FilterStore {

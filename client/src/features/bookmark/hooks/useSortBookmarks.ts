@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { SortBy } from "@/features/settings/stores/filterStore";
+import type { SortBy } from "@/features/settings";
 import { toTimestamp } from "@/shared/utils/date";
 import type { BookmarkSchema } from "../types";
 

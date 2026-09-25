@@ -24,8 +24,8 @@ export const BookmarkCard = ({ bookmark: b }: BookmarkItemProps) => {
       <div className={styles.bookmark__header}>
         <div className={styles.bookmark__logo} style={logoStyles}></div>
         <div className={styles.bookmark__info}>
-          <Label className={styles.bookmark__title}>{b.title}</Label>
-          <Label className={styles.bookmark__url}>{formatUrl(b.url)}</Label>
+          <p className={styles.bookmark__title}>{b.title}</p>
+          <p className={styles.bookmark__url}>{formatUrl(b.url)}</p>
         </div>
         <BookmarkMenu bookmark={b} />
       </div>

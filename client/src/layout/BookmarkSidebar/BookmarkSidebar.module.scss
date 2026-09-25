@@ -1,23 +1,6 @@
 .bookmarkSidebar {
-  grid-area: sidebar;
-  width: 296px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  padding: 0 16px 20px 16px;
-  background: var(--primary-background);
-  color: var(--text-color);
-  border-right: 1px solid var(--layout-stroke);
-
-  &__header {
-    position: relative;
+  &__logo {
     padding: 20px 0 10px 0;
-
-    > svg {
-      position: absolute;
-      inset: 10px 10px auto auto;
-      color: var(--text-color);
-    }
   }
 
   &__renderOptions {

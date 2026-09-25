@@ -1,0 +1,110 @@
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  grid-template-columns: 296px 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+
+  &__header {
+    grid-area: header;
+    padding: 16px 32px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border-bottom: 1px solid var(--layout-stroke);
+    background: var(--primary-background);
+  }
+
+  &__hamburgerMenu {
+    padding: 12px;
+    border: 1px solid var(--layout-stroke);
+    border-radius: 8px;
+    color: var(--primary-text-color);
+  }
+
+  &__headerContent {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__sidebar {
+    grid-area: sidebar;
+    position: relative;
+    width: 296px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 16px 20px 16px;
+    background: var(--primary-background);
+    color: var(--text-color);
+    border-right: 1px solid var(--layout-stroke);
+  }
+
+  &__sidebarClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+  }
+
+  &__main {
+    grid-area: main;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+    padding: 32px 32px 64px 32px;
+    background: var(--secondary-background);
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-areas:
+      "header"
+      "main";
+    grid-template-columns: 1fr;
+
+    &__header {
+      padding: 16px;
+    }
+
+    &__hamburgerMenu {
+      display: flex;
+    }
+
+    &__sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 10;
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+      box-shadow: 8px 0 24px rgb(0 0 0 / 0.12);
+    }
+
+    &__sidebar--open {
+      transform: translateX(0);
+    }
+
+    &__main {
+      padding: 24px 16px 48px;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .layout__hamburgerMenu {
+    display: none;
+  }
+
+  .layout__sidebarClose {
+    display: none;
+  }
+}
