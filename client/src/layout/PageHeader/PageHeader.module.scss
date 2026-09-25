@@ -1,11 +1,4 @@
 .pageHeader {
-  grid-area: header;
-  padding: 16px 32px;
-  @include flex-gap(16px);
-  align-items: center;
-  justify-content: space-between;
-  @include layout-styles(bottom);
-
   &__section {
     display: flex;
     align-items: center;

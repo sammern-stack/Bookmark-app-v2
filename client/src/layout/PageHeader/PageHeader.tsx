@@ -23,7 +23,7 @@ export const PageHeader = () => {
   const handleToggleSidebar = () => toggleSidebar("bookmarkSidebar");
 
   return (
-    <div className={styles.pageHeader}>
+    <>
       <div className={styles.pageHeader__section}>
         {isMobile && (
           <Button variant="secondary" onClick={handleToggleSidebar}>
@@ -53,6 +53,6 @@ export const PageHeader = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
