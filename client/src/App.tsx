@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router";
-import { AppLoader } from "@/shared/components";
 import { useThemeStore } from "@/shared/stores";
 import { Dialog } from "./shared/components/Dialog/Dialog";
 
 const HomePage = lazy(() => import("./pages/Home/Home"));
+const LoadingPage = lazy(() => import("./pages/Loading/Loading"));
 
 const App = () => {
   const theme = useThemeStore((s) => s.theme);
@@ -14,7 +14,7 @@ const App = () => {
   }, [theme]);
 
   return (
-    <Suspense fallback={<AppLoader />}>
+    <Suspense fallback={<LoadingPage />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
       </Routes>
