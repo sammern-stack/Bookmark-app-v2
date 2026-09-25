@@ -6,6 +6,8 @@ import { useThemeStore } from "@/shared/stores";
 
 import LightThemeLogo from "@/assets/images/logo-dark-theme.svg?react";
 import DarkThemeLogo from "@/assets/images/logo-light-theme.svg?react";
+import HomeIcon from "@/assets/images/icon-home.svg?react";
+import ArchivedIcon from "@/assets/images/icon-archive.svg?react";
 
 export const BookmarkSidebar = () => {
   const theme = useThemeStore((s) => s.theme);
@@ -22,8 +24,12 @@ export const BookmarkSidebar = () => {
         {theme === "dark" ? <LightThemeLogo /> : <DarkThemeLogo />}
       </div>
       <div className={styles.bookmarkSidebar__renderOptions}>
-        <RenderFilter label="home" />
-        <RenderFilter label="archived" />
+        <RenderFilter label="home">
+          <HomeIcon /> Home
+        </RenderFilter>
+        <RenderFilter label="archived">
+          <ArchivedIcon /> Archived
+        </RenderFilter>
       </div>
       <div className={styles.bookmarkSidebar__tagsHeader}>
         <div className={styles.bookmarkSidebar__tagsTitle}>Tags</div>
